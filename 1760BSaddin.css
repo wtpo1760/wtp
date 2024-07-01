@@ -1,0 +1,43 @@
+
+.WTPheader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0px;
+    background-color: black;
+    color: oldlace;
+    padding: 9px 5% 12px 5%;
+    box-shadow: 0px 3px 12px black;
+    z-index: 1000;
+}
+
+.WTPheader a {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 600;
+}
+.WTPheader a:hover {
+    color: limegreen;
+}
+.WTPheader a:visited {
+    color: orangered
+}
+body {
+    padding-top: 60px; /* Adjust this value based on the height of your header */
+}
+.alert-info {
+    margin-left: 10%;
+}
+.alert-danger {
+    margin-right: 10%;
+} 
+.myList {
+    text-indent: -24px; padding-left: 24px;
+}
+/*
+.WTPfooter {
+    background-color: rgb(215, 233, 241); 
+    box-shadow: 0 0 9px #777777;
+}
+    */
+

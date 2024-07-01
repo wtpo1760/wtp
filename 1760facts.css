@@ -1,0 +1,141 @@
+/* main elementsm */
+body {
+    padding-top: 0;
+}
+.img {
+    max-width: 100%; 
+    box-shadow: 0 0 9px;
+}
+
+/* fact bubbles */
+/* RED */
+.bubblE {
+    float: right; 
+    text-align: center; 
+    color: rgb(199, 3, 3); 
+    background-color: pink; 
+    padding: 1px 9px; 
+    margin: 0 -2em 0 1em; 
+    box-shadow: 0 0 6px; 
+    border-radius: 6px; 
+    font-style: oblique;
+}
+.bubblE h4 {
+    margin: -3px -10px -2px -10px;
+    padding: 3px ;
+    border-bottom: 2px solid red;
+}
+.bubblE p {
+    margin: 01px 9px 3px 9px;
+    font-weight: 600;
+}
+
+/* green */
+.bubblEE {
+    float: right; 
+    text-align: center; 
+    color: rgb(28, 128, 3);    
+    background-color: rgb(192, 255, 210); 
+    padding: 1px 9px; 
+    margin: 0 -2em 0 1em; 
+    box-shadow: 0 0 6px; 
+    border-radius: 6px; 
+    font-style: oblique;
+}
+.bubblEE h4 {
+    margin: -3px -10px -2px -10px;
+    padding: 3px ;
+    border-bottom: 2px solid rgb(28, 128, 3);
+}
+.bubblEE p {
+    margin: 01px 9px 3px 9px;
+    font-weight: 600;
+}
+/* Right side */
+.bubblEEE {
+    float: left; 
+    text-align: center; 
+    color: rgb(199, 3, 3);    
+    background-color: pink; 
+    padding: 1px 9px; 
+    margin: 0 1em 0 -2em; 
+    box-shadow: 0 0 6px; 
+    border-radius: 6px; 
+    font-style: oblique;
+}
+.bubblEEE h4 {
+    margin: -3px -10px -2px -10px;
+    padding: 3px ;
+    border-bottom: 2px solid rgb(199, 3, 3);
+}
+.bubblEEE p {
+    margin: 01px 9px 3px 9px;
+    font-weight: 600;
+}
+
+/* 2 collums RED */
+
+.bubblE2 {
+    float: right; 
+    text-align: center; 
+    color: rgb(199, 3, 3); 
+    background-color: pink; 
+    padding: 1px 9px; 
+    margin: 0 -18% 0 1em; 
+    box-shadow: 0 0 6px; 
+    border-radius: 6px; 
+    font-style: oblique;
+}
+.bubblE2 h4 {
+    margin: -3px -10px -2px -10px;
+    padding: 3px ;
+    border-bottom: 2px solid red;
+}
+.bubblE2 p {
+    margin: 01px 9px 3px 9px;
+    font-weight: 600;
+}
+
+/* 2 collums GREEN */
+
+.bubblE3 {
+    float: right; 
+    text-align: center; 
+    color: rgb(28, 128, 3); 
+    background-color: rgb(192, 255, 210); 
+    padding: 1px 9px; 
+    margin: 0 -18% 0 1em; 
+    box-shadow: 0 0 6px; 
+    border-radius: 6px; 
+    font-style: oblique;
+}
+.bubblE3 h4 {
+    margin: -3px -10px -2px -10px;
+    padding: 3px ;
+    border-bottom: 2px solid rgb(28, 128, 3);
+}
+.bubblE3 p {
+    margin: 01px 9px 3px 9px;
+    font-weight: 600;
+}
+
+.factCHECK {
+    background-color: #ffffff;
+    border: 1px solid rgb(199, 3, 3); 
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 0 6px;
+}
+.factCHECK h4 {
+    background-color: pink;
+    border-bottom: 1px solid rgb(199, 3, 3);
+    margin: -10px;
+    padding: 10px;
+}
+.factCHECK p {
+    margin-top: 20px;
+}
+
+.myList {
+    text-indent: -24px; padding-left: 24px;
+}
