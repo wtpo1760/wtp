@@ -7,6 +7,7 @@ body {
     box-shadow: 0 0 9px;
 }
 
+/* footer */
 /* fact bubbles */
 /* RED */
 .bubblE {
@@ -124,6 +125,7 @@ body {
     border: 1px solid rgb(199, 3, 3); 
     border-radius: 3px;
     padding: 10px;
+    margin-left: -15px;
     box-shadow: 0 0 6px;
 }
 .factCHECK h4 {
