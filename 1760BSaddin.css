@@ -34,6 +34,34 @@ body {
 .myList {
     text-indent: -24px; padding-left: 24px;
 }
+
+.WTPdark {
+    background-color: black;
+    color: white;
+    border-radius: 6px;
+    padding: 10px;
+
+}
+
+
+/* Random stuff */
+
+.underPHOTO {
+    margin: 1% 0 2% 0;
+    padding: 2% 0;
+    text-align: center;
+    background-color: #d3d1ff;
+    border-radius: 3px;
+}
+.underPHOTO a:hover {
+    background-color: limegreen;
+    color: white;
+    font-weight: 800;
+    font-size: larger;
+    margin: 1% 0 1% 0;
+    box-shadow: 0 0 6px;
+}
+
 /*
 .WTPfooter {
     background-color: rgb(215, 233, 241); 
