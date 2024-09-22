@@ -1,3 +1,40 @@
+body {
+    margin-top: 0;
+}
+.col-sm-2 img {
+    max-width: 100%;
+    margin: 2% 0 ;
+    border: 2px dashed royalblue;
+    border-radius: 4%;
+  }
+  .col-sm-6 img {
+      max-width: 100%;
+      margin: 4% 0;
+      box-shadow: 0 0 4px;
+  }
+  .col-sm-6 li img {
+    float: right;
+    max-width: 28%;
+  }
+
+  .col-sm-8 img {
+    max-width: 100%;
+    box-shadow: 0 0 4px;
+  }
+  .col-sm-12 img {
+    max-width: 100%;
+    box-shadow: 0 0 4px;
+  }
+  mark {
+    background-color: yellow;
+    font-weight: 600;
+  }
+  .well {
+    box-shadow: 0 0 4px;
+  }
+  .well li {
+    padding-bottom: 2%;
+  }
 
 .WTPheader {
     position: fixed;
@@ -5,7 +42,7 @@
     left: 0;
     width: 100%;
     margin: 0px;
-    background-color: black;
+    background-color: rgb(50, 50, 50);
     color: oldlace;
     padding: 9px 5% 12px 5%;
     box-shadow: 0px 3px 12px black;
@@ -43,6 +80,12 @@ body {
 
 }
 
+a {
+    font-weight: 800;
+}
+.greenBG {
+    background-color: rgb(218, 253, 236);
+}
 
 /* Random stuff */
 
@@ -61,7 +104,54 @@ body {
     margin: 1% 0 1% 0;
     box-shadow: 0 0 6px;
 }
-
+li {
+    padding-bottom: 1%;
+  }
+.markME {
+    background-color: red;
+    padding: 1%;
+    margin: 4%;
+    max-width: 100%;
+}
+.caption {
+    text-align: center;
+    font-size: 85%;
+    color: #888888;
+    border-bottom: 1px solid #888888;
+    padding: 3px 10px;
+    margin: 3px 20px;
+}
+.caption, a {
+    font-weight: 600;
+}
+.sig {
+    font-family: cursive;
+    font-size: 150%;
+    border-bottom: #777777 1px solid;
+  }
+/* these two disclaimers are identical except for the color pallette */
+.disclaimer {
+    background-color: #c9c9c9; 
+    border: 3px solid white; 
+    border-radius: 4px; 
+    padding: 10px;
+    font-weight: 400;
+    text-align: justify;
+    box-shadow: 0 0 4px;
+}
+.disclaimer, mark {
+    border-radius: 3px;
+}
+.disclaimer2 {
+    background-color: #c9c9c9; 
+    color: #888888;
+    border: 3px solid white; 
+    border-radius: 4px; 
+    padding: 10px;
+    font-weight: 400;
+    text-align: justify;
+    box-shadow: 0 0 4px;
+}
 /*
 .WTPfooter {
     background-color: rgb(215, 233, 241); 
