@@ -1,4 +1,4 @@
-body {
+.body {
     margin-top: 0;
 }
 .col-sm-2 img {
@@ -30,10 +30,15 @@ body {
     font-weight: 600;
   }
   .well {
-    box-shadow: 0 0 4px;
+    box-shadow: 0 0 6px #999;
   }
   .well li {
     padding-bottom: 2%;
+  }
+
+  .alert {
+    border: 1px solid #999;
+    box-shadow: 0 0 6px #999;
   }
 
 .WTPheader {
