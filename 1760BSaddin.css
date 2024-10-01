@@ -97,6 +97,12 @@ a {
     background-color: rgb(218, 253, 236);
 }
 
+/* some of my custom stuff */
+
+.Bottom {
+    border-bottom: 1px solid #888888;
+}
+
 /* Random stuff */
 
 .underPHOTO {
@@ -168,4 +174,3 @@ li {
     box-shadow: 0 0 9px #777777;
 }
     */
-
