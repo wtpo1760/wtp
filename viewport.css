@@ -1,0 +1,40 @@
+
+  /* Responsive table styles */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+  }
+
+  /* Adjust table cell behavior */
+  .table {
+    min-width: 800px; /* Ensures table won't get too squeezed */
+  }
+
+  /* Make images in table cells responsive */
+  .table img {
+    max-width: 10%;
+    height: auto;
+  }
+
+  /* Adjustments for very small screens */
+  @media screen and (max-width: 576px) {
+    .table {
+      font-size: 14px;
+    }
+    .table td, .table th {
+      padding: 8px 4px;
+    }
+  }
+
+  /* Adjustments for medium screens */
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 100%;
+      padding-right: 10px;
+      padding-left: 10px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
