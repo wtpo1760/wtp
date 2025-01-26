@@ -45,7 +45,12 @@
     border: 1px solid #999;
     box-shadow: 0 0 6px #999;
   }
-
+.pLunk img {
+    width: 22.5%;
+    padding: -1%;
+    margin: 10%;
+    border: 1px dashed ;
+}
 .WTPheader {
     position: fixed;
     top: 0;
@@ -97,13 +102,25 @@ a {
     background-color: rgb(218, 253, 236);
 }
 
-/* some of my custom stuff */
+/* ==========================================>>> some of my custom stuff */
 
 .Bottom {
     border-bottom: 1px solid #888888;
 }
 
+.myCallout {
+    color: white;
+    text-shadow: 0px 0px 4px #000111;
+    font-weight: 600;
+    background-color: rgb(255, 5, 5);
+    border-bottom: 1px dashed;
+    border: 2px dashed red;
+    border-radius: 3px;
+    margin: 1% 8%;
+    padding: 2px 6px 4px 6px;
+  }
 /* Random stuff */
+
 
 .underPHOTO {
     margin: 1% 0 2% 0;
@@ -174,3 +191,4 @@ li {
     box-shadow: 0 0 9px #777777;
 }
     */
+
