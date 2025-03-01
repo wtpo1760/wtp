@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Notice to Recall CCSD Interm President Margaret McNultyBootstrap Example</title>
+  <title>Notice to Recall CCSD Interm President Margaret McNulty</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="1760bylaws.css">
@@ -12,26 +12,64 @@
   <style>
     body {
       padding-top: 0px;
+      margin-top: 0px;
     }
+    /* Pink sparkle box*/       
+    .well {
+            position: relative;
+            background: #ffb6c1; /* Lighter pink */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Sparkle dots */
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 10px white;
+            animation: sparkle-animation 1.5s infinite;
+        }
+
+        @keyframes sparkle-animation {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
   </style>
 </head>
 <body>
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Formatted header -->
 <div class="container">
-  <div class="well">
+  <div class="well" style="color: white; font-weight: 800; text-shadow: 0px 0px 6px #111; border-radius: 0px 0px 10px 10px;">
     <h1>Notice to Recall CCSD Interm President Margaret McNulty</h1> 
-    <h3>April 24, 2024</h3>
+    <h3>April 25, 2024</h3>
   </div>
-  <p>The following letter was sent to 1760 TA Board members Michelle Dancer, Kezia Martinez, and Angel Rittenburg.</p>
+  <h4>The following letter was sent to 1760 TA Board members Michelle Dancer, Kezia Martinez, and Angel Rittenburg.</h4>
     <p>Cause for Recall was presented at the public meeting portion of the April '24 CCSD Board Meeting. Please, review the list and consider how Ms McNulty has conducted herself in your persence.</p>
-    <p>The BLUE colum represents the text version of the document. The PINK colum contains an image with a downloadable link. You may also 
-      <a href="imgz1760/CCS_D Notice _Affiliate Boards_ McNulty.pdf" target="_new">download a copy of the CCSD Notice to Recall here.</a></p>      
+    <p>This is a <a href="imgz1760/CCS_D Notice _Affiliate Boards_ McNulty.pdf" target="_new">downloadable copy of the CCSD Notice to Recall here.</a></p> 
+    <p>Here is the text of that letter:</p>     
 </div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Recall Letter   -->
 
 <div class="container">
-    <div class="well"><h3>Citywide Council Senior/Disabled </h3>
+    <div class="well" style="background-color: #dddddd;">
+      <h3>Citywide Council Senior/Disabled </h3>
       <h4>Jurisdiction-wide Tenant Association in San Francisco</h4>
       <h5>Martha Smith, VP; Michael Zornes, Treasurer, Stephanie Pappas, Secretary; Lily Robinson, Sgt at Arms;<br>
         Directors: Reggie Darty, Sadette Krasniqi, Beejinmaa Tserendondog & Francis Harward</h5>
@@ -58,17 +96,35 @@
       <div class="col-sm-3"><p class="caption"><a href="CCSDrecall.html"><img src="imgz1760/CCSDmmm/CCSDcauseEN/CCSDcauseEN_04.png" alt=""><br />Click image to view</a></p></div>
     </div>
   </div>
+  <!-- Script for sparkle -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const well = document.querySelector(".well");
+  
+        for (let i = 0; i < 50; i++) {  // Number of sparkles
+            let sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            let x = Math.random() * well.clientWidth;
+            let y = Math.random() * well.clientHeight;
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            sparkle.style.animationDelay = `${Math.random() * 2}s`;
+            well.appendChild(sparkle);
+        }
+    });
+  </script>
 </div>
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  footer      -->
-<div class="well" style="footerWTP; box-shadow: 0 0 6px #777777; flex-shrink: 0;
-text-align: center; background-color: #999999; color: white; margin-top: 40px; margin-bottom: 0px;"><!--  back button  -->
-  <div class="container" style="text-align: center; margin-top: -30px;">
-    <p><a href="index.html"><button type="button" class="btn btn-info" style="box-shadow: 0 0 6px;">HOME</button></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="CCSDcause.html"><button type="button" class="btn btn-warning" style="box-shadow: 0 0 6px;">CAUSE</button></a></p>
-  </div>
-  <div class="container" style="text-align: center">
-    <p><br /><a href="mailto:wethepeopleof1760@gmail.com" style="color: white;">wethepeopleof1760@gmail.com</a></p>
+
+  
+  <div class="container" style="footerWTP; box-shadow: 0 0 6px #777777; flex-shrink: 0; text-align: center; background-color: #999999; color: white; margin-top: 40px; margin-bottom: 0px;"><!--  back button  -->
+    <div class="container" style="text-align: center; margin-top: -30px;">
+      <p><a href="2024timeline.html"><button type="button" class="btn btn-warning" style="box-shadow: 0 0 6px;">BACK</button></a>&nbsp;&nbsp;<a href="index.html"><button type="button" class="btn btn-info" style="box-shadow: 0 0 6px;">HOME</button></a>&nbsp;&nbsp;<a href="CCSDrecall.html"><button type="button" class="btn btn-warning" style="box-shadow: 0 0 6px;">RECALL</button></a></p>
+    </div>
+    <div class="container-fluid" style="text-align: center">
+      <p><br /><a href="mailto:wethepeopleof1760@gmail.com" style="color: white;">wethepeopleof1760@gmail.com</a></p>
+    </div>
   </div>
 </div>
 
