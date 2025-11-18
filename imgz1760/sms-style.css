@@ -1,0 +1,177 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #999;
+            color: white;
+        }
+        
+        /* my additions */
+
+        .mark {
+            background-color: rgb(255, 255, 255);
+            height: 680px;
+            overflow-y: auto;
+            padding: 20px 15px;
+        }
+        /* */
+
+        .disclaimer {
+            background-color: #ff4444;
+            color: white;
+            padding: 15px;
+            margin: 10px 0 20px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            border: 1px solid #cc0000;
+        }
+
+        .phone-container {
+            max-width: 375px;
+            margin: 20px auto;
+            background-color: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 8px solid black;
+            box-shadow: 0px 0px 9px #333;
+        }
+
+        .status-bar {
+            color: #dedede;
+            background-color: #000;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .chat-header {
+            color: #dedede;
+            background-color: #1c1c1e;
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .messages-container {
+            background-color: white;
+            height: 740px;
+            overflow-y: auto;
+            padding: 20px 15px;
+        }
+
+        .date-separator {
+            text-align: center;
+            margin: 20px 0 20px 0;
+            color: #8e8e93;
+            font-size: 13px;
+            font-weight: 600;
+            border-top: #999 solid 9pt;
+            border-left: #999 solid 1px;
+            border-right: #999 solid 1px;
+            border-radius: 4pt 4pt 0pt 0pt;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.angel {
+            align-items: flex-end;
+        }
+
+        .message.margo {
+            align-items: flex-start;
+        }
+
+        .message.zia {
+            align-items: flex-start;
+        }
+
+        .message-bubble {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message.angel .message-bubble {
+            background-color: #007aff;
+            color: rgba(255, 255, 255, 0.887);
+            font-weight: 600; /*
+            text-shadow: #000 0px 1px 4px; */
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.margo .message-bubble {
+            background-color:/* #e4e4e4; #f904e4; */ rgb(25, 185, 3);
+            color:/* #000000;  #ffdd00; */ #edffdd;
+            font-weight: 600; /*
+            text-shadow: #000000 1px 1px 6px;*/
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.zia .message-bubble {
+            background-color: red;
+            color: #FFFFFF;
+            font-weight: 600; /* #ffdd00;
+            text-shadow: #000000 1px 1px 6px;  */
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .sender-name {
+            font-size: 135%;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .message.angel .sender-name {
+            color: #007aff;
+        }
+
+        .message.margo .sender-name {
+            color: /*#000000; #f904e4;*/rgb(25, 185, 3)
+        }
+
+        .message.zia .sender-name {
+            color: red/*#202021*/;
+        }
+
+        .timestamp {
+            padding-top: 20px;
+            color: #6d6d70;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        .timestamp-sender {
+            color: #6d6d70;
+            font-size: 14px;
+            font-weight: 600;
+            padding-right: 10pt;
+        }
+
+        .message-content {
+            line-height: 1.4;
+            font-size: 16px;
+        }
