@@ -1,0 +1,72 @@
+[
+  {
+    "date_display": "04/04/2023",
+    "date_iso": "2023-04-04",
+    "date_precision": "day",
+    "date_approx": false,
+    "title": "HOC-April-4-2024-Meeting-Minutes-Adopted.pdf",
+    "title_href": "https://hsh.sfgov.org/wp-content/uploads/2024/05/HOC-April-4-2024-Meeting-Minutes-Adopted.pdf",
+    "description_text": "Margaret McNulty is appointed to Seat 11, Board on the Local Homeless Coordinating Board of the Homeless Oversight Committee ...",
+    "file_href": null,
+    "thumb_src": null,
+    "row_class": null,
+    "type": "pdf",
+    "flags": []
+  },
+  {
+    "date_display": "05/14/2024",
+    "date_iso": "2024-05-14",
+    "date_precision": "day",
+    "date_approx": false,
+    "title": "05142024.pdf",
+    "title_href": null,
+    "description_text": "Irregular Nomination & Election flier posted ...",
+    "file_href": "./imgz1760/05142024/05142024-964-420.pdf",
+    "thumb_src": "./imgz1760/05142024/05142024-01.png",
+    "row_class": "alert alert-danger",
+    "type": "pdf",
+    "flags": []
+  },
+  {
+    "date_display": "05/28/2024",
+    "date_iso": "2024-05-28",
+    "date_precision": "day",
+    "date_approx": false,
+    "title": "05282024_MMMnominees.pdf",
+    "title_href": null,
+    "description_text": "First Group of nominees posted by Margo, not the \"Independent Party\" ...",
+    "file_href": "./imgz1760/05282024_nomination/05282024_MMMnominees.pdf",
+    "thumb_src": "./imgz1760/05282024_nomination/05282024afterNom-02.jpg",
+    "row_class": "alert alert-danger",
+    "type": "pdf",
+    "flags": []
+  },
+  {
+    "date_display": "07/03/2023",
+    "date_iso": "2023-07-03",
+    "date_precision": "day",
+    "date_approx": false,
+    "title": "07032024_election.pdf",
+    "title_href": "./imgz1760/07032024_TENANTSrespond/0703252024_election.pdf",
+    "description_text": "Irregular \"Election\" conducted ...",
+    "file_href": "./imgz1760/05142024/05282024_election.pdf",
+    "thumb_src": "./imgz1760/07032024_TENANTSrespond/icon_election.jpg",
+    "row_class": "alert alert-danger",
+    "type": "pdf",
+    "flags": ["date_mismatch_filename"]
+  },
+  {
+    "date_display": "10/29/2025",
+    "date_iso": "2025-10-29",
+    "date_precision": "day",
+    "date_approx": false,
+    "title": "Autumn 2025 Margo's News",
+    "title_href": "./imgz1760/10292025_MMMnews/10292025_MMMnews_en.pdf",
+    "description_text": "Posted on the Community Bulletin Board, and printed for distribution.",
+    "file_href": ".wtp/imgz1760/10292025_MMMnews/10292025_MMMnews_en.pdf",
+    "thumb_src": "./imgz1760/06012025_MMMnews/06012025_MMM_news_01.png",
+    "row_class": null,
+    "type": "pdf",
+    "flags": []
+  }
+]
