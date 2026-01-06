@@ -1,240 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>We The People of 1760 — Timeline (Sortable)</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap 3 (matches your current site) -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <!-- Optional: keep your existing site styles -->
-  <link rel="stylesheet" href="1760bylaws.css">
-  <link rel="stylesheet" href="1760BSaddin.css">
-  <link rel="stylesheet" href="viewport.css">
-
-  <style>
-    body { margin: 0; padding: 0; }
-    .controls { margin: 10px 0 15px; }
-    .muted { color: #777; }
-    .nowrap { white-space: nowrap; }
-    .badge-soft { background: #eee; color: #333; }
-    .row-class { font-size: 12px; }
-    .tiny { font-size: 12px; }
-    .table > tbody > tr > td { vertical-align: top; }
-  </style>
+<meta charset="utf-8">
+<title>WE THE PEOPLE OF 1760 — TIMELINE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-
 <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header" style="text-align:center;">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html" style="float:none;display:inline-block;">
+        <strong>WE THE PEOPLE OF 1760</strong>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="#">Timeline</a></li>
+        <li><a href="2024timeline.html">Original Table</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div style="height:60px;"></div>
+
 <div class="container">
   <div class="well">
     <h1>The Paper Trail</h1>
-    <h3>Public postings by Margaret McNulty,<br>1760 Tenant Association President</h3>
-    <p class="muted">This page is JSON-driven: edit <code>wtp_timeline.json</code> to update the timeline.</p>
+    <p class="text-muted">JSON-driven master timeline</p>
   </div>
 
-  <div class="well controls">
-    <div class="row">
-      <div class="col-sm-5">
-        <label for="searchBox" class="tiny">Search</label>
-        <input id="searchBox" class="form-control" placeholder="Search title / description / links...">
-      </div>
-
-      <div class="col-sm-3">
-        <label for="typeFilter" class="tiny">Type</label>
-        <select id="typeFilter" class="form-control">
-          <option value="">All</option>
-          <option value="document">Document</option>
-          <option value="webpage">Webpage</option>
-          <option value="video">Video</option>
-        </select>
-      </div>
-
-      <div class="col-sm-2">
-        <label for="sortBy" class="tiny">Sort by</label>
-        <select id="sortBy" class="form-control">
-          <option value="date_desc">Date (new → old)</option>
-          <option value="date_asc">Date (old → new)</option>
-          <option value="title_asc">Title (A → Z)</option>
-          <option value="title_desc">Title (Z → A)</option>
-        </select>
-      </div>
-
-      <div class="col-sm-2">
-        <label class="tiny">&nbsp;</label>
-        <button id="resetBtn" class="btn btn-default btn-block">Reset</button>
-      </div>
-    </div>
-
-    <hr>
-
-    <p class="tiny muted">
-      Note: items with incomplete/placeholder dates (e.g. <code>08/00/2024</code>, <code>00/00/2024</code>, or month-only entries like <code>03/2023</code>) are kept, but sort after fully-dated entries.
-    </p>
-  </div>
-
-  <div class="well">
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th style="width: 10%;">Date</th>
-          <th style="width: 22%;">Title / Page</th>
-          <th style="width: 58%;">Description</th>
-          <th style="width: 10%;">Links</th>
-        </tr>
-      </thead>
-      <tbody id="timelineBody"></tbody>
-    </table>
-    <p id="countLine" class="muted tiny"></p>
-  </div>
-
-  <div class="well" style="text-align:center; background:#999; color:#fff;">
-    <p style="margin:0;">
-      <a href="index.html"><button type="button" class="btn btn-info" style="box-shadow: 0 0 6px;">HOME</button></a>
-    </p>
-    <p style="margin-top:10px;">
-      <a href="mailto:wethepeopleof1760@gmail.com" style="color: white;">wethepeopleof1760@gmail.com</a>
-    </p>
-  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Date</th><th>Title</th><th>Description</th><th>File</th></tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
 </div>
 
 <script>
-/*
-  Place this file next to wtp_timeline.json, then publish both to GitHub Pages.
-  Example:
-    /wtp/timeline_sortable.html
-    /wtp/wtp_timeline.json
-*/
-
-let RAW = [];
-let VIEW = [];
-
-function safe(s) {
-  return (s || "").toString();
-}
-
-function linkOrEmpty(label, href) {
-  if (!href) return "";
-  return '<a href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
-}
-
-function buildRow(item) {
-  const dateCell = '<span class="nowrap">' + safe(item.date_display) + '</span>' +
-                   (item.date_iso ? '' : ' <span class="badge badge-soft">undated</span>');
-
-  const title = safe(item.title);
-  const pageLink = item.page_url ? linkOrEmpty(title, item.page_url) : title;
-  const typeBadge = '<span class="label label-default row-class">' + safe(item.type || "item") + '</span>' +
-                    (item.row_class ? ' <span class="label label-info row-class">' + safe(item.row_class) + '</span>' : '');
-
-  const desc = safe(item.description);
-
-  const links = [
-    item.page_url ? linkOrEmpty("Page", item.page_url) : "",
-    item.file_url ? linkOrEmpty("File", item.file_url) : ""
-  ].filter(Boolean).join("<br>");
-
-  return (
-    '<tr>' +
-      '<td>' + dateCell + '</td>' +
-      '<td>' + pageLink + '<br>' + typeBadge + '</td>' +
-      '<td>' + desc + '</td>' +
-      '<td>' + links + '</td>' +
-    '</tr>'
-  );
-}
-
-function render() {
-  const tbody = document.getElementById("timelineBody");
-  tbody.innerHTML = VIEW.map(buildRow).join("");
-  document.getElementById("countLine").textContent = VIEW.length + " item(s) shown.";
-}
-
-function asComparableDate(item) {
-  // Fully-dated items sort first. Undated go after.
-  if (item.date_iso) return { group: 0, val: item.date_iso };
-  return { group: 1, val: safe(item.date_display) };
-}
-
-function applyFiltersAndSort() {
-  const q = safe(document.getElementById("searchBox").value).toLowerCase().trim();
-  const type = safe(document.getElementById("typeFilter").value);
-
-  VIEW = RAW.filter(it => {
-    if (type && safe(it.type) !== type) return false;
-    if (!q) return true;
-    const hay = [
-      it.date_display, it.date_iso, it.title, it.description, it.page_url, it.file_url, it.row_class, it.type
-    ].map(safe).join(" ").toLowerCase();
-    return hay.includes(q);
-  });
-
-  const sortMode = safe(document.getElementById("sortBy").value);
-
-  VIEW.sort((a, b) => {
-    if (sortMode === "title_asc" || sortMode === "title_desc") {
-      const tA = safe(a.title).toLowerCase();
-      const tB = safe(b.title).toLowerCase();
-      return (sortMode === "title_asc") ? tA.localeCompare(tB) : tB.localeCompare(tA);
-    }
-
-    // date sort: keep fully-dated first
-    const da = asComparableDate(a);
-    const db = asComparableDate(b);
-    if (da.group !== db.group) return da.group - db.group;
-
-    // within group
-    if (da.val === db.val) {
-      const tA = safe(a.title).toLowerCase();
-      const tB = safe(b.title).toLowerCase();
-      return tA.localeCompare(tB);
-    }
-
-    if (sortMode === "date_asc") return (da.val < db.val) ? -1 : 1;
-    return (da.val > db.val) ? -1 : 1; // date_desc
-  });
-
-  render();
-}
-
-function resetControls() {
-  document.getElementById("searchBox").value = "";
-  document.getElementById("typeFilter").value = "";
-  document.getElementById("sortBy").value = "date_desc";
-  applyFiltersAndSort();
-}
-
-async function init() {
-  try {
-    const res = await fetch("wtp_timeline.json", { cache: "no-store" });
-    RAW = await res.json();
-
-    // Ensure the known typo is corrected even if the JSON was generated elsewhere.
-    RAW = RAW.map(it => {
-      if (safe(it.date_display).trim() === "07/03/2023") {
-        it.date_display = "07/03/2024";
-        it.date_iso = "2024-07-03";
-      }
-      return it;
+fetch("wtp_timeline_RELOAD.json",{cache:"no-store"})
+  .then(r=>r.json())
+  .then(data=>{
+    const tb=document.getElementById("rows");
+    data.forEach(d=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML =
+        "<td>"+d.date_display+"</td>"+
+        "<td>"+d.title+"</td>"+
+        "<td>"+d.description+"</td>"+
+        "<td>"+(d.file_url?("<a href='"+d.file_url+"' target='_blank'>Open</a>"):"")+"</td>";
+      tb.appendChild(tr);
     });
-
-    VIEW = RAW.slice();
-    applyFiltersAndSort();
-
-    document.getElementById("searchBox").addEventListener("input", applyFiltersAndSort);
-    document.getElementById("typeFilter").addEventListener("change", applyFiltersAndSort);
-    document.getElementById("sortBy").addEventListener("change", applyFiltersAndSort);
-    document.getElementById("resetBtn").addEventListener("click", resetControls);
-  } catch (e) {
-    console.error(e);
-    document.getElementById("timelineBody").innerHTML =
-      '<tr><td colspan="4"><strong>Error:</strong> Could not load <code>wtp_timeline.json</code>. ' +
-      'Make sure the JSON file is in the same folder as this HTML file.</td></tr>';
-  }
-}
-
-init();
+  });
 </script>
+
 </body>
 </html>
