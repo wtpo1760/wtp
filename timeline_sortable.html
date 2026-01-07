@@ -50,7 +50,7 @@
 </div>
 
 <script>
-fetch("wtp_timeline_RELOAD.json",{cache:"no-store"})
+fetch("wtp_timeline.json",{cache:"no-store"})
   .then(r=>r.json())
   .then(data=>{
     const tb=document.getElementById("rows");
