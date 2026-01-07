@@ -112,11 +112,11 @@
     "date_display": "09/23/2024",
     "date_iso": "2024-09-23",
     "title": "September 23, 2024 McNulty's News",
-    "page_url": "./imgz1760/09232024_NEWSgarden/09232024_MMMnewsGarden.html",
+    "page_url": "./imgz1760/09232024_NEWSgarden/09232024_MMMnewsGarden.pdf",
     "description": "Posted on the Community Bulletin Board, which McNulty controls access to.",
-    "file_url": "./imgz1760/09232024_NEWSgarden/09232024_MMMnewsGarden.html",
+    "file_url": "./imgz1760/09232024_NEWSgarden/09232024_MMMnewsGarden.pdf",
     "row_class": null,
-    "type": "webpage"
+    "type": "document"
   },
   {
     "id": "2024-07-11_07112024-letter-jpg",
@@ -134,9 +134,9 @@
     "date_display": "07/05/2024",
     "date_iso": "2024-07-05",
     "title": "07052024_MMresponse.pdf",
-    "page_url": null,
+    "page_url": "./imgz1760/07032024_TENANTSrespond/0703252024_election.pdf",
     "description": "Margo's response to the Notice of Irregular Elections",
-    "file_url": "./imgz1760/07052024_response/07052024_ARrespondMMM.pdf",
+    "file_url": "./imgz1760/07032024_TENANTSrespond/0703252024_election.pdf",
     "row_class": "alert alert-danger",
     "type": "document"
   },
@@ -166,9 +166,9 @@
     "date_display": "06/29/2024",
     "date_iso": "2024-06-29",
     "title": "TA President \"fires\" Treasurer Rittenbug",
-    "page_url": "./TAdocs/TAPresAction/05222024MMMfireAR.html",
+    "page_url": "./imgz1760/06292024_MMMresponse/06292024MMMfireAR.pdf",
     "description": "Margo \"removed\" Angel before the Board meeting were Angel can make a statement & Tenants could decide on how to proceed. Margo removes Angel without due process or cause. Speaking up about the \"nomination\" & \"election\" process is Free Speech and 100% American. Look it up. Margo appears to not respect Robert's Rules of Order Margo disregards the Tenants vote, a clear sign she wants only her \"loyal supporters\" on the Board.",
-    "file_url": "./imgz1760/06292024_MMMfireAR.jpg",
+    "file_url": "./imgz1760/06292024_MMMresponse/06292024MMMfireAR.pdf",
     "row_class": null,
     "type": "webpage"
   },
@@ -342,10 +342,10 @@
     "date_display": "05/14/2024",
     "date_iso": "2024-05-14",
     "title": "Text between Board members",
-    "page_url": null,
+    "page_url": "./imgz1760/05142024/05142024-all.pdf",
     "description": "DISCLAIMER: These messages are between the Tenant Association President and the TA Treasurer on a phone paid for by the residents of the building. These conversations center around tenants rights and are available here for public viewing.",
-    "file_url": "./2024_board_msg.html",
-    "row_class": "alert-warning",
+    "file_url": "./imgz1760/05142024/05142024-all.pdf",
+    "row_class": "alert alert-warning",
     "type": "document"
   },
   {
