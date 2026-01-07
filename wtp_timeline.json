@@ -48,7 +48,7 @@
     "title": "McNulty visits Rittenburg",
     "page_url": null,
     "description": "After McNulty was granted a RO, she taunts Rittenburg with a visit and a note.",
-    "file_url": "./imgz1760/04072025_MMMvisit412/04072025_MMMvisit412/.png",
+    "file_url": "./imgz1760/04072025_MMMvisit412/04072025_MMMvisit412.pdf",
     "row_class": null,
     "type": "document"
   },
@@ -92,8 +92,8 @@
     "title": "Online Version",
     "page_url": "./imgz1760/10212024_MMMnewsJJ/10212024_news.html",
     "description": "After returning from Amazon Studios, your loving president posted this newsletter about her time there.",
-    "file_url": null,
-    "row_class": null,
+    "file_url": "./imgz1760/10212024_MMMnewsJJ/10212024_news.html",
+    "row_class": "alert alert-warning",
     "type": "webpage"
   },
   {
