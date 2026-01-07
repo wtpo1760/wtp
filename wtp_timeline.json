@@ -101,11 +101,11 @@
     "date_display": "10/01/2024",
     "date_iso": "2024-10-01",
     "title": "2024MMM.pdf",
-    "page_url": null,
+    "page_url": "./NOMfeedback052024.html",
     "description": "A large PDF detailing the events of the nomination and election called by the TA president and conducted by a non-Independent Third Party in 2024. Chinese, Ukrainian, Russian, and Spanish",
-    "file_url": null,
+    "file_url": "./NOMfeedback052024.html",
     "row_class": null,
-    "type": "document"
+    "type": "webpage"
   },
   {
     "id": "2024-09-23_september-23-2024-mcnulty-s-news",
