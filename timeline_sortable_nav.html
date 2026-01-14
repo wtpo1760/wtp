@@ -50,50 +50,39 @@
   </div>
 
   <script>
-    // ---- helpers ----
-    function normalizeRowClass(s){
-      if(!s) return '';
-      if(/alert\s+alert-danger/.test(s)) return 'danger';
-      if(/alert\s+alert-warning/.test(s)) return 'warning';
-      if(/alert\s+alert-info/.test(s)) return 'info';
-      return s;
-    }
-    function bestLink(d){
-      return d.file_url || d.page_url || '';
-    }
-    function safeText(x){ return (x==null?'' : String(x)); }
-    function sortByDateIsoDesc(a,b){
-      const A = Date.parse(a.date_iso||'') || 0;
-      const B = Date.parse(b.date_iso||'') || 0;
-      return B - A; // newest first
-    }
+  function normalizeRowClass(s){ if(!s) return ''; if(/alert\s+alert-danger/.test(s)) return 'danger';
+    if(/alert\s+alert-warning/.test(s)) return 'warning'; if(/alert\s+alert-info/.test(s)) return 'info'; return s; }
+  function bestLink(d){ return d.file_url || d.page_url || ''; }
+  function safeText(x){ return (x==null?'':String(x)); }
+  function sortByDateIsoDesc(a,b){ const A = Date.parse(a.date_iso||'')||0, B = Date.parse(b.date_iso||'')||0; return B-A; }
 
-    // ---- render ----
-    function render(data){
-      const tbody = document.getElementById('rows');
-      tbody.innerHTML='';
-      data.sort(sortByDateIsoDesc).forEach(d=>{
-        const tr=document.createElement('tr');
-        tr.className = normalizeRowClass(d.row_class);
-        const href = bestLink(d);
-        tr.innerHTML =
-          '<td>'+ safeText(d.date_display || d.date_iso || '') +'</td>'+
-          '<td>'+ safeText(d.title || '') +'</td>'+
-          '<td>'+ safeText(d.description || '') +'</td>'+
-          '<td>'+ (href? '<a class="btn btn-xs btn-primary" href="'+href+'" target="_blank">Open</a>' : '') +'</td>';
-        tbody.appendChild(tr);
-      });
+  function render(data){
+    const tbody = document.getElementById('rows'); tbody.innerHTML='';
+    if (!Array.isArray(data) || data.length === 0) {
+      tbody.innerHTML = '<tr class="warning"><td colspan="4">No items found in JSON.</td></tr>'; return;
     }
+    data.sort(sortByDateIsoDesc).forEach(d=>{
+      const href = bestLink(d);
+      const tr = document.createElement('tr');
+      tr.className = normalizeRowClass(d.row_class);
+      tr.innerHTML =
+        '<td>'+ safeText(d.date_display || d.date_iso || '') +'</td>'+
+        '<td>'+ safeText(d.title || '') +'</td>'+
+        '<td>'+ safeText(d.description || '') +'</td>'+
+        '<td>'+ (href? '<a class="btn btn-xs btn-primary" href="'+href+'" target="_blank">Open</a>' : '') +'</td>';
+      tbody.appendChild(tr);
+    });
+  }
 
-    // ---- boot ----
-    fetch('wp_timeline.json', {cache:'no-store'})
-      .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status+' for wp_timeline.json'); return r.json(); })
-      .then(render)
-      .catch(err => {
-        console.error(err);
-        document.getElementById('rows').innerHTML =
-          '<tr class="danger"><td colspan="4">Failed to load timeline: '+err.message+'</td></tr>';
-      });
-  </script>
+  // ↓↓↓ change is here
+  fetch('/wtp/wp_timeline.json', { cache: 'no-store' })
+    .then(r => { if (!r.ok) throw new Error('HTTP '+r.status+' for /wtp/wp_timeline.json'); return r.json(); })
+    .then(render)
+    .catch(err => {
+      console.error(err);
+      document.getElementById('rows').innerHTML =
+        '<tr class="danger"><td colspan="4">Failed to load timeline: '+err.message+'</td></tr>';
+    });
+</script>
 </body>
 </html>
