@@ -239,17 +239,6 @@
     "type": "webpage"
   },
   {
-    "id": "2024-05-28_05282024-nomination-pdf",
-    "date_display": "05/28/2024",
-    "date_iso": "2024-05-28",
-    "title": "NOMfeedback052024.html",
-    "page_url": "https://wtpo1760.github.io/wtp/NOMfeedback052024.html",
-    "description": "Nomination-themed meeting goes poorly. The page linked is a comprehensive report of the events of the meeting. Visit this page and get the facts about what happened.",
-    "file_url": "https://wtpo1760.github.io/wtp/NOMfeedback052024.html",
-    "row_class": "alert alert-danger",
-    "type": "webpage"
-  },
-  {
     "id": "2024-05-28_05282024-mmmnominees-pdf",
     "date_display": "05/28/2024",
     "date_iso": "2024-05-28",
@@ -261,33 +250,44 @@
     "type": "document"
   },
   {
+    "id": "2024-05-28_05282024-nomination-pdf",
+    "date_display": "05/28/2024",
+    "date_iso": "2024-05-28",
+    "title": "NOMfeedback052024.html",
+    "page_url": "https://wtpo1760.github.io/wtp/NOMfeedback052024.html",
+    "description": "Nomination-themed meeting goes poorly. The page linked is a comprehensive report of the events of the meeting. Visit this page and get the facts about what happened.",
+    "file_url": "https://wtpo1760.github.io/wtp/NOMfeedback052024.html",
+    "row_class": "alert alert-danger",
+    "type": "webpage"
+  },
+  {
     "id": "2024-05-25_05252024-mmmhappymemday-jpg",
     "date_display": "05/25/2024",
     "date_iso": "2024-05-25",
     "title": "05252024_MMMHappyMemDay.jpg",
-    "page_url": null,
+    "page_url": ./imgz1760/05252024_MMMHappyMemDay.jpg,
     "description": "To honor this country's fallen soldiers and the end of Bikini Season, Margo will host a Pizza & Cake & Song Party",
     "file_url": "./imgz1760/05252024_MMMHappyMemDay.jpg",
     "row_class": null,
-    "type": "document"
+    "type": "image"
   },
   {
     "id": "2024-05-24_05242024-mmmnegativity-pdf",
     "date_display": "05/24/2024",
     "date_iso": "2024-05-24",
     "title": "05242024_MMMnegativity.pdf",
-    "page_url": null,
+    "page_url": "./imgz1760/05242024_MMMnegativity/05242024_MMMnegativity.jpg",
     "description": "McNulty speaks against her critics.",
     "file_url": "./imgz1760/05242024_MMMnegativity/05242024_MMMnegativity.jpg",
     "row_class": "alert alert-danger",
-    "type": "document"
+    "type": "image"
   },
   {
     "id": "2024-05-23_05232024-mmmsuper-pdf",
     "date_display": "05/23/2024",
     "date_iso": "2024-05-23",
     "title": "05232024_MMMsuper.pdf",
-    "page_url": null,
+    "page_url": "./imgz1760/05232024_ultimate/05232024_MMMsuper.pdf",
     "description": "Margo wrongly believes she is The Ultimate Authority of the 1760 Tenant Association. SHE IS NOT the \"governing body\" of any Board. The whole concept of a Board is to ensure there are multiple voices and interests represented within an organization. Visit Page 3 of this document to learn what Margo thinks her role is .",
     "file_url": "./imgz1760/05232024_ultimate/05232024_MMMsuper.pdf",
     "row_class": "alert alert-danger",
@@ -298,10 +298,10 @@
     "date_display": "05/22/2024",
     "date_iso": "2024-05-22",
     "title": "McNulty's Public Response to CCS/D Recall",
-    "page_url": null,
+    "page_url": "./imgz1760/05222024_MMMnews/05222024_MMMresponseCCSDRECALL_en.pdf",
     "description": "Margo's version of events leading up to McNulty Recalled as CCSD President in Q1 2024 .",
     "file_url": "./imgz1760/05222024MMMnews.html",
-    "row_class": null,
+    "row_class": "./imgz1760/05222024_MMMnews/05222024_MMMresponseCCSDRECALL_en.pdf",
     "type": "document"
   },
   {
@@ -309,10 +309,10 @@
     "date_display": "05/19/2024",
     "date_iso": "2024-05-19",
     "title": "05/19/2024-AR-MM-text.pdf",
-    "page_url": null,
+    "page_url": "./imgz1760/05142024/index.html",
     "description": "Margo and Angel text messages This helps clarify how Margo views her role, her RCA project, and what it means to be an accountable public official. Let's Check the Facts",
     "file_url": "./imgz1760/05192024_AR-MMtexts/05192024-AR-MM-text-01.pdf",
-    "row_class": null,
+    "row_class": "05/19/2024-AR-MM-text.pdf",
     "type": "document"
   },
   {
@@ -320,7 +320,7 @@
     "date_display": "05/15/2024",
     "date_iso": "2024-05-15",
     "title": "05152024dearTenant.jpg",
-    "page_url": null,
+    "page_url": "./imgz1760/05152024_MMMconfusionNEWS/05152024dearTenant.jpg",
     "description": "Can it be true? Let's Check the Facts",
     "file_url": "./imgz1760/05152024_MMMconfusionNEWS/05152024dearTenant.jpg",
     "row_class": null,
@@ -353,11 +353,11 @@
     "date_display": "04/04/2024",
     "date_iso": "2023-04-04",
     "title": "HOC-April-4-2024-Meeting-Minutes-Adopted.pdf",
-    "page_url": null,
-    "description": "Margaret McNulty is appointed to Seat 11, Board on the Local Homeless Coordinating Board of the Homeless Oversight Committee Here is a link to the agenda [page 11] announcing the appointment. McNulty is NOT a commissioner , she sits on one of the 4 boards this commission administers. McNulty introducing herself to the Homeless Oversight Commission at the April 2024 meeting. Please feel free to contact the Local Homeless Coordinating Board to verify this information at (415) 705-5555 .",
-    "file_url": null,
+    "page_url": "https://www.youtube.com/embed/9TBbgo7vPJU",
+    "description": "Margaret McNulty is appointed to Seat 11, Board on the Local Homeless Coordinating Board of the Homeless Oversight Committee [LINK: https://www.sf.gov/departments--homelessness-oversight-commission]<br />Here is a link to McNulty's appointment to Seat 11 of the Local Homeless Coordinating Board, Seat 11.<br />McNulty's self-introduction to the Homeless Oversight Commission at the April 2024 meeting. Please feel free to contact the Local Homeless Coordinating Board to verify this information at (415) 705-5555.",
+    "file_url": "https://www.youtube.com/embed/9TBbgo7vPJU",
     "row_class": null,
-    "type": "document"
+    "type": "Video"
   },
   {
     "id": "08/00/2024_2024mmm-pdf-english-version",
