@@ -352,16 +352,18 @@
     "type": "document"
   },
   {
-    "id": "2024-04-04_hoc-april-4-2024-meeting-minutes-adopted-pdf",
-    "date_display": "04/04/2024",
-    "date_iso": "2024-04-04",
-    "title": "HOC-April-4-2024-Meeting-Minutes-Adopted.pdf",
-    "page_url": "https://www.youtube.com/embed/9TBbgo7vPJU",
-    "description": "McNulty is appointed to Seat 11, Local Homeless Coordinating Board / Homeless Oversight Commission — self-introduction video.",
-    "file_url": "https://www.youtube.com/embed/9TBbgo7vPJU",
-    "row_class": "",
-    "type": "video"
-  },
+  "id": "2024-04-04_hoc-april-4-2024-meeting-minutes-adopted-pdf",
+  "date_display": "04/04/2024",
+  "date_iso": "2024-04-04",
+  "title": "HOC-April-4-2024-Meeting-Minutes-Adopted.pdf",
+  "page_url": "https://www.sf.gov/departments--homelessness-oversight-commission",
+  "description": "McNulty self-introduction to the Homeless Oversight Commission (Seat 11).",
+  "desc_html": "<p>McNulty self-introduction to the Homeless Oversight Commission (Seat 11).</p><ul><li><a href=\"https://youtu.be/9TBbgo7vPJU\" target=\"_blank\" rel=\"noopener\">Video on YouTube</a></li><li><a href=\"https://hsh.sfgov.org/wp-content/uploads/2024/05/HOC-April-4-2024-Meeting-Minutes-Adopted.pdf\" target=\"_blank\" rel=\"noopener\">HOC April 4, 2024 Meeting Minutes (Seat 11)</a></li><li><a href=\"https://www.sf.gov/departments--homelessness-oversight-commission\" target=\"_blank\" rel=\"noopener\">Homelessness Oversight Commission (HOC)</a></li><li><a href=\"https://www.sf.gov/departments--local-homeless-coordinating-board\" target=\"_blank\" rel=\"noopener\">Local Homeless Coordinating Board (LHCB)</a></li></ul>",
+  "img_url": "https://wtpo1760.github.io/wtp/imgz1760/04042024_MMMhoc.png",
+  "file_url": "https://youtu.be/9TBbgo7vPJU",
+  "row_class": "",
+  "type": "video"
+  }
   {
     "id": "2024-08-00_2024mmm-pdf-english-version",
     "date_display": "08/00/2024",
