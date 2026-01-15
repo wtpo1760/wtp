@@ -16,7 +16,15 @@
 
   <style>
     /* page spacing */
-    body { margin-top: 0; }
+    body {
+      margin: 0; padding: 0;
+    }
+    #bylawHeader {
+      margin-top: 0 !important;
+    }
+    .container:first-of-type { 
+      padding-top: 0 !important; margin-top: 0 !important;
+    }
 
     /* keep your image behavior */
     .img {
@@ -89,7 +97,7 @@
 
   <!-- ===== Header (matches the screenshot: header content stays at top) ===== -->
   <div class="container">
-    <div class="well">
+    <div id="bylawHeader" class="well">
       <h1>
       Bylaws as presented by<br>
       1760TA President Margaret McNulty
