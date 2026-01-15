@@ -13,6 +13,7 @@
     table td { vertical-align: top; }
     .table>tbody>tr>td { padding: 10px; }
     .media-object { max-width: 120px; max-height: 140px; }
+    .desc-note { margin-top:6px; }
   </style>
 </head>
 <body>
@@ -42,6 +43,12 @@
       </p>
     </div>
 
+    <!-- GLOBAL DISCLAIMER: hidden until any row triggers -->
+    <div id="global-disclaimer" class="alert alert-warning" style="display:none">
+      <strong>⚠️ Heads‑up:</strong> One or more items below relate to <em>nominations/elections</em> or may not comply with established requirements. Please verify against
+      <strong>24 CFR Part 964</strong> (tenant participation), the <strong>SF Sunshine Ordinance</strong> (Administrative Code Ch. 67), and the <strong>California Brown Act</strong> (Gov. Code §54950 et seq.).
+    </div>
+
     <table class="table table-striped">
       <thead>
         <tr><th style="width:120px">Date</th><th>Title</th><th>Description</th><th style="width:110px">File</th></tr>
@@ -67,13 +74,41 @@
       return B - A; // newest first
     }
 
-    // ---- render with optional description image ----
+    // --- compliance / disclaimer detection (mirrors the newsletter page) ---
+    function classifyRow(d){
+      const text = [d.title, d.description, d.desc_html, d.type, d.row_class].filter(Boolean).join(' ').toLowerCase();
+      const has = (re) => re.test(text);
+      const electionRelated = has(/\b(election|nomination|ballot|quorum|vote|recall)s?\b/);
+      const cfr = has(/\b24\s*cfr\b|\bpart\s*964\b|\b964\.\d+/);
+      const sunshine = has(/sunshine\s+ordinance|admin(istrative)?\s*code\s*(ch|chapter)?\s*67/);
+      const brown = has(/brown\s+act|gov(ernment)?\s*code\s*§?\s*5495\d/);
+      const irregular = has(/\b(irregular|violation|non[-\s]?compliance|non[-\s]?compliant|contrary)\b/);
+
+      const statutes = [];
+      if(cfr) statutes.push('24 CFR Part 964');
+      if(sunshine) statutes.push('SF Sunshine Ordinance (Admin Code Ch. 67)');
+      if(brown) statutes.push('California Brown Act (Gov. Code §54950 et seq.)');
+
+      const needsDisclaimer = electionRelated || (statutes.length && (irregular || electionRelated));
+      return { electionRelated, statutes, needsDisclaimer };
+    }
+
+    // ---- render with optional description image & disclaimers ----
     function render(data){
       const tbody = document.getElementById('rows');
       tbody.innerHTML='';
+      let anyFlagged = false;
+
       data.sort(sortByDateIsoDesc).forEach(d=>{
         const tr=document.createElement('tr');
-        tr.className = normalizeRowClass(d.row_class);
+        let rowClass = normalizeRowClass(d.row_class);
+
+        // compliance classification
+        const flags = classifyRow(d);
+        if(flags.needsDisclaimer && !rowClass){ rowClass = 'warning'; }
+        if(flags.needsDisclaimer) anyFlagged = true;
+        if(rowClass) tr.className = rowClass;
+
         const href = bestLink(d);
 
         // Build description cell
@@ -85,23 +120,36 @@
               + '<img class="media-object img-thumbnail" src="'+d.img_url+'" alt="thumbnail">'
               + (href? '</a>' : '')
             + '</div>'
-            + '<div class="media-body">'+ safeText(d.description||'') + (d.desc_html? d.desc_html : '') +'</div>'
+            + '<div class="media-body">'+ safeText(d.description||'') + (d.desc_html? d.desc_html : '')
+              + (flags.needsDisclaimer ? ('<div class="desc-note text-danger small">⚠️ This item relates to elections/nominations or may not comply with established requirements. Please verify'+
+                  (flags.statutes.length? ' (e.g., '+flags.statutes.join('; ')+')' : '') +'.</div>') : '')
+            + '</div>'
           + '</div>';
         } else if (d.desc_html) {
-          // advanced: allow trusted HTML markup supplied in JSON
-          descHtml = d.desc_html;
+          descHtml = d.desc_html + (flags.needsDisclaimer ? ('<div class="desc-note text-danger small">⚠️ This item relates to elections/nominations or may not comply with established requirements. Please verify'+
+              (flags.statutes.length? ' (e.g., '+flags.statutes.join('; ')+')' : '') +'.</div>') : '');
         } else {
-          descHtml = safeText(d.description||'');
+          descHtml = safeText(d.description||'') + (flags.needsDisclaimer ? ('<div class="desc-note text-danger small">⚠️ This item relates to elections/nominations or may not comply with established requirements. Please verify'+
+              (flags.statutes.length? ' (e.g., '+flags.statutes.join('; ')+')' : '') +'.</div>') : '');
+        }
+
+        // Title (with small badge when election-related)
+        var titleHtml = safeText(d.title || '');
+        if(flags.electionRelated){
+          titleHtml += ' <span class="label label-warning">Elections/Nominations</span>';
         }
 
         const linkBtn = href? '<a class="btn btn-xs btn-primary" href="'+href+'" target="_blank">Open</a>' : '';
         tr.innerHTML =
           '<td>'+ safeText(d.date_display || d.date_iso || '') +'</td>'+
-          '<td>'+ safeText(d.title || '') +'</td>'+
+          '<td>'+ titleHtml +'</td>'+
           '<td>'+ descHtml +'</td>'+
           '<td>'+ linkBtn +'</td>';
         tbody.appendChild(tr);
       });
+
+      // Toggle global banner
+      document.getElementById('global-disclaimer').style.display = anyFlagged ? '' : 'none';
     }
 
     // ---- boot ----
@@ -118,6 +166,7 @@
   <!-- JSON keys supported:
        - img_url: optional image shown at left of Description (thumbnail)
        - desc_html: optional trusted HTML snippet appended inside the Description
+       - row_class: "alert alert-*" supported; auto-warning is applied if compliance flags trigger
   -->
 </body>
 </html>
