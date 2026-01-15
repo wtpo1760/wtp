@@ -2,3 +2,21 @@
     max-width: 100%; 
     box-shadow: 0 0 9px;
 }
+
+/* tile image sizing */
+.tile-img{
+  width: 85%;
+  max-width: 260px;
+  height: auto;
+  margin: 12px auto 0;
+  display: block;
+  border-radius: 10px;
+  background: rgba(255,255,255,.6);
+  padding: 10px;
+  box-shadow: 0 0 9px rgba(0,0,0,.25);
+}
+
+/* if you want the image area centered and not tiny */
+.bylaw-tile{
+  min-height: 360px;
+}
