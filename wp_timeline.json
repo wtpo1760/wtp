@@ -301,9 +301,9 @@
     "date_display": "05/22/2024",
     "date_iso": "2024-05-22",
     "title": "McNulty's Public Response to CCS/D Recall",
-    "page_url": "/wtp/imgz1760/05222024_MMMnews/05222024_MMMresponseCCSDRECALL_en.pdf",
+    "page_url": "./imgz1760/05222024_MMMnews/05222024_MMMresponseCCSDRECALL_en.pdf",
     "description": "McNulty's version of events leading up to recall as CCSD President in Q1 2024.",
-    "file_url": "/wtp/imgz1760/05222024MMMnews.html",
+    "file_url": "./imgz1760/05222024_MMMnews/05222024_MMMresponseCCSDRECALL_en.pdf",
     "row_class": "",
     "type": "document"
   },
@@ -329,25 +329,37 @@
     "row_class": "",
     "type": "document"
   },
+  
   {
     "id": "2024-05-14_text-between-board-members",
     "date_display": "05/14/2024",
     "date_iso": "2024-05-14",
-    "title": "Text between Board members",
-    "page_url": "/wtp/imgz1760/05142024/05142024-all.pdf",
-    "description": "DISCLAIMER: Messages between TA President and Treasurer on a TA-paid phone concerning tenant rights.",
-    "file_url": "/wtp/imgz1760/05142024/05142024-all.pdf",
+    "title": "Text between Board Members",
+    "page_url": "./imgz1760/2024_board_msg_2.html",
+    "description": "DISCLAIMER: Messages between TA Secretary and Treasurer regarding tenant rights.",
+    "file_url": "./imgz1760/2024_board_msg_2.html",
     "row_class": "alert alert-warning",
-    "type": "document"
+    "type": "webpage"
+  },
+  {
+    "id": "2024-05-14_text-between-board-members",
+    "date_display": "05/14/2024",
+    "date_iso": "2024-05-14",
+    "title": "Text between Board Members",
+    "page_url": "./imgz1760/2024_board_msg_1.html",
+    "description": "DISCLAIMER: Messages between TA President and Treasurer on a TA-paid phone concerning tenant rights.",
+    "file_url": "./imgz1760/2024_board_msg_1.html",
+    "row_class": "alert alert-warning",
+    "type": "webpage"
   },
   {
     "id": "2024-05-14_05142024-pdf-disregard-of-brown-act",
     "date_display": "05/14/2024",
     "date_iso": "2024-05-14",
     "title": "05142024.pdf Disregard of Brown Act / Decorum",
-    "page_url": null,
+    "page_url": "./imgz1760/05142024/05142024-all.pdf",
     "description": "Irregular Nomination & Election flyer; texts regarding short notice; discussion of Brown Act and CFR.",
-    "file_url": "/wtp/imgz1760/05142024/05142024-964-420.pdf",
+    "file_url": "./imgz1760/05142024/05142024-all.pdf",
     "row_class": "alert alert-danger",
     "type": "document"
   },
@@ -381,7 +393,7 @@
     "date_iso": null,
     "title": "2024MMM.pdf",
     "page_url": null,
-    "description": "A large PDF detailing the events of the nomination and election called by the TA president and conducted by a non-Independent Third Party in 2024.",
+    "description": "A Chinese language PDF detailing the events of the nomination and election called by the TA president and conducted by a non-Independent Third Party in 2024.",
     "file_url": null,
     "row_class": "",
     "type": "document"
