@@ -1,4 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bylaws 1760 Bush</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- your existing css -->
+  <link rel="stylesheet" href="./1760BSaddin.css">
+  <link rel="stylesheet" href="./1760_Bylaw.css">
+
+  <!-- Bootstrap 3 (matches your current page) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    /* page spacing */
+    body { margin-top: 0; }
+
+    /* keep your image behavior */
+    .img {
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 0 9px rgba(0,0,0,.35);
+      border-radius: 4px;
+    }
+
+    /* header block like your screenshot (clean, white, subtle border) */
+    .bylaw-header {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 22px 22px 16px;
+      margin-top: 18px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.08);
+    }
+    .bylaw-header h1 { margin-top: 0; }
+    .bylaw-subline {
+      margin-top: 6px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* tile row (3 docs) */
+    .tile-row { margin-top: 22px; margin-bottom: 22px; }
+    .bylaw-tile {
+      border-radius: 10px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.15);
+      text-align: center;
+      margin-bottom: 18px;
+      min-height: 360px; /* keeps tiles visually even */
+    }
+    .bylaw-tile h4 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .bylaw-tile .thumb-wrap {
+      background: rgba(255,255,255,.65);
+      border-radius: 10px;
+      padding: 12px;
+      display: inline-block;
+    }
+    .bylaw-tile .btn { margin-top: 12px; }
+
+    /* background colors to match screenshot tiles */
+    .bg-yellow { background: #ffef3a; }      /* bright yellow */
+    .bg-pink   { background: #f6b6c9; }      /* soft pink */
+    .bg-rose   { background: #f3a2b5; }      /* slightly deeper pink */
+
+    /* optional: cleaner gallery below */
+    .gallery-section {
+      margin-top: 40px;
+      padding-top: 10px;
+      border-top: 1px solid #e5e5e5;
+    }
+    .gallery-section h2 { margin-top: 10px; }
+    .gallery-section .page {
+      margin: 12px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- ===== Header (matches the screenshot: header content stays at top) ===== -->
+  <div class="bylaw-header">
+    <h1>
+      Bylaws as presented by<br>
+      1760TA President Margaret McNulty
+    </h1>
+
+    <!-- this line matches what’s visible in your screenshot -->
+    <div class="bylaw-subline">
+      Oct/Nov/Dec 2025 Board Handout | May 2024 Lobby | CCSD File April 2024
+    </div>
+
+    <hr>
+
+    <p>Below you will see two versions of the 1760 Tenant Association Bylaws.</p>
+    <p>The version on the <span style="background-color:yellow">RIGHT in Yellow</span> was posted on the Community Bulletin Board in the Lobby on May 21, 2024.</p>
+    <p><span class="mark">During the Nominations Meeting, Margo was the only person who had a copy of the Bylaws. Proctors admitted they had not read our Bylaws prior to the meeting.</span></p>
+    <p>The version on the <span style="background-color:pink;">LEFT in PINK</span> are the Bylaws Margo submitted to CCSD in December 2023.</p>
+    <p>Margo claims both versions were approved by the Tenants.</p>
+  </div>
+
+  <!-- ===== 3-tile layout (matches your Illustrator mock) ===== -->
+  <div class="row tile-row">
+
+    <!-- Tile 1 (Yellow) -->
+    <div class="col-sm-4">
+      <div class="bylaw-tile bg-yellow">
+        <h4>2026 MM/Board Handout</h4>
+
+        <div class="thumb-wrap">
+          <!-- pick ONE representative image for the thumbnail -->
+          <a href="#gallery-boardhandout">
+            <img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_01.jpg" alt="Board Handout thumbnail">
+          </a>
+        </div>
+
+        <a class="btn btn-default" href="#gallery-boardhandout">Open</a>
+      </div>
+    </div>
+
+    <!-- Tile 2 (Pink) -->
+    <div class="col-sm-4">
+      <div class="bylaw-tile bg-pink">
+        <h4>2024 Nomination Lobby</h4>
+
+        <div class="thumb-wrap">
+          <a href="#gallery-may24">
+            <img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_01.jpg" alt="Nomination Lobby thumbnail">
+          </a>
+        </div>
+
+        <a class="btn btn-default" href="#gallery-may24">Open</a>
+      </div>
+    </div>
+
+    <!-- Tile 3 (Rose/Pink) -->
+    <div class="col-sm-4">
+      <div class="bylaw-tile bg-rose">
+        <h4>CCSD File 2024</h4>
+
+        <div class="thumb-wrap">
+          <a href="#gallery-ccsd">
+            <img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_01.jpg" alt="CCSD File thumbnail">
+          </a>
+        </div>
+
+        <a class="btn btn-default" href="#gallery-ccsd">Open</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =======================================================================
+       OPTIONAL: full galleries below (so the tiles act like a “cover page”)
+       If you want tiles to open separate HTML pages instead, replace the
+       href="#gallery-..." links with href="somepage.html"
+       ======================================================================= -->
+
+  <!-- Gallery 1 -->
+  <div id="gallery-boardhandout" class="gallery-section">
+    <h2>2026 MM/Board Handout</h2>
+    <p class="text-muted">Full pages</p>
+
+    <!-- If the board handout is a different set, swap these image paths -->
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_01.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_02.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_03.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_04.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_05.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_06.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_07.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_08.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_09.jpg" alt=""></div>
+  </div>
+
+  <!-- Gallery 2 -->
+  <div id="gallery-may24" class="gallery-section">
+    <h2>2024 Nomination Lobby (Posted May ’24)</h2>
+    <p class="text-muted">Full pages</p>
+
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_01.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_02.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_03.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_04.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_05.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_06.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_07.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_08.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylaws05282024/May24_posted_pg_09.jpg" alt=""></div>
+  </div>
+
+  <!-- Gallery 3 -->
+  <div id="gallery-ccsd" class="gallery-section">
+    <h2>CCSD File (Submitted December ’23)</h2>
+    <p class="text-muted">Full pages</p>
+
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_01.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_02.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_03.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_04.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_05.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_06.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_07.jpg" alt=""></div>
+    <div class="page"><img class="img" src="../imgz1760/bylawsCCSDmay24/Dec23bylawsToCCSDpg_08.jpg" alt=""></div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ===== footer (kept from your original) ===== -->
+<div class="well" style="footerWTP; box-shadow: 0 0 6px #777777; flex-shrink: 0;
+text-align: center; background-color: #999999; color: white; margin-top: 40px; margin-bottom: 0px;">
+  <div class="container" style="text-align: center; margin-top: -30px;">
+    <a href="../index.html"><button type="button" class="btn btn-info" style="box-shadow: 0 0 6px;">HOME</button></a>
+  </div>
+  <div class="container" style="text-align: center">
+    <p><br><a href="mailto:wethepeopleof1760@gmail.com" style="color: white;">wethepeopleof1760@gmail.com</a></p>
+  </div>
+</div>
+
+</body>
+</html>
+
+<!-- OLD DOCUMENT 2025
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,3 +330,4 @@ text-align: center; background-color: #999999; color: white; margin-top: 40px; m
 
 </body>
 </html>
+-->
