@@ -6,7 +6,7 @@
   <title>WTPO 1760 — Newsletter & Letters Search</title>
   <!-- Tailwind (cdn) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Icons/Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -56,7 +56,7 @@
     <!-- Counts -->
     <div id="counts" class="text-sm text-slate-600 mt-3"></div>
 
-    <!-- Disclaimer (auto shown when results touch elections/nominations or potential non‑compliance) -->
+    <!-- Global disclaimer (auto-shown for elections/non‑compliance) -->
     <div id="disclaimer" class="hidden mt-3 p-3 rounded-2xl border border-amber-300 bg-amber-50 text-amber-900 text-sm">
       <div class="font-semibold">⚠️ Heads‑up</div>
       <p class="mt-1">One or more results relate to nominations/elections or may reflect conduct that does not comply with established law. Please verify against official requirements, including <strong>24 CFR Part 964</strong> (tenant participation), the <strong>SF Sunshine Ordinance</strong> (Administrative Code Chapter 67), and the <strong>California Brown Act</strong> (Gov. Code §54950 et seq.).</p>
@@ -100,23 +100,51 @@
       return String(text).replace(pat, '<mark>$1</mark>');
     }
 
+    // ---- Multilingual detection patterns (EN/ZH/RU/UK + ES) ----
+    const DETECT = {
+      elections: [
+        /\b(election|elections|nomination|nominate|nominated|candidate|slate|proxy|ballot|ballots|vote|voting|voted|quorum|run[-\s]?off|tally|canvass|recount|petition|recall|inspectors? of election|independent (third[-\s]?party|oversight)|proctor|moderator)\b/iu,
+        /\b(elecci(ón|ones)|nominaci(ón|ones)|nominar|candidato[s]?|boleta[s]?|votaci(ón|ones)|voto[s]?|qu[óo]rum|escrutinio|recuento)\b/iu,
+        /(选举|選舉|提名|候选|候選|参选|參選|竞选|競選|投票|选票|選票|法定人数|法定人數|计票|計票|點票|監票|監督人)/u,
+        /(выборы|номинац|кандидат|бюллетен|голосован|кворум|подсч[её]т|пересч[её]т|петици|избират|наблюдат|комисси)|(?:вибор|відбор|висуван|кандидат|бюлетен|голосуван|кворум|підрахун|перерахун)/iu
+      ],
+      governance: [
+        /\b(tenant\s*association|\bTA\b|board|by[-\s]?laws?|bylaws|officer|secretary|treasurer|president|vice[-\s]?president|sergeant[-\s]?at[-\s]?arms|committee|meeting|minutes|agenda)\b/iu
+      ],
+      statutes: [
+        /\b24\s*CFR\b/iu, /\bpart\s*964\b/iu, /\b964\.(115|120|130|135)\b/iu, /\bHUD\b/iu,
+        /(sunshine\s+ordinance|administrative\s*code\s*(chapter|ch\.)?\s*67|admin\s*code\s*67|§?\s*67\.[0-9]+)/iu,
+        /(brown\s+act|gov(?:ernment)?\s*code\s*§?\s*5495\d|gc\s*5495\d|open\s+meeting\s+law)/iu
+      ],
+      irregular: [
+        /\b(irregular|violation|non[-\s]?compliance|non[-\s]?compliant|contrary|improper)\b/iu
+      ]
+    };
+    const hitAny = (text, arr) => arr.some(re => re.test(text));
+
     // ---- Compliance flagging ----
     function classify(item){
-      const text = [item.title, item.summary, item.body, (item.tags||[]).join(' ')].filter(Boolean).join(' ').toLowerCase();
-      const has = (re)=> re.test(text);
-      const electionRelated = has(/\b(election|nomination|ballot|quorum|vote|recall)s?\b/);
-      const cfr = has(/\b24\s*cfr\b|\bpart\s*964\b|\b964\.\d+/);
-      const sunshine = has(/sunshine\s+ordinance|admin(istrative)?\s*code\s*(ch|chapter)?\s*67/);
-      const brown = has(/brown\s+act|gov(ernment)?\s*code\s*§?\s*5495\d/);
-      const irregular = has(/\b(irregular|violation|non[-\s]?compliance|non[-\s]?compliant|contrary)\b/);
+      const mflags = new Set((item.flags || []).map(s=>String(s).toLowerCase()));
 
-      const statutes = [];
-      if(cfr) statutes.push('24 CFR Part 964');
-      if(sunshine) statutes.push('SF Sunshine Ordinance (Admin Code Ch. 67)');
-      if(brown) statutes.push('California Brown Act (Gov. Code §54950 et seq.)');
+      const text = [item.title, item.summary, item.body, item.description, item.desc_html, (item.tags||[]).join(' '), item.type]
+        .filter(Boolean).join(' ').toLowerCase();
 
-      const needsDisclaimer = electionRelated || (statutes.length && (irregular || electionRelated));
-      return { electionRelated, statutes, needsDisclaimer };
+      const hasElection = hitAny(text, DETECT.elections) || mflags.has('elections');
+      const hasGov      = hitAny(text, DETECT.governance);
+      const hasStatute  = hitAny(text, DETECT.statutes) || mflags.has('statute');
+      const hasIrreg    = hitAny(text, DETECT.irregular) || mflags.has('noncompliance');
+
+      const electionRelated = hasElection && (hasGov || hasStatute);
+      const needsDisclaimer = !mflags.has('no_disclaimer') && (
+        electionRelated || (hasStatute && (hasIrreg || hasElection || hasGov))
+      );
+
+      const statuteList = [];
+      if (/\b24\s*CFR\b|\bpart\s*964\b|\b964\./iu.test(text)) statuteList.push('24 CFR Part 964');
+      if (/sunshine\s+ordinance|administrative\s*code\s*(chapter|ch\.)?\s*67|admin\s*code\s*67|§?\s*67\.[0-9]+/iu.test(text)) statuteList.push('SF Sunshine Ordinance (Admin Code Ch. 67)');
+      if (/brown\s+act|gov(?:ernment)?\s*code\s*§?\s*5495\d|gc\s*5495\d/iu.test(text)) statuteList.push('California Brown Act (Gov. Code §54950 et seq.)');
+
+      return { electionRelated, statutes: statuteList, needsDisclaimer };
     }
 
     // ---- Rendering ----
@@ -125,7 +153,7 @@
       res.innerHTML = '';
       const tpl = document.getElementById('card-tpl');
 
-      let anyFlagged = false; let anyStatutes = new Set();
+      let anyFlagged = false;
 
       list.forEach(item => {
         const node = tpl.content.cloneNode(true);
@@ -135,11 +163,9 @@
         node.querySelector('.title').innerHTML = highlight(item.title, terms);
         node.querySelector('.summary').innerHTML = highlight(item.summary || '', terms);
 
-        // Flags / disclaimer per card
         const flags = classify(item);
         if(flags.needsDisclaimer){
           anyFlagged = true;
-          flags.statutes.forEach(s=>anyStatutes.add(s));
           const cardNote = node.querySelector('.disclaimer-card');
           const badge = node.querySelector('.badge-elect');
           badge.classList.remove('hidden');
@@ -160,13 +186,8 @@
         res.appendChild(node);
       });
 
-      // Global disclaimer banner
       const banner = document.getElementById('disclaimer');
-      if(anyFlagged){
-        banner.classList.remove('hidden');
-      }else{
-        banner.classList.add('hidden');
-      }
+      if(anyFlagged){ banner.classList.remove('hidden'); } else { banner.classList.add('hidden'); }
 
       document.getElementById('counts').textContent = `${list.length} item${list.length===1?'':'s'} shown`;
     }
@@ -249,7 +270,7 @@
         DATA = await r.json();
       }catch(e){
         console.warn('Failed to fetch data file. Using demo sample.', e);
-        // minimal demo dataset so page still renders
+        // Minimal demo dataset so page still renders
         DATA = [
           { id:'demo-05152024', kind:'newsletter', date:'2024-05-15', title:'There seems to be a little controversy…', summary:'Letter about timing of elections; nomination/Election dates listed as May 28 & Jun 25.', tags:['elections','schedule','24 CFR 964.130'], urls:[] },
           { id:'demo-05272024', kind:'context', date:'2024-05-27', title:'Board response citing HUD 30‑day notice', summary:'Cites 24 CFR 964.130 for 30‑day nomination/election notice.', tags:['HUD','bylaws','Brown Act'], urls:[] }
@@ -276,7 +297,8 @@
       "summary": "1–3 line summary for quick scanning",
       "tags": ["elections", "bylaws", "RCA", "litigation"],
       "urls": ["/wtp/docs/05252024_AR-reply.pdf", "/wtp/docs/05252024_AR-reply.docx"],
-      "body": "(optional) full extracted text to improve search accuracy"
+      "body": "(optional) full extracted text to improve search accuracy",
+      "flags": ["elections", "noncompliance", "no_disclaimer", "statute"]
     }
   ]
   -->
