@@ -377,25 +377,14 @@
     "type": "video"
   },
   {
-    "id": "2024-08-00_2024mmm-pdf-english-version",
+    "id": "2024-08-00_2024mmm-pdf-chinese-version",
     "date_display": "08/00/2024",
     "date_iso": null,
-    "title": "2024MMM.pdf [English version]",
-    "page_url": "/wtp/imgz1760/infoCH/2024MMM.pdf",
+    "title": "2024MMM.pdf [Chinese version]",
+    "page_url": "./wtp/imgz1760/infoCH/2024MMM.pdf",
     "description": "A large PDF detailing the nomination and election events in 2024.",
-    "file_url": "/wtp/imgz1760/infoCH/2024MMM.pdf",
+    "file_url": "./wtp/imgz1760/infoCH/2024MMM.pdf",
     "row_class": "alert alert-info",
     "type": "document"
   },
-  {
-    "id": "2024-00-00_2024mmm-pdf",
-    "date_display": "00/00/2024",
-    "date_iso": null,
-    "title": "2024MMM.pdf",
-    "page_url": null,
-    "description": "A Chinese language PDF detailing the events of the nomination and election called by the TA president and conducted by a non-Independent Third Party in 2024.",
-    "file_url": null,
-    "row_class": "",
-    "type": "document"
-  }
 ]
