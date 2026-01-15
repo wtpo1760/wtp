@@ -1,0 +1,62 @@
+[
+  {
+    "id": "2026-01-09_board-appointment-task",
+    "kind": "newsletter",
+    "date": "2026-01-09",
+    "title": "Happy New Year 2026 — Treasurer Appointment Task",
+    "summary": "Treasurer resigned (health). Two candidates will complete an accounting task; residents should not assist. Board will appoint a treasurer between elections per bylaws; target decision at the February board meeting.",
+    "tags": ["English", "appointment", "treasurer", "board", "elections", "bylaws"],
+    "urls": [
+      "/wtp/imgz1760/01092026_MMMnewsBoardAppt.pdf"
+    ],
+    "body": "HAPPY NEW YEAR 2026… naming a new treasurer… two people vying… give each candidate an accounting task; residents should not help; at month end candidates present and the board votes. Appointment is between elections and follows the bylaws; plan is to decide at the February board meeting."
+  },
+  {
+    "id": "2025-12-18_newsletter-en",
+    "kind": "newsletter",
+    "date": "2025-12-18",
+    "title": "December 2025 Newsletter — English (OCR)",
+    "summary": "Security, metal mesh for garage, voicemail, lobby bathrooms (SFHA), Food Runners, door decorating contest; asserts a 28‑day nomination notice ‘exception’ didn’t affect the election and that later election notices were 30 days.",
+    "tags": ["English", "security", "Food Runners", "bathrooms", "elections", "notice", "964.130"],
+    "urls": [
+      "/wtp/imgz1760/12182025_MMMnews.pdf"
+    ],
+    "body": "Sections include SECURITY; MESH BARS; VOICE MAIL; LOBBY BATHROOM (SFHA says unlawful to lock); FOOD RUNNERS; DOOR DECORATING CONTEST; HOLIDAY CELEBRATION. Election/notice passage states in substance: ‘28 DAYS POSTING NOTICE FOR ANNOUNCING NOMINATIONS IN NO WAY CHANGED, NOR INTERFERED WITH, THE OUTCOME… I will get that policy — that a specific exception to the rule is allowed so long as it did not alter the outcome; subsequent election notices were posted for 30 days.’"
+  },
+  {
+    "id": "2025-12-18_newsletter-zh",
+    "kind": "newsletter",
+    "date": "2025-12-18",
+    "title": "12/18/2025 Newsletter — 中文 (Chinese, OCR)",
+    "summary": "提到夜间安保（需要 7 晚到 6/7am）、车库金属防护网、语音信箱清理、SFHA 规定大堂洗手间 24/7 开放、Food Runners、节日门饰比赛与 12/22 活动；含翻译与无障碍提示。",
+    "tags": ["Chinese", "security", "Food Runners", "restrooms", "holidays"],
+    "urls": [
+      "/wtp/imgz1760/12182025_MMMnews_CH.pdf"
+    ],
+    "body": "【安保】需要夜间安保到 6/7am。【车库金属防护网】尽快安装。【语音信箱】新经理需清理并保持更新。【大堂洗手间】SFHA 规定不得上锁；本楼为老人及残障住房，应 24/7 可用。【Food Runners】恢复发放；可联系商家捐赠。【节日门饰比赛】装饰保留到“小圣诞”。【12/22 活动】季度大会与庆祝。"
+  },
+  {
+    "id": "2025-12-18_board-flier-ru",
+    "kind": "newsletter",
+    "date": "2025-12-18",
+    "title": "Board Flier — Русский (Russian, OCR)",
+    "summary": "Безопасность 19:00–6/7; установка металлической сетки; голосовая почта; туалеты вестибюля — 24/7 доступ по фобу; письмо‑просьба для Food Runners; конкурс дверных украшений; 12/22 собрание.",
+    "tags": ["Russian", "security", "Food Runners", "vote‑by‑mail", "restrooms", "holidays"],
+    "urls": [
+      "/wtp/imgz1760/12182025_RU_MMMboardFLIER.pdf"
+    ],
+    "body": "Ключевые темы: охрана ночью; металлическая сетка в гараже; поддерживать голосовую почту; доступ к туалетам — 24/7; просьба о продуктовых пожертвованиях Food Runners; конкурс украшения дверей; собрание 22/12."
+  },
+  {
+    "id": "2026-01-09_summary-trilingual",
+    "kind": "context",
+    "date": "2026-01-09",
+    "title": "One‑page Simple Summary (English • 中文 • Русский)",
+    "summary": "Side‑by‑side trilingual outline of 01/09/2026 newsletter; also lists what’s missing across languages (e.g., ‘February decision’ appears only in English) and flags 24 CFR topics (964.130 elections notice; 964.115 basics; 964.150 funding; language access parity).",
+    "tags": ["summary", "Chinese", "Russian", "English", "language access", "964.130", "964.115", "964.150"],
+    "urls": [
+      "/wtp/imgz1760/01092026 — One‑page Simple Summary (en_中文_русский).pdf"
+    ],
+    "body": "Highlights: treasurer vacancy/task/board appointment (Feb in English only); funding paid to JSCO; use of outside judges for contest; security/mesh; translation parity checklist; plain‑language CFR pointers."
+  }
+]
