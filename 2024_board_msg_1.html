@@ -47,6 +47,32 @@
       max-width: 100%;
       height: auto;
     }
+    
+
+  /* =========================
+     MARGO styling (override)
+     ========================= */
+
+  /* pick your dark green */
+  :root { --margo-green: #0b4f2a; } /* tweak if you want darker/lighter */
+
+  /* Header text (name + time) */
+  .message.margo .message-header,
+  .message.margo .message-header .sender-name,
+  .message.margo .message-header .timestamp {
+    color: var(--margo-green) !important;
+  }
+
+  /* Bubble background + text */
+  .message.margo .message-bubble {
+    background: var(--margo-green) !important;
+    color: #ffffff !important;
+  }
+
+  .message.margo .message-bubble .message-content,
+  .message.margo .message-bubble .message-content * {
+    color: #ffffff !important;
+  }
     </style>
 </head>
 <body>
