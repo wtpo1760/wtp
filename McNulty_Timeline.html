@@ -755,8 +755,12 @@ const events = [
 
   // 2024 — Apr 4
   { id:8, date:"2024-04-04", display:"Apr\n4/4", type:"Meeting", title:"HOC/LHCB Seat 11 intro — falsely claims 3rd term", filename:"04042024_MMMhoc", desc:"False representation of role before govt body", keyEvent:true, flag:true,
-    media:{type:"gov", org:"SF Homelessness Oversight Commission / Local Homeless Coordinating Board", meeting:"HOC/LHCB Public Meeting", date:"April 4, 2024", seal:"🏛️", speaker:"Margaret McNulty — LHCB Seat 11", quote:"McNulty introduces herself before the government body and falsely represents her tenure, claiming a 3rd term. She simultaneously holds this appointed city position while serving as 1760 Bush Street TA President — a dual role she uses to lend false governmental authority to her private actions.", footer:{left:"SF City Government", right:"Apr 4, 2024 · HOC"}},
-    caption:"<strong>April 4, 2024 — HOC/LHCB Meeting:</strong> McNulty falsely claims 3rd term before a government body. This is key to the false 'Commissioner' representation documented in the HUD complaint. File: 04042024_MMMhoc" },
+    media:{type:"archive", archiveId:"SFGTV_20240405_040000_Housing_Authority_Board", title:"Housing Authority Board — SFGTV · April 4, 2024", date:"April 4, 2024 · 9:00pm–11:06pm PDT", org:"SF Housing Authority Board of Commissioners", sourceUrl:"https://archive.org/details/SFGTV_20240405_040000_Housing_Authority_Board", sourceLabel:"View full recording on Internet Archive",
+      clips:[
+        {label:"McNulty — RCA Proposal", start:848.2, end:1708, badge:"🚩 KEY EVIDENCE", badgeColor:"#dc2626", desc:"McNulty presents full RCA company proposal to SFHA Board while still serving as 1760 Bush TA President. ~14 min including co-chair follow-up."},
+        {label:"Zia — Public Comment", start:110.6, end:289.5, badge:"⚠️ ALLIANCE", badgeColor:"#d97706", desc:"Kezia Villias-Martinis (later McNulty’s TA Secretary, Apt. 409) speaks at the same meeting — same day as McNulty’s RCA pitch. ~3 min."}
+      ]},
+    caption:"<strong>April 4, 2024 — Housing Authority Board (SFGTV):</strong> Two key appearances at the same government meeting. McNulty presents her full RCA company proposal (~14 min, cued to 14:08) while still serving as TA President — direct evidence of 24 CFR conflict of interest. Zia also speaks at this meeting (cued to 1:50) — same day, same room, establishing the McNulty-Zia alliance on government record. File: 04042024_MMMhoc" },
 
   // 2024 — Apr 25
   { id:9, date:"2024-04-25", display:"Apr\n4/25", type:"RCA", title:"CCSD/SFHA plan — early RCA organization", filename:"04252024_CCSDmmmSFHA", desc:"24 CFR conflict of interest begins", keyEvent:true, flag:true,
@@ -1046,6 +1050,90 @@ function buildMediaCard(ev) {
       </div>`;
     }
 
+    case 'archive': {
+      const archiveBase = `https://archive.org/embed/${m.archiveId}`;
+
+      // ── Multi-clip tabbed viewer ──
+      if (m.clips && m.clips.length > 0) {
+        const firstClip = m.clips[0];
+        const firstUrl = `${archiveBase}?start=${firstClip.start}&end=${firstClip.end}`;
+        const clipTabsHtml = m.clips.map((c, i) => `
+          <button onclick="switchArchiveClip(this,'${archiveBase}','${c.start}','${c.end}','${c.desc.replace(/'/g,"&#39;")}')"
+            data-idx="${i}"
+            style="background:${i===0?'#fff':'#2a2a2a'};color:${i===0?'#111':'#aaa'};border:none;cursor:pointer;
+                   padding:5px 10px;font-size:10px;font-weight:700;border-radius:4px;white-space:nowrap;
+                   display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;min-width:0;">
+            <span style="display:flex;align-items:center;gap:4px;">
+              <span style="background:${c.badgeColor||'#555'};color:#fff;font-size:8px;padding:1px 5px;border-radius:3px;">${c.badge||''}</span>
+              ${c.label}
+            </span>
+            <span style="font-size:9px;font-weight:400;color:${i===0?'#555':'#666'};">▶ ${formatArchiveTime(c.start)} – ${formatArchiveTime(c.end)}</span>
+          </button>`).join('');
+
+        return `
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;">
+          <!-- Top label bar -->
+          <div style="background:#1a1a1a;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #333;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="background:#428bca;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;">📼 ARCHIVE.ORG</span>
+              <span style="color:#888;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px;">${m.org}</span>
+            </div>
+            <span style="color:#444;font-size:9px;white-space:nowrap;flex-shrink:0;">${m.date}</span>
+          </div>
+          <!-- Clip selector tabs -->
+          <div id="archiveTabs_${ev.id}" style="background:#111;padding:6px 10px;display:flex;gap:6px;flex-shrink:0;border-bottom:1px solid #222;overflow-x:auto;">
+            ${clipTabsHtml}
+          </div>
+          <!-- Clip description -->
+          <div id="archiveDesc_${ev.id}" style="background:#0a0a0a;padding:5px 12px;font-size:10px;color:#888;line-height:1.4;flex-shrink:0;border-bottom:1px solid #1a1a1a;min-height:28px;">
+            ${firstClip.desc}
+          </div>
+          <!-- Player -->
+          <div style="flex:1;position:relative;min-height:0;">
+            <iframe id="archiveFrame_${ev.id}"
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+              src="${firstUrl}"
+              title="${m.title}" allow="fullscreen" allowfullscreen>
+            </iframe>
+          </div>
+          <!-- Bottom source bar -->
+          <div style="background:#111;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid #222;">
+            <a href="${m.sourceUrl}" target="_blank" rel="noopener"
+               style="color:#428bca;font-size:10px;font-weight:700;text-decoration:none;">
+              ↗ ${m.sourceLabel || 'Full recording on Internet Archive'}
+            </a>
+            <span style="color:#444;font-size:9px;">${m.clips.length} clips · same meeting</span>
+          </div>
+        </div>`;
+      }
+
+      // ── Single clip / simple embed ──
+      const embedUrl = m.archiveStart
+        ? `${archiveBase}?start=${m.archiveStart}`
+        : archiveBase;
+      return `
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;">
+        <div style="background:#1a1a1a;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #333;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#428bca;color:#fff;font-size:9px;font-weight:800;padding:2px 8px;border-radius:3px;">📼 ARCHIVE.ORG</span>
+            <span style="color:#bbb;font-size:11px;font-weight:500;">${m.org}</span>
+          </div>
+          <span style="color:#555;font-size:10px;">${m.date}</span>
+        </div>
+        <div style="flex:1;position:relative;min-height:0;">
+          <iframe style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+            src="${embedUrl}" title="${m.title}" allow="fullscreen" allowfullscreen></iframe>
+        </div>
+        <div style="background:#111;padding:7px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid #2a2a2a;">
+          <a href="${m.sourceUrl}" target="_blank" rel="noopener"
+             style="color:#428bca;font-size:11px;font-weight:700;text-decoration:none;">
+            ↗ ${m.sourceLabel || 'View on Internet Archive'}
+          </a>
+        </div>
+        ${m.notes ? `<div style="background:#0d1117;padding:5px 14px;font-size:10px;color:#666;line-height:1.4;flex-shrink:0;">ℹ️ ${m.notes}</div>` : ''}
+      </div>`;
+    }
+
     case 'graphic': return `
       <div class="card-graphic" style="width:100%;height:100%;position:absolute;inset:0;">
         <div class="graphic-bg" style="width:100%;height:100%;position:relative;padding-bottom:48px;">
@@ -1087,6 +1175,41 @@ function buildMediaCard(ev) {
 
     default: return '';
   }
+}
+
+// ═══════════════════════════════════════════════════
+// ARCHIVE.ORG CLIP SWITCHER
+// ═══════════════════════════════════════════════════
+function formatArchiveTime(secs) {
+  const s = Math.floor(secs);
+  const m = Math.floor(s / 60);
+  const ss = String(s % 60).padStart(2, '0');
+  return `${m}:${ss}`;
+}
+
+function switchArchiveClip(btn, archiveBase, start, end, desc) {
+  // Update iframe src
+  const container = btn.closest('[style*="position:absolute"]') || btn.closest('div');
+  // Walk up to find the outermost card div
+  let root = btn;
+  while (root.parentElement && !root.parentElement.classList.contains('media-card')) {
+    root = root.parentElement;
+  }
+  const frame = root.querySelector('iframe');
+  if (frame) {
+    frame.src = `${archiveBase}?start=${start}&end=${end}`;
+  }
+  // Update description
+  const descEl = root.querySelector('[id^="archiveDesc"]');
+  if (descEl) descEl.textContent = desc;
+  // Update tab button styles
+  const tabs = btn.parentElement.querySelectorAll('button');
+  tabs.forEach(t => {
+    t.style.background = '#2a2a2a';
+    t.style.color = '#aaa';
+  });
+  btn.style.background = '#fff';
+  btn.style.color = '#111';
 }
 
 // ═══════════════════════════════════════════════════
