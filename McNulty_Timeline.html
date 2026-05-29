@@ -970,7 +970,7 @@ function buildMediaCard(ev) {
 
   switch(m.type) {
     case 'gov': return `
-      <div class="card-gov-meeting" style="position:relative;padding-bottom:48px;">
+      <div class="card-gov-meeting" style="position:absolute;inset:0;overflow-y:auto;padding-bottom:48px;">
         <div>
           <div class="gov-header">
             <div class="gov-seal">${m.seal}</div>
@@ -993,30 +993,54 @@ function buildMediaCard(ev) {
       </div>`;
 
     case 'video': {
-      const thumbUrl = m.videoId
-        ? `https://img.youtube.com/vi/${m.videoId}/maxresdefault.jpg`
-        : null;
-      const bgStyle = thumbUrl
-        ? `background:url('${thumbUrl}') center/cover no-repeat;`
-        : `background:linear-gradient(135deg,#1a1a2e 0%,#0d1b2a 50%,#1a1a2e 100%);`;
-      const playLink = m.sourceUrl
-        ? `<a href="${m.sourceUrl}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;background:rgba(255,0,0,0.9);border-radius:50%;text-decoration:none;flex-shrink:0;"><span style="font-size:22px;margin-left:4px;">▶</span></a>`
-        : `<div style="width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-left:4px;">▶</div>`;
+      // ── If we have a YouTube video ID, embed the actual player ──
+      if (m.videoId) {
+        const embedUrl = `https://www.youtube.com/embed/${m.videoId}?rel=0&modestbranding=1&color=white`;
+        return `
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;">
+          <!-- YouTube label bar -->
+          <div style="background:#111;padding:6px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #333;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="background:#ff0000;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.05em;">▶ YouTube</span>
+              <span style="color:#aaa;font-size:11px;font-weight:500;">${m.title}</span>
+            </div>
+            <span style="color:#666;font-size:10px;">${m.date}</span>
+          </div>
+          <!-- Actual YouTube embed iframe -->
+          <div style="flex:1;position:relative;min-height:0;">
+            <iframe
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+              src="${embedUrl}"
+              title="${m.title}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <!-- Source link bar below player -->
+          <div style="background:#111;padding:7px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid #333;">
+            <a href="${m.sourceUrl}" target="_blank" rel="noopener"
+               style="color:#ff6b6b;font-size:11px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;letter-spacing:0.03em;">
+              ↗ Open in YouTube
+            </a>
+            <span style="color:#555;font-size:10px;font-family:'Courier Prime',monospace;">${ev.filename}</span>
+          </div>
+        </div>`;
+      }
+
+      // ── Fallback for non-YouTube video events ──
+      const bgStyle = `background:linear-gradient(135deg,#1a1a2e 0%,#0d1b2a 50%,#1a1a2e 100%);`;
       return `
       <div class="card-video" style="position:relative;width:100%;height:100%;background:#111;">
         <div style="width:100%;height:100%;${bgStyle}display:flex;align-items:center;justify-content:center;">
           <div style="background:rgba(0,0,0,0.55);border-radius:12px;padding:20px 24px;text-align:center;max-width:380px;">
-            <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
-              ${playLink}
-            </div>
+            <div style="font-size:48px;margin-bottom:12px;">🎬</div>
             <div style="color:#7af;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">${m.sfgov}</div>
             <div style="color:#fff;font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">${m.title}</div>
             <div style="color:#ccc;font-size:11px;line-height:1.5;">${m.thumbDesc}</div>
+            ${m.sourceUrl ? `<a href="${m.sourceUrl}" target="_blank" rel="noopener" style="display:inline-block;margin-top:14px;background:#dc2626;color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:6px;text-decoration:none;">▶ View Source</a>` : ''}
           </div>
         </div>
-        <div style="position:absolute;top:12px;left:12px;">
-          <span class="video-sfgov">${m.sfgov}</span>
-        </div>
+        <div style="position:absolute;top:12px;left:12px;"><span class="video-sfgov">${m.sfgov}</span></div>
         <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:4px 8px;border-radius:2px;">${m.date}</div>
         ${sourceBar(m.sourceUrl, '▶ Watch on YouTube', ev.filename)}
       </div>`;
