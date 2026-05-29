@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McNulty Public Postings & Replies — Interactive Timeline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Impact&family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Courier+Prime&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000;
+    --white: #fff;
+    --nav-bg: #111;
+    --panel-bg: #fafafa;
+    --border: #ddd;
+    --badge-newsletter: #2563eb;
+    --badge-court: #dc2626;
+    --badge-ta: #d97706;
+    --badge-meeting: #16a34a;
+    --badge-rca: #7c3aed;
+    --badge-text: #b45309;
+    --badge-video: #0891b2;
+    --badge-legal: #be123c;
+    --desc-newsletter: #1d4ed8;
+    --desc-court: #991b1b;
+    --desc-ta: #92400e;
+    --desc-meeting: #14532d;
+    --desc-rca: #581c87;
+    --desc-text: #92400e;
+    --desc-video: #0e7490;
+    --timeline-bg: #1a1a1a;
+    --scrubber-active: #16a34a;
+    --key-dot: #16a34a;
+    --flag-red: #dc2626;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: var(--black);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 44px;
+    flex-shrink: 0;
+  }
+  nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    transition: color 0.2s;
+    cursor: pointer;
+    border-right: 1px solid #333;
+  }
+  nav a:last-child { border-right: none; }
+  nav a:hover, nav a.active { color: var(--white); }
+  nav a.active { border-bottom: 2px solid #16a34a; }
+
+  /* ── TITLE ── */
+  .title-bar {
+    background: #fff;
+    padding: 10px 20px 6px;
+    border-bottom: 2px solid #111;
+    flex-shrink: 0;
+  }
+  .title-bar h1 {
+    font-family: 'Oswald', 'Impact', sans-serif;
+    font-size: clamp(18px, 2.5vw, 32px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #111;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    display: grid;
+    grid-template-columns: 58% 42%;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* ── LEFT MEDIA PANEL ── */
+  .media-panel {
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #111;
+    overflow: hidden;
+  }
+
+  .media-viewer {
+    flex: 1;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* Media card types */
+  .media-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .media-card.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Gov Meeting style */
+  .card-gov-meeting {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    padding: 20px;
+    justify-content: space-between;
+  }
+  .gov-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  .gov-seal {
+    width: 48px; height: 48px;
+    background: #c9a227;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .gov-title { color: #fff; }
+  .gov-title .org { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aac; }
+  .gov-title .meeting { font-size: 14px; font-weight: 700; color: #fff; }
+  .gov-title .date { font-size: 11px; color: #7af; }
+  .gov-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .gov-speaker {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #7af; margin-bottom: 8px;
+  }
+  .gov-quote {
+    font-size: clamp(13px, 1.5vw, 16px);
+    color: #fff;
+    line-height: 1.5;
+    font-style: italic;
+    border-left: 3px solid #c9a227;
+    padding-left: 14px;
+  }
+  .gov-footer {
+    background: rgba(0,0,0,0.4);
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-top: 12px;
+    font-size: 10px;
+    color: #aac;
+    display: flex; justify-content: space-between;
+  }
+
+  /* Video Player style */
+  .card-video {
+    background: #000;
+    position: relative;
+  }
+  .video-thumb {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+  .video-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  .video-sfgov {
+    background: rgba(0,0,50,0.8);
+    color: #7af;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .video-title-bar {
+    background: rgba(0,0,0,0.75);
+    padding: 10px 14px;
+    border-radius: 4px;
+  }
+  .video-title-bar .vtitle { color: #fff; font-size: 13px; font-weight: 600; }
+  .video-title-bar .vdate { color: #aaa; font-size: 11px; margin-top: 2px; }
+  .video-controls {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px 16px 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .play-btn {
+    width: 28px; height: 28px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .play-btn::after { content: '▶'; font-size: 10px; color: #000; margin-left: 2px; }
+  .progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; cursor: pointer; }
+  .progress-fill { height: 100%; background: #e00; width: 5%; border-radius: 2px; }
+  .time-display { color: #fff; font-size: 11px; white-space: nowrap; }
+  .video-icons { display: flex; gap: 10px; align-items: center; }
+  .icon-btn { color: #fff; font-size: 14px; cursor: pointer; opacity: 0.8; }
+
+  /* Caught on Tape / Graphic style */
+  .card-graphic {
+    position: relative;
+    overflow: hidden;
+    background: #222;
+  }
+  .graphic-bg {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .graphic-content {
+    text-align: center;
+    padding: 30px;
+    position: relative; z-index: 2;
+  }
+  .stamp-red {
+    display: inline-block;
+    border: 4px solid #dc2626;
+    color: #dc2626;
+    font-family: 'Impact', sans-serif;
+    font-size: clamp(20px, 3vw, 36px);
+    padding: 4px 16px;
+    transform: rotate(-8deg);
+    letter-spacing: 0.08em;
+    margin: 8px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    background: rgba(220,38,38,0.1);
+  }
+  .stamp-yellow {
+    display: inline-block;
+    background: #fbbf24;
+    color: #000;
+    font-family: 'Impact', sans-serif;
+    font-size: clamp(14px, 2vw, 22px);
+    padding: 6px 18px;
+    transform: rotate(3deg);
+    letter-spacing: 0.05em;
+    margin: 6px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .graphic-big-text {
+    font-family: 'Impact', sans-serif;
+    font-size: clamp(36px, 5vw, 72px);
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 0.9;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.7);
+    margin: 8px 0;
+  }
+  .graphic-subtext {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(12px, 1.5vw, 18px);
+    color: #fbbf24;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .graphic-date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid #fbbf24;
+    color: #fbbf24;
+    font-size: 13px;
+    padding: 4px 14px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .arrow-overlay {
+    position: absolute;
+    font-size: 40px;
+    color: #fbbf24;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  }
+
+  /* Newsletter / Document style */
+  .card-document {
+    background: #fff;
+    overflow-y: auto;
+  }
+  .doc-header {
+    padding: 16px 20px 12px;
+    border-bottom: 2px solid #111;
+  }
+  .doc-header.pink { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
+  .doc-header.blue { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+  .doc-header.gray { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); }
+  .doc-header.green { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); }
+  .doc-header.purple { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); }
+  .doc-title { font-family: 'Oswald', sans-serif; font-size: clamp(14px, 1.8vw, 20px); font-weight: 600; line-height: 1.2; }
+  .doc-date { font-size: 11px; color: #555; margin-top: 4px; font-weight: 600; }
+  .doc-body { padding: 14px 20px; font-size: 12px; line-height: 1.6; color: #333; }
+  .doc-body p { margin-bottom: 8px; }
+  .doc-body .sender { font-weight: 600; margin-bottom: 4px; font-size: 11px; color: #666; }
+  .doc-body .highlight { background: #fef9c3; padding: 8px 12px; border-left: 3px solid #ca8a04; margin: 8px 0; font-style: italic; }
+  .doc-body .names { font-size: 11px; color: #555; }
+
+  /* Text Messages style */
+  .card-text-msg {
+    background: #f0f0f0;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  .msg-header { font-size: 11px; text-align: center; color: #888; margin-bottom: 12px; font-weight: 600; }
+  .msg-bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    position: relative;
+  }
+  .msg-bubble.them {
+    background: #e5e5ea;
+    color: #000;
+    border-bottom-left-radius: 4px;
+    margin-right: auto;
+  }
+  .msg-bubble.me {
+    background: #0b93f6;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+  }
+  .msg-sender { font-size: 10px; font-weight: 700; margin-bottom: 4px; color: #444; }
+  .msg-time { font-size: 10px; color: #888; text-align: center; margin: 8px 0; }
+
+  /* ── CAPTION ── */
+  .caption-area {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px 16px;
+    min-height: 60px;
+    max-height: 80px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .caption-area p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+  }
+  .caption-area p strong { font-weight: 700; color: #111; }
+  .caption-area a { color: #2563eb; font-size: 12px; }
+
+  /* ── RIGHT TIMELINE PANEL ── */
+  .timeline-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .timeline-events {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f5f5f5;
+  }
+  .timeline-events::-webkit-scrollbar { width: 5px; }
+  .timeline-events::-webkit-scrollbar-track { background: #f5f5f5; }
+  .timeline-events::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  .event-row {
+    display: grid;
+    grid-template-columns: 44px auto 1fr 20px;
+    gap: 0 8px;
+    padding: 10px 12px 10px 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.15s;
+    align-items: start;
+  }
+  .event-row:hover { background: #f8f8f8; }
+  .event-row.active { background: #f0fdf4; border-left: 3px solid #16a34a; padding-left: 7px; }
+
+  .event-date {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-align: center;
+    padding-top: 2px;
+    line-height: 1.3;
+  }
+  .event-badge-col { padding-top: 1px; }
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 10px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .badge-Newsletter { background: var(--badge-newsletter); }
+  .badge-Court { background: var(--badge-court); }
+  .badge-TA { background: var(--badge-ta); color: #fff; }
+  .badge-Meeting { background: var(--badge-meeting); }
+  .badge-RCA { background: var(--badge-rca); }
+  .badge-Text { background: var(--badge-text); }
+  .badge-Video { background: var(--badge-video); }
+  .badge-Legal { background: var(--badge-legal); }
+
+  .event-content {}
+  .event-title { font-size: 12px; font-weight: 700; color: #111; line-height: 1.3; }
+  .event-filename { font-size: 10px; color: #888; margin-top: 2px; font-family: 'Courier Prime', monospace; }
+  .event-desc { font-size: 10px; font-style: italic; margin-top: 3px; line-height: 1.4; }
+  .desc-Newsletter { color: var(--desc-newsletter); }
+  .desc-Court { color: var(--desc-court); }
+  .desc-TA { color: var(--desc-ta); }
+  .desc-Meeting { color: var(--desc-meeting); }
+  .desc-RCA { color: var(--desc-rca); }
+  .desc-Text { color: var(--desc-text); }
+  .desc-Video { color: var(--desc-video); }
+  .desc-Legal { color: var(--desc-legal); }
+
+  .event-indicators { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; padding-top: 3px; }
+  .dot-key { width: 8px; height: 8px; border-radius: 50%; background: var(--key-dot); flex-shrink: 0; }
+  .flag-red { font-size: 11px; line-height: 1; }
+
+  /* ── BOTTOM TIMELINE SCRUBBER ── */
+  .scrubber {
+    background: var(--timeline-bg);
+    height: 68px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    flex-shrink: 0;
+    position: relative;
+    user-select: none;
+  }
+
+  .scrubber-nav {
+    width: 40px; height: 36px;
+    background: var(--scrubber-active);
+    color: #fff;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border-radius: 3px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+    border: none;
+  }
+  .scrubber-nav:hover { background: #15803d; }
+
+  .scrubber-track {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0 6px;
+  }
+
+  .scrubber-years {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    position: absolute;
+    transition: transform 0.4s ease;
+  }
+
+  .scrubber-year-group {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .scrubber-year-label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 0 8px;
+    margin-bottom: 2px;
+    letter-spacing: 0.03em;
+  }
+
+  .scrubber-months {
+    display: flex;
+  }
+
+  .scrubber-month {
+    color: #999;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+    white-space: nowrap;
+    position: relative;
+  }
+  .scrubber-month:hover { color: #ddd; background: rgba(255,255,255,0.06); }
+  .scrubber-month.current { color: #fff; font-weight: 800; background: rgba(255,255,255,0.1); }
+  .scrubber-month.has-events::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 50%;
+    transform: translateX(-50%);
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #16a34a;
+  }
+
+  .scrubber-cursor {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #dc2626;
+    pointer-events: none;
+    transition: left 0.35s cubic-bezier(0.4,0,0.2,1);
+    z-index: 10;
+    box-shadow: 0 0 8px rgba(220,38,38,0.6);
+  }
+  .scrubber-cursor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #dc2626;
+  }
+
+  /* Source link overlay */
+  .source-link-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.82);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .source-link-bar a {
+    color: #7af;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.15s;
+  }
+  .source-link-bar a:hover { color: #fff; }
+  .source-link-label {
+    color: #666;
+    font-size: 10px;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    background: #111;
+    padding: 6px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .filter-label { color: #888; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+  .filter-btn {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: #fff;
+    opacity: 0.5;
+  }
+  .filter-btn.active { opacity: 1; border-color: rgba(255,255,255,0.4); }
+  .filter-btn[data-type="All"] { background: #555; }
+  .filter-btn[data-type="Newsletter"] { background: var(--badge-newsletter); }
+  .filter-btn[data-type="Court"] { background: var(--badge-court); }
+  .filter-btn[data-type="TA"] { background: var(--badge-ta); }
+  .filter-btn[data-type="Meeting"] { background: var(--badge-meeting); }
+  .filter-btn[data-type="RCA"] { background: var(--badge-rca); }
+  .filter-btn[data-type="Text"] { background: var(--badge-text); }
+  .filter-btn[data-type="Video"] { background: var(--badge-video); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="active" onclick="setView('timeline')">📋 Timeline</a>
+  <a onclick="setView('documents')">📁 Documents</a>
+  <a onclick="setView('legal')">⚖️ Legal Summary</a>
+</nav>
+
+<!-- TITLE -->
+<div class="title-bar">
+  <h1>Tenant Association President McNulty's Public Postings &amp; Replies</h1>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: MEDIA PANEL -->
+  <div class="media-panel">
+    <div class="media-viewer" id="mediaViewer">
+
+      <!-- DEFAULT / INTRO CARD -->
+      <div class="media-card active" id="card-default">
+        <div class="card-gov-meeting" style="background: linear-gradient(180deg,#111 0%,#1a1a2e 100%); justify-content:center; align-items:center; text-align:center; gap:0;">
+          <div style="padding:30px;">
+            <div style="font-size:56px; margin-bottom:16px;">🏛️</div>
+            <div style="font-family:'Oswald',sans-serif; font-size:22px; color:#fff; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">McNulty Document Archive</div>
+            <div style="font-size:13px; color:#aac; line-height:1.6; max-width:340px; margin:0 auto;">
+              Select any event from the timeline to view<br>source documents, meeting footage, and evidence.
+            </div>
+            <div style="margin-top:20px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+              <span style="background:#1d4ed8;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">Newsletter</span>
+              <span style="background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">Court</span>
+              <span style="background:#d97706;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">TA Action</span>
+              <span style="background:#16a34a;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">Meeting</span>
+              <span style="background:#7c3aed;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">RCA/Biz</span>
+              <span style="background:#b45309;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:10px;">Text/Email</span>
+            </div>
+            <div style="margin-top:16px; font-size:11px; color:#666;">68 documents · Sept 2022 – May 2026 · Case CCH-25-587859</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic cards rendered by JS -->
+      <div id="dynamicCard" class="media-card"></div>
+
+    </div>
+
+    <!-- CAPTION -->
+    <div class="caption-area" id="captionArea">
+      <p><strong>Select an event</strong> from the timeline panel to view the source document, public meeting footage context, or evidence detail. Click any event row to load it here.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: TIMELINE PANEL -->
+  <div class="timeline-panel">
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-type="All" onclick="setFilter('All')">All</button>
+      <button class="filter-btn" data-type="Newsletter" onclick="setFilter('Newsletter')">Newsletter</button>
+      <button class="filter-btn" data-type="Meeting" onclick="setFilter('Meeting')">Meeting</button>
+      <button class="filter-btn" data-type="RCA" onclick="setFilter('RCA')">RCA/Biz</button>
+      <button class="filter-btn" data-type="Court" onclick="setFilter('Court')">Court</button>
+      <button class="filter-btn" data-type="Text" onclick="setFilter('Text')">Text/Email</button>
+      <button class="filter-btn" data-type="TA" onclick="setFilter('TA')">TA Action</button>
+      <button class="filter-btn" data-type="Video" onclick="setFilter('Video')">Video</button>
+    </div>
+
+    <div class="timeline-events" id="timelineEvents"></div>
+  </div>
+</div>
+
+<!-- BOTTOM SCRUBBER -->
+<div class="scrubber">
+  <button class="scrubber-nav" onclick="scrubPrev()">◀</button>
+  <div class="scrubber-track" id="scrubberTrack" onclick="scrubClick(event)">
+    <div class="scrubber-years" id="scrubberYears"></div>
+    <div class="scrubber-cursor" id="scrubberCursor" style="left:50%;"></div>
+  </div>
+  <button class="scrubber-nav" onclick="scrubNext()">▶</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA: 68 McNulty Documents
+// ═══════════════════════════════════════════════════
+const events = [
+  // 2022
+  { id:1, date:"2022-09-01", display:"Sep\n'22", type:"Text", title:"Early harassment texts begin", filename:"092022_MMM_texts", desc:"Pattern of targeting established", keyEvent:false,
+    media:{type:"text", header:"Text Messages — September 2022", bubbles:[{dir:"them",sender:"M. McNulty",text:"[First documented harassment texts — pattern begins September 2022]"},{dir:"me",sender:"Angel",text:"I have documented this exchange as evidence."}]},
+    caption:"September 2022 marks the beginning of McNulty's documented harassment campaign. Text messages establish the pattern of targeting that would continue for over two years." },
+
+  { id:2, date:"2022-10-15", display:"Oct\n'22", type:"Text", title:"Building intimidation texts", filename:"102022_MMM_texts", desc:"Escalating harassment documented",keyEvent:false,
+    media:{type:"text", header:"Text Messages — October 2022", bubbles:[{dir:"them",sender:"M. McNulty",text:"October 2022: Continued intimidation texts. Pattern escalates through building channels."},{dir:"me",sender:"Angel",text:"Documenting every exchange as evidence of ongoing harassment."}]},
+    caption:"October 2022 texts show escalation of intimidation tactics using the building's communication channels." },
+
+  // 2023
+  { id:3, date:"2023-03-01", display:"Mar\n'23", type:"TA", title:"TA election irregularities begin", filename:"03012023_MMM_TAelection", desc:"Election notice violations documented", keyEvent:true,
+    media:{type:"document", headerColor:"purple", title:"Tenant Association Election Irregularities — 2023", date:"March 2023", body:"McNulty begins pattern of election manipulation as TA President of 1760 Bush Street.<br><br><span class='highlight'>Key violation: 24 CFR §964.130 requires 30-day notice for TA elections. McNulty routinely provides 14–28 days.</span><br><br>This establishes the HUD regulatory violations that would be documented in the formal complaint."},
+    caption:"2023 TA elections: McNulty violates 24 CFR §964.130 by reducing the mandatory 30-day election notice. This becomes a central allegation in the HUD complaint." },
+
+  { id:4, date:"2023-06-01", display:"Jun\n'23", type:"Newsletter", title:"Mid-2023 building newsletter", filename:"06012023_MMM_news", desc:"TA bulletin used for influence", keyEvent:false,
+    media:{type:"document", headerColor:"pink", title:"TA Newsletter — June 2023", date:"June 2023", body:"McNulty uses official TA newsletters to shape building opinion and consolidate influence.<br><br>The newsletter format — distributed to all residents — becomes a vehicle for messaging that serves her private interests while appearing official."},
+    caption:"McNulty's newsletters blur the line between official TA communications and personal advocacy, establishing a pattern of misusing her official role." },
+
+  { id:5, date:"2023-09-01", display:"Sep\n'23", type:"TA", title:"CCSD oversight tensions rise", filename:"09012023_CCSDmmm", desc:"Conflict with CCSD oversight body", keyEvent:false,
+    media:{type:"document", headerColor:"gray", title:"CCSD Oversight Conflict — September 2023", date:"September 2023", body:"Citywide Council Senior/Disabled (CCSD) serves as the oversight body for tenant associations in HUD-assisted housing.<br><br>McNulty begins positioning herself against CCSD oversight — a precursor to her later effort to replace CCSD with her private RCA entity."},
+    caption:"September 2023: Tensions with CCSD oversight body begin. McNulty starts building the narrative that positions her private RCA as a 'better' alternative." },
+
+  // 2024 — Feb
+  { id:6, date:"2024-02-29", display:"Feb\n2/29", type:"Meeting", title:"CCSD recall hearing — McNulty responds to 18 grounds", filename:"MM Rec Transcript 02292024", desc:"Awareness of recall; conduct on record", keyEvent:true,
+    media:{type:"gov", org:"Citywide Council Senior/Disabled", meeting:"CCSD Recall Hearing", date:"February 29, 2024", seal:"🏛️", speaker:"Margaret McNulty — Respondent", quote:"McNulty responds publicly to 18 grounds for recall at the CCSD Board meeting. Her conduct in responding is itself entered into the record and demonstrates awareness of the accountability process.", footer:{left:"CCSD Board of Directors", right:"Feb 29, 2024"}},
+    caption:"<strong>Feb 29, 2024 — CCSD Recall Hearing:</strong> McNulty faces 18 grounds for recall. Her public response is entered into the record. This is key evidence that she was aware of the accountability process she was violating. <a href='#'>MM Rec Transcript 02292024</a>" },
+
+  // 2024 — Mar
+  { id:7, date:"2024-03-10", display:"Mar\n3/10", type:"Newsletter", title:"March 2024 newsletter — CCSD recall context", filename:"03102024_MMM_news", desc:"Timeline anchor: McNulty knew of recall pressure", keyEvent:true,
+    media:{type:"document", headerColor:"pink", title:"March 2024 TA Newsletter", date:"March 10, 2024", body:"McNulty distributes a building-wide newsletter during the active CCSD recall period.<br><br><span class='highlight'>Key significance: This newsletter establishes that McNulty was actively communicating to residents while simultaneously under recall proceedings — she knew of the pressure and continued her conduct.</span><br><br>The newsletter is distributed in English to the building community at 1760 Bush Street, San Francisco."},
+    caption:"<strong>March 10, 2024 — Newsletter:</strong> Timeline anchor proving McNulty continued her public communications during active recall proceedings. Establishes awareness and intent. File: 03102024_MMM_news" },
+
+  // 2024 — Apr 4
+  { id:8, date:"2024-04-04", display:"Apr\n4/4", type:"Meeting", title:"HOC/LHCB Seat 11 intro — falsely claims 3rd term", filename:"04042024_MMMhoc", desc:"False representation of role before govt body", keyEvent:true, flag:true,
+    media:{type:"gov", org:"SF Homelessness Oversight Commission / Local Homeless Coordinating Board", meeting:"HOC/LHCB Public Meeting", date:"April 4, 2024", seal:"🏛️", speaker:"Margaret McNulty — LHCB Seat 11", quote:"McNulty introduces herself before the government body and falsely represents her tenure, claiming a 3rd term. She simultaneously holds this appointed city position while serving as 1760 Bush Street TA President — a dual role she uses to lend false governmental authority to her private actions.", footer:{left:"SF City Government", right:"Apr 4, 2024 · HOC"}},
+    caption:"<strong>April 4, 2024 — HOC/LHCB Meeting:</strong> McNulty falsely claims 3rd term before a government body. This is key to the false 'Commissioner' representation documented in the HUD complaint. File: 04042024_MMMhoc" },
+
+  // 2024 — Apr 25
+  { id:9, date:"2024-04-25", display:"Apr\n4/25", type:"RCA", title:"CCSD/SFHA plan — early RCA organization", filename:"04252024_CCSDmmmSFHA", desc:"24 CFR conflict of interest begins", keyEvent:true, flag:true,
+    media:{type:"graphic", stamps:["CONFLICT OF INTEREST","24 CFR VIOLATION"], bigText:"WHILE SERVING AS\nTA PRESIDENT", subtext:"McNulty organizes private RCA entity to replace CCSD", dateBadge:"APRIL 25, 2024"},
+    caption:"<strong>April 25, 2024 — RCA Organization Begins:</strong> While still serving as TA President, McNulty begins organizing RCA (Resident Council Advisors) as a private, for-profit oversight entity intended to replace CCSD. This is a clear 24 CFR conflict of interest. File: 04252024_CCSDmmmSFHA" },
+
+  // 2024 — May 10
+  { id:10, date:"2024-05-10", display:"May\n5/10", type:"RCA", title:"Emails 19-page RCA proposal to SFHA", filename:"05102024_RCA-RBA_MMM", desc:"SFHA funding pursuit while serving as TA Pres", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"purple", title:"19-Page RCA Proposal to SFHA", date:"May 10, 2024", body:"McNulty submits a formal 19-page organizational document to the San Francisco Housing Authority proposing RCA as the new oversight body for HUD/RAD tenant associations.<br><br><span class='highlight'>Key statement (May 9, 2024 text): \"My new company being funded by SAN FRANCISCO HOUSING AUTHORITY is a better, stronger CCSD\" — sent while still serving as TA President.</span><br><br>This document establishes that RCA is a structured business effort, not informal — and that McNulty pursued government funding while simultaneously holding the TA President role she was supposed to serve without conflict."},
+    caption:"<strong>May 10, 2024 — 19-Page RCA Proposal:</strong> McNulty submits formal business proposal to SFHA seeking public funding for her private company while still TA President. This is the central conflict-of-interest document. File: 05102024_RCA-RBA_MMM" },
+
+  // 2024 — May 13 (dead name)
+  { id:11, date:"2024-05-13", display:"May\n5/13", type:"Text", title:"McNulty outs Angel's gender identity publicly", filename:"05132024_MMM_deadname", desc:"Posts dead name on building bulletin board", keyEvent:true, flag:true,
+    media:{type:"graphic", stamps:["TRANS IDENTITY","OUTED WITHOUT CONSENT"], bigText:"POSTED DEAD\nNAME ON\nBULLETIN BOARD", subtext:"Building-wide outing of protected identity", dateBadge:"MAY 13, 2024"},
+    caption:"<strong>May 13, 2024:</strong> McNulty posts Angel's dead name on the building bulletin board without consent, publicly outing their gender identity. This constitutes discrimination based on protected identity. File: 05132024_MMM_deadname" },
+
+  // 2024 — May 18
+  { id:12, date:"2024-05-18", display:"May\n5/18", type:"Text", title:"\"IF YOU IDENTIFY AS A MALE\" dismissal text", filename:"05182024_MMM_texts", desc:"Dismisses harm of outing in writing — on record", keyEvent:true, flag:true,
+    media:{type:"text", header:"Text Messages — May 18, 2024", bubbles:[{dir:"them",sender:"M. McNulty",text:"IF YOU IDENTIFY AS A MALE HOW CAN ME OUTING YOU AS SCOTT HAVE BEEN SOOOOO BAD... Scott is a male name!!"},{dir:"them",sender:"M. McNulty",text:"Then you signed my name on your attempt to replace oversight of CCSD"},{dir:"me",sender:"Angel",text:"[May 18, 2024 — Angel's response documenting McNulty's unauthorized signature and identity-based harassment]"}]},
+    caption:"<strong>May 18, 2024 — Text Exchange:</strong> McNulty dismisses the harm of outing Angel's gender identity in writing ('Scott is a male name!!'). Also confirms she signed Angel's name on the RCA proposal without authorization. Both admissions documented in this exchange. File: 05182024_MMM_texts" },
+
+  // 2024 — Jun 28
+  { id:13, date:"2024-06-28", display:"Jun\n6/28", type:"TA", title:"Irregular TA election — 14-day notice", filename:"06282024_MMM_TAelection", desc:"24 CFR §964.130 violation — 14 days vs. 30 required", keyEvent:true, flag:true,
+    media:{type:"graphic", stamps:["14 DAYS","30 DAYS REQUIRED"], bigText:"IRREGULAR\nELECTION", subtext:"1760 Bush St TA President Election — June 28, 2024", dateBadge:"JUN 28, 2024 · 24 CFR §964.130 VIOLATION"},
+    caption:"<strong>June 28, 2024 — TA Election:</strong> McNulty conducts TA president election with only 14-day notice, violating 24 CFR §964.130's mandatory 30-day requirement. This is a central allegation in the HUD complaint. NOTE: HUD complaint used 'irregular' language — should be 'improper' on refile. File: 06282024_MMM_TAelection" },
+
+  // 2024 — Jul
+  { id:14, date:"2024-07-11", display:"Jul\n7/11", type:"TA", title:"Post-election newsletter — claims legitimacy", filename:"07112024_MMM_news", desc:"Asserts authority following irregular election", keyEvent:false,
+    media:{type:"document", headerColor:"pink", title:"July 2024 Newsletter — Post-Election", date:"July 11, 2024", body:"Following the June 28 irregular election, McNulty distributes a newsletter asserting the legitimacy of her continued TA leadership.<br><br>This newsletter is part of the pattern of using official-seeming communications to consolidate power after procedurally defective elections."},
+    caption:"July 2024 newsletter asserts McNulty's authority following the June 28 irregular election. Distributed to building community establishing her continued claim to the TA President role." },
+
+  // 2024 — Aug
+  { id:15, date:"2024-08-01", display:"Aug\n'24", type:"TA", title:"Community room access blocked — retaliation", filename:"08012024_MMM_retaliation", desc:"Retaliation for protected tenant organizing activity", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"gray", title:"Retaliation — Community Room Access Blocked", date:"August 2024", body:"McNulty blocks Angel's access to the community room in retaliation for protected tenant organizing activity.<br><br><span class='highlight'>This constitutes unlawful retaliation under HUD regulations and is documented in the formal HUD complaint.</span><br><br>The community room blockage is one of several retaliatory actions McNulty takes following Angel's attempts to document and oppose her conduct."},
+    caption:"<strong>August 2024:</strong> McNulty blocks community room access as retaliation for Angel's protected organizing activity. This is a documented HUD complaint allegation. File: 08012024_MMM_retaliation" },
+
+  // 2024 — Oct
+  { id:16, date:"2024-10-01", display:"Oct\n'24", type:"RCA", title:"RCA organizational structure document", filename:"10012024_RCA_org", desc:"Formal 19-pg RCA org document — structured entity", keyEvent:true,
+    media:{type:"document", headerColor:"purple", title:"RCA Organizational Document — 2024", date:"October 2024", body:"The formal 19-page RCA (Resident Council Advisors) organizational document establishes RCA as a structured private business — not an informal community effort.<br><br><span class='highlight'>This document is critical evidence that McNulty's RCA is a deliberate business venture that she was simultaneously operating while holding the unpaid, conflict-prohibited TA President role.</span><br><br>Howard Hill is listed as RCA Vice President in public meetings."},
+    caption:"The 19-page RCA organizational document (2024) establishes RCA as a structured for-profit entity. Combined with McNulty's text messages, it proves the conflict of interest was intentional and systematic. File: 10012024_RCA_org" },
+
+  // 2024 — Nov
+  { id:17, date:"2024-11-01", display:"Nov\n'24", type:"Newsletter", title:"Fall 2024 newsletter — continued TA authority claim", filename:"11012024_MMM_news", desc:"Asserts TA President role amid active disputes", keyEvent:false,
+    media:{type:"document", headerColor:"pink", title:"Fall 2024 TA Newsletter", date:"November 2024", body:"McNulty continues issuing newsletters asserting TA President authority despite ongoing HUD complaints, CCSD oversight disputes, and documented conflicts of interest.<br><br>The multi-language distribution (English, Chinese, Russian) is used to reach residents who may not be aware of the procedural violations."},
+    caption:"Fall 2024 newsletter: McNulty continues asserting TA President authority despite active complaints, oversight disputes, and documented conflicts of interest." },
+
+  // 2024 — Dec
+  { id:18, date:"2024-12-01", display:"Dec\n'24", type:"Court", title:"TRO filed — civil harassment", filename:"12012024_TRO_CCH25587859", desc:"Case CCH-25-587859 initiated", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"blue", title:"Temporary Restraining Order Filed", date:"December 2024", body:"Angel files for a Temporary Restraining Order against McNulty in San Francisco Superior Court.<br><br><span class='highlight'>Case Number: CCH-25-587859<br>Statute: CCP §527.6 — Civil Harassment Restraining Order<br>Presiding Judge: Judge Tong</span><br><br>The TRO is granted, establishing that Angel's claims meet the threshold for judicial intervention."},
+    caption:"<strong>December 2024 — TRO Filed:</strong> Angel initiates Case CCH-25-587859 under CCP §527.6. The TRO is granted, establishing the court's recognition of the civil harassment. File: 12012024_TRO_CCH25587859" },
+
+  // 2025 — Jan 23
+  { id:19, date:"2025-01-23", display:"Jan\n1/23", type:"Meeting", title:"Angel's Housing Commission statement exposing McNulty", filename:"01232025_HOC_Angel", desc:"Public record: McNulty's dual role documented on record", keyEvent:true,
+    media:{type:"gov", org:"SF Housing Authority Commission", meeting:"General Public Comments", date:"January 23, 2025", seal:"🏛️", speaker:"Angel Rittenburg — Public Comment", quote:"Angel speaks publicly before the SF Housing Authority Commission, placing McNulty's conflict of interest — her simultaneous roles as TA President and RCA founder seeking SFHA funding — on the official government record.", footer:{left:"SF Housing Authority", right:"Jan 23, 2025"}},
+    caption:"<strong>January 23, 2025 — SF Housing Authority Commission:</strong> Angel's public statement places McNulty's dual-role conflict of interest on the official government record. This creates an independent public record of the allegations. File: 01232025_HOC_Angel" },
+
+  // 2025 — Jan 29
+  { id:20, date:"2025-01-29", display:"Jan\n1/29", type:"Court", title:"Zia's false police report — elevator incident", filename:"01262025_ZIA_incident", desc:"False threat accusation; police found no evidence", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"blue", title:"Incident Report — January 29, 2025", date:"January 29, 2025", body:"Kezia Villias-Martinis (Zia, Apt. 409) files a false police report claiming Angel threatened to kill her during a routine elevator encounter.<br><br><span class='highlight'>Result: Police investigated and determined Angel posed no threat. Police recommended Angel file a restraining order against Zia.</span><br><br>This false accusation is consistent with the coordinated harassment campaign. Zia had been appointed by McNulty as TA Secretary in March 2024."},
+    caption:"<strong>January 29, 2025 — False Police Report:</strong> Zia falsely accuses Angel of threatening to kill her in an elevator. Police investigation found no threat — and recommended Angel file a restraining order against Zia. File: 01262025_ZIA_incident" },
+
+  // 2025 — Feb 27
+  { id:21, date:"2025-02-27", display:"Feb\n2/27", type:"Meeting", title:"Housing Commission: Jones defends McNulty + confirmed RCA officer", filename:"02272025_SFHA_HOC", desc:"Maxine Jones confirms dual role: city board + RCA officer", keyEvent:true, flag:true,
+    media:{type:"gov", org:"SF Housing Authority Commission", meeting:"Board of Commissioners — Public Comment", date:"February 27, 2025", seal:"🏛️", speaker:"Maxine Jones (LHCB Seat 10) + Margaret McNulty", quote:"Maxine Jones: 'She was my instructor, my teacher, okay, for housing advocacy.' McNulty then announces: 'Maxine Jones as well... Maxine has gone through level 1, which is fantastic.' Jones holds LHCB Seat 10 (McNulty holds Seat 11) AND is confirmed as an active RCA Level 1 officer.", footer:{left:"SF Housing Authority Commission", right:"Feb 27, 2025"}, sourceUrl:"https://sfgov.granicus.com/MediaPlayer.php?view_id=33&clip_id=13000", sourceLabel:"SF Gov Archive"},
+    caption:"<strong>February 27, 2025 — Housing Commission:</strong> Maxine Jones (city board LHCB Seat 10) publicly defends McNulty AND is confirmed as RCA Level 1 officer by McNulty. This establishes Jones's dual conflict-of-interest role. File: 02272025_SFHA_HOC" },
+
+  // 2025 — Mar (TRO hearing)
+  { id:22, date:"2025-03-01", display:"Mar\n'25", type:"Court", title:"Court proceedings — pre-hearing filings", filename:"03012025_court_filings", desc:"Evidence preparation for CCH-25-587859", keyEvent:false,
+    media:{type:"document", headerColor:"blue", title:"Court Filings — Pre-Hearing", date:"March 2025", body:"Pre-hearing filings for Case CCH-25-587859 in preparation for the restraining order hearing before Judge Tong.<br><br>Angel compiles evidence including: farewell letter analysis, text message documentation, election irregularities, and the RCA conflict-of-interest documentation."},
+    caption:"March 2025 court filings: Evidence compilation for the CCP §527.6 civil harassment hearing before Judge Tong." },
+
+  // 2025 — Apr (February hearing audio)
+  { id:23, date:"2025-04-01", display:"Apr\n'25", type:"Video", title:"Court audio ordered — February hearing", filename:"04012025_FTR_audio", desc:"ForTheRecord.com court audio — key remarks by Judge Tong", keyEvent:true,
+    media:{type:"video", title:"Court Audio Recording — February 2025 Hearing", date:"Ordered via ForTheRecord.com · April 2025", sfgov:"COURT RECORDING", thumbDesc:"San Francisco Superior Court · Case CCH-25-587859 · Judge Tong presiding · February 2025 hearing audio ordered through FTR portal"},
+    caption:"<strong>April 2025:</strong> Angel orders court audio through ForTheRecord.com. Received only portions directly involving the case. Judge Tong made remarks before proceedings began that may be relevant context — full session audio may need to be requested through the court clerk directly." },
+
+  // 2025 — Apr 24 (SFHA video)
+  { id:24, date:"2025-04-24", display:"Apr\n4/24", type:"Video", title:"SFHA Board meeting — McNulty and RCA on record", filename:"04242025_SFHA_video", desc:"SF Gov broadcast — McNulty's public testimony", keyEvent:true,
+    media:{type:"video", title:"SF Housing Authority Board of Commissioners", date:"April 24, 2025 · General Public Comments", sfgov:"SF GOV BROADCAST", thumbDesc:"Housing Authority Board of Commissioners Meeting · April 24, 2025 · McNulty and RCA representatives address the Commission on public record", videoId:"9TBbgo7vPJU", sourceUrl:"https://www.youtube.com/watch?v=9TBbgo7vPJU"},
+    caption:"<strong>April 24, 2025 — SFHA Board Meeting:</strong> McNulty and RCA associates appear before the Housing Authority Commission. This is one of the SF Gov broadcasts documenting her public conduct. File: 04242025_SFHA_video" },
+
+  // 2025 — May (HUD complaint filed)
+  { id:25, date:"2025-05-01", display:"May\n'25", type:"Legal", title:"HUD complaint filed — OFHEO", filename:"05012025_HUD_complaint", desc:"Office of Fair Housing — 5 counts filed; HUD has not followed up", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"gray", title:"HUD Complaint — Office of Fair Housing and Equal Opportunity", date:"Filed May 2025", body:"Formal HUD complaint filed covering five counts:<br><br><span class='highlight'>1. False representation of governmental role ('Commissioner' vs. advisory member)<br>2. 24 CFR §245.15 — reduced election notice (14 days vs. 30 required)<br>3. Biased election proctors affiliated with RCA<br>4. Retaliation for protected tenant organizing<br>5. Post-TRO harassment and misuse of TA authority</span><br><br><strong>⚠️ Language issue:</strong> Complaint used 'irregular nomination/meeting' — HUD intake responds to 'improper.' Refile should correct this throughout.<br><br><strong>Status: HUD has not followed up.</strong>"},
+    caption:"<strong>May 2025 — HUD Complaint Filed:</strong> Five counts filed with the Office of Fair Housing and Equal Opportunity. NOTE: Critical language flaw — 'irregular' should be 'improper' on refile. HUD has not followed up. File: 05012025_HUD_complaint" },
+
+  // 2025 — Jun
+  { id:26, date:"2025-06-01", display:"Jun\n'25", type:"TA", title:"Continued post-TRO harassment", filename:"06012025_MMM_postTRO", desc:"Violations of TRO terms documented", keyEvent:false,
+    media:{type:"document", headerColor:"gray", title:"Post-TRO Harassment Documentation", date:"June 2025", body:"Documentation of McNulty's continued conduct despite the active Temporary Restraining Order.<br><br>Post-TRO violations are documented and constitute additional grounds for the ongoing legal proceedings."},
+    caption:"June 2025: Documentation of post-TRO violations. McNulty continues conduct despite active restraining order." },
+
+  // 2025 — Aug (CIS mediation)
+  { id:27, date:"2025-08-12", display:"Aug\n8/12", type:"Legal", title:"CIS Mediation Settlement — Case #8954", filename:"Settlement_Martinis_Allen_8954", desc:"Mediator Alice Shikina · Two-term agreement signed", keyEvent:true,
+    media:{type:"document", headerColor:"blue", title:"CIS Mediation Settlement Agreement", date:"August 12–13, 2025 · Case #8954", body:"Bar Association of San Francisco Conflict Intervention Services<br><span class='sender'>Mediator: Alice Shikina (mediator@aliceshikina.com)</span><br><br><span class='highlight'>Term 1: Angel agrees to not talk about Zia with anyone.<br>Term 2: Zia agrees to not contact or text Angel.</span><br><br>Signed via Dropbox Sign, August 12–13, 2025. Admissible under California Evidence Code §1123 to enforce terms.<br><br><em>Note: Attorney-client communications re: prior events are generally protected. Patrick Doyle's guidance needed on scope before including Zia in broader legal filings.</em>"},
+    caption:"<strong>August 12–13, 2025 — CIS Settlement Agreement (Case #8954):</strong> Two-term settlement with Zia. Term 1 is broad but attorney communications re: prior events are protected. Guidance from Patrick Doyle needed before including Zia in any court filings." },
+
+  // 2025 — Oct (180-day deadline approaching)
+  { id:28, date:"2025-10-01", display:"Oct\n'25", type:"Court", title:"180-day fee motion window — strategic review", filename:"10012025_180day_strategy", desc:"No Notice of Judgment filed → 180 days from Apr 9, 2026", keyEvent:true,
+    media:{type:"document", headerColor:"blue", title:"Strategic Timeline — 180-Day Window", date:"October 2025", body:"Since no Notice of Judgment was filed after the April 9, 2026 hearing, the 180-day window for fee motions runs approximately to October 6, 2026.<br><br><span class='highlight'>CCP §527.6 fee analysis: Judge Tong did not extend the TRO. Fee recovery path is limited — Judge Tong's silence on fees at the April 9 hearing is the key obstacle under CCP §1032's four-category prevailing party analysis.</span><br><br>This period is the window for strategic decision-making about next steps with Patrick Doyle."},
+    caption:"October 2025: 180-day strategic window. No Notice of Judgment filed = ~October 6, 2026 deadline for any fee motion. Key period for strategic planning with attorney Patrick Doyle." },
+
+  // 2026 — Feb (hearing)
+  { id:29, date:"2026-02-01", display:"Feb\n'26", type:"Court", title:"February 2026 court hearing — Judge Tong remarks", filename:"02012026_hearing_audio", desc:"Judge's pre-proceeding remarks — requested full audio", keyEvent:true,
+    media:{type:"video", title:"February 2026 Hearing — Superior Court", date:"February 2026 · Case CCH-25-587859 · Judge Tong", sfgov:"COURT RECORDING", thumbDesc:"Judge Tong made remarks before proceedings began that may be relevant context. FTR provided only case-specific portions — full session may require direct request to court clerk."},
+    caption:"<strong>February 2026 Hearing:</strong> Judge Tong made remarks before proceedings began that may provide context. Audio ordered through FTR — only case-specific portions received. Full session audio may need to be requested through court clerk's office directly." },
+
+  // 2026 — Apr 9 (KEY HEARING)
+  { id:30, date:"2026-04-09", display:"Apr\n4/9", type:"Court", title:"April 9 hearing — TRO not extended; Judge Tong silent on fees", filename:"04092026_hearing_TRO", desc:"Critical: no fee order; 180-day window begins", keyEvent:true, flag:true,
+    media:{type:"graphic", stamps:["APRIL 9, 2026","KEY HEARING"], bigText:"TRO NOT\nEXTENDED", subtext:"Judge Tong silent on fees · CCP §527.6 · Case CCH-25-587859", dateBadge:"180-DAY WINDOW BEGINS → ~OCT 6, 2026"},
+    caption:"<strong>April 9, 2026 — Critical Hearing:</strong> Judge Tong does not extend McNulty's restraining order. No fee order issued — Judge Tong's silence on fees is the key obstacle for cost recovery under CCP §1032. No Notice of Judgment filed. 180-day window begins." },
+
+  // 2026 — May 13 (FAREWELL LETTER — NEW DEFAMATION)
+  { id:31, date:"2026-05-13", display:"May\n5/13", type:"Newsletter", title:"McNulty farewell letter — NEW defamation slander per se", filename:"05132026_MMM_farewell", desc:"Defamation: 'forced her out,' 'ill-gotten deeds,' 'black-hearted'", keyEvent:true, flag:true,
+    media:{type:"document", headerColor:"pink", title:"McNulty Farewell Letter to Building Community", date:"May 13, 2026 · Distributed in English, Chinese, Russian", body:"Distributed building-wide on the same day as Patrick Doyle's legal analysis email.<br><br>McNulty states publicly, by Angel's full name and unit number:<br><br><span class='highlight'>• \"forced her out\" through \"constant targeted harassment\"<br>• \"motivated by ill-gotten deeds\"<br>• \"black-hearted\"<br>• Neighbors should not \"put your trust in him\" or \"reward his behavior by voting for him\"</span><br><br><strong>Legal analysis (Civil Code §46):</strong> These statements — charging Angel with harassment and criminal or unethical conduct, made publicly to the building community — constitute new instances of slander per se, each renewing the statute of limitations."},
+    caption:"<strong>May 13, 2026 — Farewell Letter:</strong> McNulty distributes building-wide letter (English, Chinese, Russian) with statements constituting slander per se under Civil Code §46. New defamation claims with renewed statute of limitations. Key new evidence for Patrick Doyle." },
+];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let currentFilter = 'All';
+let currentEventId = null;
+let filteredEvents = [...events];
+
+// ═══════════════════════════════════════════════════
+// RENDER TIMELINE EVENTS
+// ═══════════════════════════════════════════════════
+function renderEvents() {
+  filteredEvents = currentFilter === 'All'
+    ? [...events]
+    : events.filter(e => e.type === currentFilter || (currentFilter === 'Legal' && e.type === 'Legal'));
+
+  const container = document.getElementById('timelineEvents');
+  container.innerHTML = '';
+
+  filteredEvents.forEach(ev => {
+    const row = document.createElement('div');
+    row.className = 'event-row' + (ev.id === currentEventId ? ' active' : '');
+    row.dataset.id = ev.id;
+    row.onclick = () => selectEvent(ev.id);
+
+    const dateParts = ev.display.split('\n');
+    const dateHtml = dateParts.length > 1
+      ? `<div>${dateParts[1]}</div><div style="font-size:9px;color:#aaa">${dateParts[0]}</div>`
+      : `<div>${ev.display}</div>`;
+
+    const indicators = (ev.keyEvent ? '<div class="dot-key"></div>' : '') +
+                       (ev.flag ? '<div class="flag-red">🚩</div>' : '');
+
+    row.innerHTML = `
+      <div class="event-date">${dateHtml}</div>
+      <div class="event-badge-col"><span class="badge badge-${ev.type}">${ev.type}</span></div>
+      <div class="event-content">
+        <div class="event-title">${ev.title}</div>
+        <div class="event-filename">${ev.filename}</div>
+        <div class="event-desc desc-${ev.type}">${ev.desc}</div>
+      </div>
+      <div class="event-indicators">${indicators}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// SELECT EVENT
+// ═══════════════════════════════════════════════════
+function selectEvent(id) {
+  currentEventId = id;
+  const ev = events.find(e => e.id === id);
+  if (!ev) return;
+
+  // Update active row
+  document.querySelectorAll('.event-row').forEach(r => {
+    r.classList.toggle('active', parseInt(r.dataset.id) === id);
+  });
+
+  // Build media card
+  const card = document.getElementById('dynamicCard');
+  card.innerHTML = buildMediaCard(ev);
+
+  // Activate dynamic card, deactivate default
+  document.getElementById('card-default').classList.remove('active');
+  card.classList.add('active');
+
+  // Update caption
+  document.getElementById('captionArea').innerHTML = `<p>${ev.caption}</p>`;
+
+  // Update scrubber position
+  updateScrubberPosition(ev.date);
+
+  // Scroll event into view
+  const activeRow = document.querySelector('.event-row.active');
+  if (activeRow) activeRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════════
+// BUILD MEDIA CARD HTML
+// ═══════════════════════════════════════════════════
+function sourceBar(url, label, filename) {
+  if (!url && !filename) return '';
+  const linkHtml = url
+    ? `<a href="${url}" target="_blank" rel="noopener">🔗 ${label || 'View Source'}</a>`
+    : `<span style="color:#aaa;font-size:11px;">📁 ${filename||''}</span>`;
+  const fileLabel = filename ? `<span class="source-link-label">${filename}</span>` : '';
+  return `<div class="source-link-bar">${linkHtml}${fileLabel}</div>`;
+}
+
+function buildMediaCard(ev) {
+  const m = ev.media;
+  if (!m) return '<div style="background:#111;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#555;font-size:14px;">No preview available</div>';
+
+  switch(m.type) {
+    case 'gov': return `
+      <div class="card-gov-meeting" style="position:relative;padding-bottom:48px;">
+        <div>
+          <div class="gov-header">
+            <div class="gov-seal">${m.seal}</div>
+            <div class="gov-title">
+              <div class="org">${m.org}</div>
+              <div class="meeting">${m.meeting}</div>
+              <div class="date">${m.date}</div>
+            </div>
+          </div>
+          <div class="gov-body">
+            <div class="gov-speaker">${m.speaker}</div>
+            <div class="gov-quote">${m.quote}</div>
+          </div>
+        </div>
+        <div class="gov-footer">
+          <span>${m.footer.left}</span>
+          <span>${m.footer.right}</span>
+        </div>
+        ${sourceBar(m.sourceUrl, m.sourceLabel || 'SF Gov Archive', ev.filename)}
+      </div>`;
+
+    case 'video': {
+      const thumbUrl = m.videoId
+        ? `https://img.youtube.com/vi/${m.videoId}/maxresdefault.jpg`
+        : null;
+      const bgStyle = thumbUrl
+        ? `background:url('${thumbUrl}') center/cover no-repeat;`
+        : `background:linear-gradient(135deg,#1a1a2e 0%,#0d1b2a 50%,#1a1a2e 100%);`;
+      const playLink = m.sourceUrl
+        ? `<a href="${m.sourceUrl}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;background:rgba(255,0,0,0.9);border-radius:50%;text-decoration:none;flex-shrink:0;"><span style="font-size:22px;margin-left:4px;">▶</span></a>`
+        : `<div style="width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-left:4px;">▶</div>`;
+      return `
+      <div class="card-video" style="position:relative;width:100%;height:100%;background:#111;">
+        <div style="width:100%;height:100%;${bgStyle}display:flex;align-items:center;justify-content:center;">
+          <div style="background:rgba(0,0,0,0.55);border-radius:12px;padding:20px 24px;text-align:center;max-width:380px;">
+            <div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+              ${playLink}
+            </div>
+            <div style="color:#7af;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">${m.sfgov}</div>
+            <div style="color:#fff;font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">${m.title}</div>
+            <div style="color:#ccc;font-size:11px;line-height:1.5;">${m.thumbDesc}</div>
+          </div>
+        </div>
+        <div style="position:absolute;top:12px;left:12px;">
+          <span class="video-sfgov">${m.sfgov}</span>
+        </div>
+        <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:4px 8px;border-radius:2px;">${m.date}</div>
+        ${sourceBar(m.sourceUrl, '▶ Watch on YouTube', ev.filename)}
+      </div>`;
+    }
+
+    case 'graphic': return `
+      <div class="card-graphic" style="width:100%;height:100%;position:absolute;inset:0;">
+        <div class="graphic-bg" style="width:100%;height:100%;position:relative;padding-bottom:48px;">
+          <div class="graphic-content">
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:12px;">
+              ${(m.stamps||[]).map((s,i) => `<span class="stamp-red" style="transform:rotate(${i%2===0?'-8deg':'5deg'})">${s}</span>`).join('')}
+            </div>
+            <div class="graphic-big-text">${(m.bigText||'').replace(/\n/g,'<br>')}</div>
+            <div class="graphic-subtext">${m.subtext||''}</div>
+            ${m.dateBadge ? `<div class="graphic-date-badge">${m.dateBadge}</div>` : ''}
+          </div>
+        </div>
+        ${sourceBar(m.sourceUrl, m.sourceLabel||'View Document', ev.filename)}
+      </div>`;
+
+    case 'document': return `
+      <div class="card-document" style="width:100%;height:100%;position:absolute;inset:0;overflow-y:auto;padding-bottom:44px;">
+        <div class="doc-header ${m.headerColor||'gray'}">
+          <div class="doc-title">${m.title}</div>
+          <div class="doc-date">${m.date}</div>
+        </div>
+        <div class="doc-body">
+          ${(m.body||'').split('<br><br>').map(p=>`<p>${p}</p>`).join('')}
+        </div>
+        ${sourceBar(m.sourceUrl, m.sourceLabel||'View Document', ev.filename)}
+      </div>`;
+
+    case 'text': return `
+      <div class="card-text-msg" style="width:100%;height:100%;position:absolute;inset:0;overflow-y:auto;padding-bottom:44px;">
+        <div class="msg-header">${m.header}</div>
+        ${(m.bubbles||[]).map(b => `
+          <div>
+            ${b.dir==='them' ? `<div class="msg-sender">${b.sender}</div>` : ''}
+            <div class="msg-bubble ${b.dir}">${b.text}</div>
+          </div>
+        `).join('')}
+        ${sourceBar(m.sourceUrl, m.sourceLabel||'View Source', ev.filename)}
+      </div>`;
+
+    default: return '';
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════════════
+function setFilter(type) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === type);
+  });
+  renderEvents();
+}
+
+// ═══════════════════════════════════════════════════
+// SCRUBBER
+// ═══════════════════════════════════════════════════
+const YEARS = [2022, 2023, 2024, 2025, 2026];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+let scrubOffset = 0;
+
+function buildScrubber() {
+  const track = document.getElementById('scrubberTrack');
+  const years = document.getElementById('scrubberYears');
+  years.innerHTML = '';
+
+  // Find months with events
+  const eventMonths = new Set(events.map(e => e.date.substring(0, 7)));
+
+  YEARS.forEach(yr => {
+    const yg = document.createElement('div');
+    yg.className = 'scrubber-year-group';
+    yg.innerHTML = `<div class="scrubber-year-label">${yr}</div>`;
+    const ms = document.createElement('div');
+    ms.className = 'scrubber-months';
+    MONTHS.forEach((m, i) => {
+      const key = `${yr}-${String(i+1).padStart(2,'0')}`;
+      const hasEvt = eventMonths.has(key);
+      const span = document.createElement('span');
+      span.className = 'scrubber-month' + (hasEvt ? ' has-events' : '');
+      span.dataset.key = key;
+      span.textContent = m;
+      span.onclick = (e) => { e.stopPropagation(); jumpToMonth(key); };
+      ms.appendChild(span);
+    });
+    yg.appendChild(ms);
+    years.appendChild(yg);
+  });
+}
+
+function updateScrubberPosition(dateStr) {
+  const date = new Date(dateStr);
+  const yr = date.getFullYear();
+  const mo = date.getMonth();
+  const key = `${yr}-${String(mo+1).padStart(2,'0')}`;
+
+  // Highlight current month
+  document.querySelectorAll('.scrubber-month').forEach(el => {
+    el.classList.toggle('current', el.dataset.key === key);
+  });
+
+  // Scroll to show current month & move cursor
+  const el = document.querySelector(`.scrubber-month[data-key="${key}"]`);
+  if (!el) return;
+
+  const track = document.getElementById('scrubberTrack');
+  const years = document.getElementById('scrubberYears');
+  const cursor = document.getElementById('scrubberCursor');
+
+  // Absolute left of this month cell within the full (unclipped) years strip
+  const yg = el.closest('.scrubber-year-group');
+  const elAbsLeft = yg.offsetLeft + el.offsetLeft;
+  const elCenter = elAbsLeft + el.offsetWidth / 2;
+
+  // Desired offset: center this month in the track
+  const trackW = track.offsetWidth;
+  scrubOffset = Math.max(0, elCenter - trackW / 2);
+  years.style.transform = `translateX(-${scrubOffset}px)`;
+
+  // Cursor sits at exactly (elCenter - scrubOffset) within the track,
+  // which equals trackW/2 when we've centered it — but clamp to track bounds.
+  const cursorPx = Math.max(4, Math.min(trackW - 4, elCenter - scrubOffset));
+  cursor.style.left = cursorPx + 'px';
+}
+
+function jumpToMonth(key) {
+  const eventsInMonth = events.filter(e => e.date.startsWith(key));
+  if (eventsInMonth.length > 0) {
+    selectEvent(eventsInMonth[0].id);
+  }
+}
+
+function scrubPrev() {
+  const idx = filteredEvents.findIndex(e => e.id === currentEventId);
+  if (idx > 0) selectEvent(filteredEvents[idx - 1].id);
+  else if (idx === -1 && filteredEvents.length > 0) selectEvent(filteredEvents[filteredEvents.length - 1].id);
+}
+
+function scrubNext() {
+  const idx = filteredEvents.findIndex(e => e.id === currentEventId);
+  if (idx === -1 && filteredEvents.length > 0) { selectEvent(filteredEvents[0].id); return; }
+  if (idx < filteredEvents.length - 1) selectEvent(filteredEvents[idx + 1].id);
+}
+
+function scrubClick(e) {
+  // Click on scrubber track — find nearest event
+  const track = document.getElementById('scrubberTrack');
+  const years = document.getElementById('scrubberYears');
+  const clickX = e.clientX - track.getBoundingClientRect().left + scrubOffset;
+  let closest = null;
+  let closestDist = Infinity;
+  document.querySelectorAll('.scrubber-month').forEach(el => {
+    const elLeft = el.offsetLeft + el.closest('.scrubber-year-group').offsetLeft + el.offsetWidth / 2;
+    const dist = Math.abs(elLeft - clickX);
+    if (dist < closestDist) { closestDist = dist; closest = el.dataset.key; }
+  });
+  if (closest) jumpToMonth(closest);
+}
+
+// ═══════════════════════════════════════════════════
+// NAV TABS
+// ═══════════════════════════════════════════════════
+function setView(view) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  event.target.classList.add('active');
+  // Views are the same for now — timeline is the primary view
+}
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+renderEvents();
+buildScrubber();
+
+// Auto-select first key event
+const firstKey = events.find(e => e.keyEvent);
+if (firstKey) setTimeout(() => selectEvent(firstKey.id), 300);
+</script>
+</body>
+</html>
