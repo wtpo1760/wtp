@@ -754,13 +754,25 @@ const events = [
     caption:"<strong>March 10, 2024 — Newsletter:</strong> Timeline anchor proving McNulty continued her public communications during active recall proceedings. Establishes awareness and intent. File: 03102024_MMM_news" },
 
   // 2024 — Apr 4
-  { id:8, date:"2024-04-04", display:"Apr\n4/4", type:"Meeting", title:"HOC/LHCB Seat 11 intro — falsely claims 3rd term", filename:"04042024_MMMhoc", desc:"False representation of role before govt body", keyEvent:true, flag:true,
-    media:{type:"archive", archiveId:"SFGTV_20240405_040000_Housing_Authority_Board", title:"Housing Authority Board — SFGTV · April 4, 2024", date:"April 4, 2024 · 9:00pm–11:06pm PDT", org:"SF Housing Authority Board of Commissioners", sourceUrl:"https://archive.org/details/SFGTV_20240405_040000_Housing_Authority_Board", sourceLabel:"View full recording on Internet Archive",
+  { id:8, date:"2024-04-01", display:"Apr\n4/1", type:"Meeting", title:"McNulty presents RCA to SFHA Board — Item 5: President’s Report", filename:"04012024_MMpresentsRCA", desc:"Pitches private company using CCSD Pres email while serving as TA Pres", keyEvent:true, flag:true,
+    media:{type:"archive",
+      archiveId:"SFGTV_20240405_040000_Housing_Authority_Board",
+      title:"Housing Authority Board of Commissioners — April 1, 2024",
+      date:"April 1, 2024 · SFGov TV (broadcast Apr 4)",
+      org:"SF Housing Authority Board of Commissioners",
+      sourceUrl:"https://archive.org/details/SFGTV_20240405_040000_Housing_Authority_Board",
+      sourceLabel:"Full recording on Internet Archive",
+      granicusUrl:"https://sanfrancisco.granicus.com/player/clip/45789?view_id=229&redirect=true",
+      pdfUrl:"https://wtpo1760.github.io/wtp/imgz1760/04012024_MMpresentsRCA/04012024_MMpresentsRCA_lores.pdf",
+      images:[
+        {src:"https://wtpo1760.github.io/wtp/imgz1760/04012024_MMpresentsRCA/04012024_MMpresents01.png", caption:"McNulty at SFHA podium — Item 5: President’s Report · 4/1/24"},
+        {src:"https://wtpo1760.github.io/wtp/imgz1760/04012024_MMpresentsRCA/04012024_MMpresents02.png", caption:"“RESIDENT COUNCIL ADVISORS” title slide · CCSDPRES@GMAIL.COM · 2024"}
+      ],
       clips:[
-        {label:"McNulty — RCA Proposal", start:848.2, end:1708, badge:"🚩 KEY EVIDENCE", badgeColor:"#dc2626", desc:"McNulty presents full RCA company proposal to SFHA Board while still serving as 1760 Bush TA President. ~14 min including co-chair follow-up."},
-        {label:"Zia — Public Comment", start:110.6, end:289.5, badge:"⚠️ ALLIANCE", badgeColor:"#d97706", desc:"Kezia Villias-Martinis (later McNulty’s TA Secretary, Apt. 409) speaks at the same meeting — same day as McNulty’s RCA pitch. ~3 min."}
+        {label:"McNulty — RCA Proposal", start:848.2, end:1708, badge:"🚩 KEY", badgeColor:"#dc2626", desc:"McNulty presents full RCA company to SFHA Board under Item 5: President’s Report. Uses CCSDPRES@GMAIL.COM — the CCSD President email — for her private company. ~14 min including co-chair follow-up."},
+        {label:"Zia — Public Comment", start:110.6, end:289.5, badge:"⚠️ ALLY", badgeColor:"#d97706", desc:"Kezia Villias-Martinis (Apt. 409, later appointed TA Secretary by McNulty) speaks at the same meeting, same day McNulty pitches RCA. Alliance established on government record. ~3 min."}
       ]},
-    caption:"<strong>April 4, 2024 — Housing Authority Board (SFGTV):</strong> Two key appearances at the same government meeting. McNulty presents her full RCA company proposal (~14 min, cued to 14:08) while still serving as TA President — direct evidence of 24 CFR conflict of interest. Zia also speaks at this meeting (cued to 1:50) — same day, same room, establishing the McNulty-Zia alliance on government record. File: 04042024_MMMhoc" },
+    caption:"<strong>April 1, 2024 — SFHA Board of Commissioners:</strong> McNulty presents ‘Resident Council Advisors’ (RCA) under Item 5: President’s Report, using CCSDPRES@GMAIL.COM for her private company while still serving as TA President. Zia also speaks at this same meeting. Both appearances on government video — direct evidence of coordinated conflict of interest. File: 04012024_MMpresentsRCA" },
 
   // 2024 — Apr 25
   { id:9, date:"2024-04-25", display:"Apr\n4/25", type:"RCA", title:"CCSD/SFHA plan — early RCA organization", filename:"04252024_CCSDmmmSFHA", desc:"24 CFR conflict of interest begins", keyEvent:true, flag:true,
@@ -841,6 +853,19 @@ const events = [
   { id:24, date:"2025-04-24", display:"Apr\n4/24", type:"Video", title:"SFHA Board meeting — McNulty and RCA on record", filename:"04242025_SFHA_video", desc:"SF Gov broadcast — McNulty's public testimony", keyEvent:true,
     media:{type:"video", title:"SF Housing Authority Board of Commissioners", date:"April 24, 2025 · General Public Comments", sfgov:"SF GOV BROADCAST", thumbDesc:"Housing Authority Board of Commissioners Meeting · April 24, 2025 · McNulty and RCA representatives address the Commission on public record", videoId:"9TBbgo7vPJU", sourceUrl:"https://www.youtube.com/watch?v=9TBbgo7vPJU"},
     caption:"<strong>April 24, 2025 — SFHA Board Meeting:</strong> McNulty and RCA associates appear before the Housing Authority Commission. This is one of the SF Gov broadcasts documenting her public conduct. File: 04242025_SFHA_video" },
+
+  // 2025 — DATE TBD (Granicus clip 52532 — McNulty SF Housing Authority appearance)
+  { id:241, date:"2025-06-15", display:"TBD\n'25", type:"Meeting", title:"McNulty — SF Housing Authority appearance (date TBD)", filename:"granicus_clip_52532", desc:"McNulty speaks at SFHA meeting — clip 52532, ~50 sec. Date to be confirmed.", keyEvent:true, flag:true,
+    media:{type:"granicus",
+      clipId:"52532", viewId:"229",
+      start:180, end:230,
+      org:"SF Housing Authority of the City and County of San Francisco",
+      title:"McNulty — SF Housing Authority Meeting",
+      date:"Date TBD — confirm from Granicus",
+      badge:"🚩 KEY APPEARANCE",
+      badgeColor:"#dc2626",
+      desc:"McNulty addresses the SF Housing Authority Board. Clip runs from 3:00 to 3:50 of the recording. Exact meeting date to be confirmed — update this card once confirmed."},
+    caption:"<strong>Date TBD — SFHA Board Meeting:</strong> McNulty makes an appearance at an SF Housing Authority meeting. Granicus clip 52532, timestamps 3:00–3:50. <em>Note: Exact date needs to be confirmed — update once verified from Granicus meeting archive.</em>" },
 
   // 2025 — May (HUD complaint filed)
   { id:25, date:"2025-05-01", display:"May\n'25", type:"Legal", title:"HUD complaint filed — OFHEO", filename:"05012025_HUD_complaint", desc:"Office of Fair Housing — 5 counts filed; HUD has not followed up", keyEvent:true, flag:true,
@@ -996,6 +1021,38 @@ function buildMediaCard(ev) {
         ${sourceBar(m.sourceUrl, m.sourceLabel || 'SF Gov Archive', ev.filename)}
       </div>`;
 
+    case 'granicus': {
+      const gEmbed = `https://sanfrancisco.granicus.com/player/clip/${m.clipId}?view_id=${m.viewId||229}&redirect=true&entrytime=${m.start}&stoptime=${m.end}&autostart=1&embed=1`;
+      const gDirect = `https://sanfrancisco.granicus.com/player/clip/${m.clipId}?view_id=${m.viewId||229}&redirect=true&entrytime=${m.start}`;
+      return `
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;">
+        <div style="background:#1a1a1a;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid #333;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="background:#16a34a;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;">🏛️ SF GRANICUS</span>
+            <span style="color:#bbb;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px;">${m.org || 'SF Housing Authority'}</span>
+          </div>
+          <span style="color:#555;font-size:9px;white-space:nowrap;flex-shrink:0;">${m.date || ''}</span>
+        </div>
+        ${m.badge ? `<div style="background:#111;padding:4px 12px;flex-shrink:0;border-bottom:1px solid #1a1a1a;">
+          <span style="background:${m.badgeColor||'#dc2626'};color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:3px;">${m.badge}</span>
+          ${m.desc ? `<span style="color:#888;font-size:9px;margin-left:8px;">${m.desc}</span>` : ''}
+        </div>` : ''}
+        <div style="flex:1;position:relative;min-height:0;">
+          <iframe style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+            src="${gEmbed}"
+            title="${m.title || 'SF Housing Authority Meeting'}"
+            allow="fullscreen" allowfullscreen></iframe>
+        </div>
+        <div style="background:#111;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid #222;">
+          <a href="${gDirect}" target="_blank" rel="noopener"
+             style="color:#16a34a;font-size:10px;font-weight:700;text-decoration:none;">
+            ↗ View full meeting on SF Granicus
+          </a>
+          <span style="color:#444;font-size:9px;">${m.start}s – ${m.end}s</span>
+        </div>
+      </div>`;
+    }
+
     case 'video': {
       // ── If we have a YouTube video ID, embed the actual player ──
       if (m.videoId) {
@@ -1053,22 +1110,45 @@ function buildMediaCard(ev) {
     case 'archive': {
       const archiveBase = `https://archive.org/embed/${m.archiveId}`;
 
-      // ── Multi-clip tabbed viewer ──
+      // ── Multi-clip tabbed viewer (with optional image strip) ──
       if (m.clips && m.clips.length > 0) {
         const firstClip = m.clips[0];
         const firstUrl = `${archiveBase}?start=${firstClip.start}&end=${firstClip.end}`;
+
         const clipTabsHtml = m.clips.map((c, i) => `
           <button onclick="switchArchiveClip(this,'${archiveBase}','${c.start}','${c.end}','${c.desc.replace(/'/g,"&#39;")}')"
             data-idx="${i}"
             style="background:${i===0?'#fff':'#2a2a2a'};color:${i===0?'#111':'#aaa'};border:none;cursor:pointer;
                    padding:5px 10px;font-size:10px;font-weight:700;border-radius:4px;white-space:nowrap;
-                   display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;min-width:0;">
+                   display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;min-width:0;flex-shrink:0;">
             <span style="display:flex;align-items:center;gap:4px;">
               <span style="background:${c.badgeColor||'#555'};color:#fff;font-size:8px;padding:1px 5px;border-radius:3px;">${c.badge||''}</span>
               ${c.label}
             </span>
             <span style="font-size:9px;font-weight:400;color:${i===0?'#555':'#666'};">▶ ${formatArchiveTime(c.start)} – ${formatArchiveTime(c.end)}</span>
           </button>`).join('');
+
+        // Evidence photo strip (if images provided)
+        const imgStripHtml = (m.images && m.images.length > 0) ? `
+          <div style="background:#0a0a0a;padding:6px 10px;display:flex;gap:8px;flex-shrink:0;border-bottom:1px solid #1a1a1a;overflow-x:auto;align-items:stretch;">
+            ${m.images.map(img => `
+              <div style="flex-shrink:0;position:relative;cursor:pointer;" onclick="window.open('${img.src}','_blank')">
+                <img src="${img.src}" alt="${img.caption}"
+                  style="height:72px;border-radius:3px;border:1px solid #333;display:block;object-fit:cover;"
+                  onerror="this.style.display='none'">
+                <div style="font-size:8px;color:#777;margin-top:3px;max-width:140px;line-height:1.3;">${img.caption}</div>
+              </div>`).join('')}
+            ${m.pdfUrl ? `
+              <a href="${m.pdfUrl}" target="_blank" rel="noopener"
+                style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+                       width:56px;height:72px;background:#1a1a1a;border:1px solid #333;border-radius:3px;
+                       text-decoration:none;color:#e44;font-size:20px;gap:4px;">
+                📄<span style="font-size:8px;color:#888;">PDF</span>
+              </a>` : ''}
+          </div>` : '';
+
+        const pdfBarHtml = (!m.images || m.images.length === 0) && m.pdfUrl ? `
+          <a href="${m.pdfUrl}" target="_blank" style="color:#e44;font-size:10px;font-weight:700;text-decoration:none;">📄 View PDF</a>` : '';
 
         return `
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#000;">
@@ -1080,12 +1160,14 @@ function buildMediaCard(ev) {
             </div>
             <span style="color:#444;font-size:9px;white-space:nowrap;flex-shrink:0;">${m.date}</span>
           </div>
+          <!-- Evidence image strip -->
+          ${imgStripHtml}
           <!-- Clip selector tabs -->
           <div id="archiveTabs_${ev.id}" style="background:#111;padding:6px 10px;display:flex;gap:6px;flex-shrink:0;border-bottom:1px solid #222;overflow-x:auto;">
             ${clipTabsHtml}
           </div>
           <!-- Clip description -->
-          <div id="archiveDesc_${ev.id}" style="background:#0a0a0a;padding:5px 12px;font-size:10px;color:#888;line-height:1.4;flex-shrink:0;border-bottom:1px solid #1a1a1a;min-height:28px;">
+          <div id="archiveDesc_${ev.id}" style="background:#0a0a0a;padding:5px 12px;font-size:10px;color:#888;line-height:1.4;flex-shrink:0;border-bottom:1px solid #1a1a1a;min-height:26px;">
             ${firstClip.desc}
           </div>
           <!-- Player -->
@@ -1098,11 +1180,20 @@ function buildMediaCard(ev) {
           </div>
           <!-- Bottom source bar -->
           <div style="background:#111;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid #222;">
-            <a href="${m.sourceUrl}" target="_blank" rel="noopener"
-               style="color:#428bca;font-size:10px;font-weight:700;text-decoration:none;">
-              ↗ ${m.sourceLabel || 'Full recording on Internet Archive'}
-            </a>
-            <span style="color:#444;font-size:9px;">${m.clips.length} clips · same meeting</span>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <a href="${m.sourceUrl}" target="_blank" rel="noopener"
+                style="color:#428bca;font-size:10px;font-weight:700;text-decoration:none;">
+                ↗ ${m.sourceLabel || 'Full recording on Internet Archive'}
+              </a>
+              ${m.granicusUrl ? `<a href="${m.granicusUrl}" target="_blank" rel="noopener"
+                style="color:#16a34a;font-size:10px;font-weight:700;text-decoration:none;">
+                ▶ SF Granicus (direct)
+              </a>` : ''}
+            </div>
+            <span style="display:flex;gap:10px;align-items:center;">
+              ${pdfBarHtml}
+              <span style="color:#444;font-size:9px;">${m.clips.length} clips · same meeting</span>
+            </span>
           </div>
         </div>`;
       }
