@@ -11,11 +11,13 @@
 :root {
   --bg: #f4f6f8; --card: #ffffff; --ink: #1d2733; --muted: #5d6b78; --line: #dde3e9;
   --blue: #2f6f9f; --blue-soft: #e8f1f8; --orange: #c2553c;
+  --note-bg: #fdf4ef; --note-line: #f1d9cd;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #12171c; --card: #1b232b; --ink: #e8edf2; --muted: #9aa8b5; --line: #2c3742;
     --blue: #7db4dd; --blue-soft: #22303c; --orange: #e98a72;
+    --note-bg: #2a201c; --note-line: #43312a;
   }
 }
 * { box-sizing: border-box; }
@@ -37,15 +39,39 @@ main .wrap { padding-top: 24px; padding-bottom: 40px; }
 .lang h3 { margin: 8px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
   font-size: 14px; font-weight: 600; color: var(--blue); }
 ol { list-style: none; margin: 0; padding: 0; }
-li + li { border-top: 1px solid var(--line); }
-li a { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 6px;
+.lang li + li { border-top: 1px solid var(--line); }
+.lang li a { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 6px;
   color: inherit; text-decoration: none; border-radius: 6px; }
-li a:hover, li a:focus-visible { background: var(--blue-soft); outline: none; }
+.lang li a:hover, .lang li a:focus-visible { background: var(--blue-soft); outline: none; }
 .num { font-size: 11px; font-weight: 700; color: var(--card);
   background: var(--blue); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
 .name { font-weight: 600; font-size: 15px; }
 .meta { font-size: 12px; color: var(--muted); }
-li a:hover .name { color: var(--blue); text-decoration: underline; }
+.lang li a:hover .name { color: var(--blue); text-decoration: underline; }
+.notice { background: var(--note-bg); border-bottom: 1px solid var(--note-line); }
+.notice .wrap { padding-top: 16px; padding-bottom: 16px; }
+.notice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1080px) { .notice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .notice-grid { grid-template-columns: 1fr; } }
+.notice p { margin: 0; font-size: 13px; line-height: 1.5; }
+.notice b { display: block; margin-bottom: 2px; color: var(--orange); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.about { margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 22px 20px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 20px; } }
+.about h2 { margin: 0 0 8px; font-size: 22px; }
+.about p { margin: 0 0 12px; max-width: 75ch; }
+.steps { list-style: none; counter-reset: s; margin: 16px 0 0; padding: 0; display: grid; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; column-gap: 12px; border: 0; }
+.steps li::before { content: counter(s); grid-row: span 2; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--blue); color: var(--card); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.steps strong { display: block; font-size: 15px; }
+.steps span { color: var(--muted); font-size: 14px; }
+.contact { background: var(--blue-soft); border-radius: 8px; padding: 18px; align-self: start; }
+.contact h3 { margin: 0 0 10px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+.contact p { margin: 0 0 4px; }
+.contact .who { font-weight: 700; font-size: 17px; }
+.contact a { color: var(--blue); font-weight: 600; word-break: break-all; }
+.about a { color: var(--blue); }
 footer { color: var(--muted); font-size: 13px; }
 footer .wrap { padding-bottom: 32px; }
 </style>
@@ -56,9 +82,34 @@ footer .wrap { padding-bottom: 32px; }
   <h1>Public Housing Resident Organizing and Participation Toolkit</h1>
   <p class="intro">Guides 1–9 in Chinese, English, Russian and Spanish. Click a title to download the PDF.</p>
 </div></header>
+<aside class="notice" aria-label="Disclaimer"><div class="wrap"><div class="notice-grid">
+  <p lang="zh-Hans"><b>免责声明</b>中文、俄文和西班牙文版本借助人工智能翻译，并非美国住房和城市发展部（HUD）的官方出版物，HUD 未参与制作、审核或认可。译文如与英文原版有出入，以英文原版为准。本工具包仅供一般参考，不构成法律意见。</p>
+  <p lang="en"><b>Disclaimer</b>The Chinese, Russian and Spanish editions were translated with the help of AI and are not official HUD publications. HUD did not produce, review or endorse them. If a translation differs from the English original, the English original governs. This toolkit is general information, not legal advice.</p>
+  <p lang="ru"><b>Отказ от ответственности</b>Версии на китайском, русском и испанском языках переведены с помощью искусственного интеллекта и не являются официальными публикациями HUD. HUD их не готовило, не проверяло и не одобряло. При расхождениях действует английский оригинал. Пособие носит информационный характер и не является юридической консультацией.</p>
+  <p lang="es"><b>Aviso</b>Las versiones en chino, ruso y español se tradujeron con ayuda de inteligencia artificial y no son publicaciones oficiales del HUD. El HUD no las elaboró, revisó ni aprobó. Si una traducción difiere del original en inglés, prevalece el original en inglés. Este kit es información general, no asesoría legal.</p>
+</div></div></aside>
 <main><div class="wrap"><div class="grid">
 <section class="lang" lang="zh-Hans"><h2>中文（简体）<span class="en">Chinese</span></h2><h3>公共住房住户组织与参与工具包</h3><ol><li><a href="output/zh/zh-Guide-1.pdf" download><span class="num">指南 1</span><span class="name">住户委员会的组建与运作</span><span class="meta">PDF · 10 页 · 4.3 MB</span></a></li><li><a href="output/zh/zh-Guide-2.pdf" download><span class="num">指南 2</span><span class="name">动员住户并代表住户利益</span><span class="meta">PDF · 10 页 · 4.3 MB</span></a></li><li><a href="output/zh/zh-Guide-3.pdf" download><span class="num">指南 3</span><span class="name">召开高效的住户委员会会议</span><span class="meta">PDF · 9 页 · 3.8 MB</span></a></li><li><a href="output/zh/zh-Guide-4.pdf" download><span class="num">指南 4</span><span class="name">与住房管理局合作并开展倡导</span><span class="meta">PDF · 8 页 · 3.5 MB</span></a></li><li><a href="output/zh/zh-Guide-5.pdf" download><span class="num">指南 5</span><span class="name">住户咨询委员会与住房管理局计划制定流程</span><span class="meta">PDF · 7 页 · 3.2 MB</span></a></li><li><a href="output/zh/zh-Guide-6.pdf" download><span class="num">指南 6</span><span class="name">与当地组织和社区组织合作</span><span class="meta">PDF · 46 页 · 6.6 MB</span></a></li><li><a href="output/zh/zh-Guide-7.pdf" download><span class="num">指南 7</span><span class="name">住户培训与自给自足项目</span><span class="meta">PDF · 7 页 · 2.6 MB</span></a></li><li><a href="output/zh/zh-Guide-8.pdf" download><span class="num">指南 8</span><span class="name">住户管理公司</span><span class="meta">PDF · 7 页 · 2.4 MB</span></a></li><li><a href="output/zh/zh-Guide-9.pdf" download><span class="num">指南 9</span><span class="name">租户参与资金</span><span class="meta">PDF · 13 页 · 4.5 MB</span></a></li></ol></section><section class="lang" lang="en"><h2>English</h2><h3>Public Housing Resident Organizing and Participation Toolkit</h3><ol><li><a href="output/en/en-Guide-1.pdf" download><span class="num">Guide 1</span><span class="name">Organizing and Running Resident Councils</span><span class="meta">PDF · 11 pages · 2.5 MB</span></a></li><li><a href="output/en/en-Guide-2.pdf" download><span class="num">Guide 2</span><span class="name">Engaging Residents and Representing Resident Interests</span><span class="meta">PDF · 13 pages · 1.8 MB</span></a></li><li><a href="output/en/en-Guide-3.pdf" download><span class="num">Guide 3</span><span class="name">Holding Effective Resident Council Meetings</span><span class="meta">PDF · 11 pages · 1.8 MB</span></a></li><li><a href="output/en/en-Guide-4.pdf" download><span class="num">Guide 4</span><span class="name">Partnering and Advocacy with the Housing Authority</span><span class="meta">PDF · 9 pages · 1.9 MB</span></a></li><li><a href="output/en/en-Guide-5.pdf" download><span class="num">Guide 5</span><span class="name">Resident Advisory Boards and the Housing Authority Plan Process</span><span class="meta">PDF · 8 pages · 1.1 MB</span></a></li><li><a href="output/en/en-Guide-6.pdf" download><span class="num">Guide 6</span><span class="name">Partnering with Local and Community Organizations</span><span class="meta">PDF · 46 pages · 0.9 MB</span></a></li><li><a href="output/en/en-Guide-7.pdf" download><span class="num">Guide 7</span><span class="name">Resident Training and Self-Sufficiency Programs</span><span class="meta">PDF · 8 pages · 1.2 MB</span></a></li><li><a href="output/en/en-Guide-8.pdf" download><span class="num">Guide 8</span><span class="name">Resident Management Corporations</span><span class="meta">PDF · 7 pages · 0.7 MB</span></a></li><li><a href="output/en/en-Guide-9.pdf" download><span class="num">Guide 9</span><span class="name">Tenant Participation Funds</span><span class="meta">PDF · 15 pages · 1.9 MB</span></a></li></ol></section><section class="lang" lang="ru"><h2>Русский<span class="en">Russian</span></h2><h3>Пособие по самоорганизации и участию жильцов государственного жилья</h3><ol><li><a href="output/ru/ru-Guide-1.pdf" download><span class="num">Руководство 1</span><span class="name">Создание советов жильцов и руководство ими</span><span class="meta">PDF · 12 стр. · 2.7 MB</span></a></li><li><a href="output/ru/ru-Guide-2.pdf" download><span class="num">Руководство 2</span><span class="name">Вовлечение жильцов и представление их интересов</span><span class="meta">PDF · 11 стр. · 2.4 MB</span></a></li><li><a href="output/ru/ru-Guide-3.pdf" download><span class="num">Руководство 3</span><span class="name">Проведение эффективных собраний совета жильцов</span><span class="meta">PDF · 11 стр. · 2.1 MB</span></a></li><li><a href="output/ru/ru-Guide-4.pdf" download><span class="num">Руководство 4</span><span class="name">Партнёрство с жилищным управлением и защита интересов</span><span class="meta">PDF · 10 стр. · 2.0 MB</span></a></li><li><a href="output/ru/ru-Guide-5.pdf" download><span class="num">Руководство 5</span><span class="name">Консультативные советы жильцов и подготовка Плана жилищного управления</span><span class="meta">PDF · 8 стр. · 1.9 MB</span></a></li><li><a href="output/ru/ru-Guide-6.pdf" download><span class="num">Руководство 6</span><span class="name">Партнёрство с местными и общественными организациями</span><span class="meta">PDF · 46 стр. · 5.7 MB</span></a></li><li><a href="output/ru/ru-Guide-7.pdf" download><span class="num">Руководство 7</span><span class="name">Обучение жильцов и программы самообеспечения</span><span class="meta">PDF · 9 стр. · 1.3 MB</span></a></li><li><a href="output/ru/ru-Guide-8.pdf" download><span class="num">Руководство 8</span><span class="name">Корпорации управления жильцов</span><span class="meta">PDF · 8 стр. · 1.3 MB</span></a></li><li><a href="output/ru/ru-Guide-9.pdf" download><span class="num">Руководство 9</span><span class="name">Средства на участие жильцов</span><span class="meta">PDF · 16 стр. · 2.5 MB</span></a></li></ol></section><section class="lang" lang="es"><h2>Español<span class="en">Spanish</span></h2><h3>Kit de herramientas para la organización y participación de residentes de vivienda pública</h3><ol><li><a href="output/es/es-Guide-1.pdf" download><span class="num">Guía 1</span><span class="name">Cómo organizar y dirigir consejos de residentes</span><span class="meta">PDF · 12 págs. · 2.6 MB</span></a></li><li><a href="output/es/es-Guide-2.pdf" download><span class="num">Guía 2</span><span class="name">Cómo involucrar a los residentes y representar sus intereses</span><span class="meta">PDF · 11 págs. · 2.3 MB</span></a></li><li><a href="output/es/es-Guide-3.pdf" download><span class="num">Guía 3</span><span class="name">Cómo realizar reuniones eficaces del consejo de residentes</span><span class="meta">PDF · 11 págs. · 2.0 MB</span></a></li><li><a href="output/es/es-Guide-4.pdf" download><span class="num">Guía 4</span><span class="name">Colaboración y defensa de intereses ante la autoridad de vivienda</span><span class="meta">PDF · 10 págs. · 1.9 MB</span></a></li><li><a href="output/es/es-Guide-5.pdf" download><span class="num">Guía 5</span><span class="name">Juntas Asesoras de Residentes y el proceso del Plan de la autoridad de vivienda</span><span class="meta">PDF · 8 págs. · 1.8 MB</span></a></li><li><a href="output/es/es-Guide-6.pdf" download><span class="num">Guía 6</span><span class="name">Colaboración con organizaciones locales y comunitarias</span><span class="meta">PDF · 46 págs. · 5.5 MB</span></a></li><li><a href="output/es/es-Guide-7.pdf" download><span class="num">Guía 7</span><span class="name">Capacitación de residentes y programas de autosuficiencia</span><span class="meta">PDF · 9 págs. · 1.2 MB</span></a></li><li><a href="output/es/es-Guide-8.pdf" download><span class="num">Guía 8</span><span class="name">Corporaciones de Gestión de Residentes</span><span class="meta">PDF · 8 págs. · 1.2 MB</span></a></li><li><a href="output/es/es-Guide-9.pdf" download><span class="num">Guía 9</span><span class="name">Fondos de participación de inquilinos</span><span class="meta">PDF · 15 págs. · 2.4 MB</span></a></li></ol></section>
-</div></div></main>
+</div>
+<section class="about" aria-labelledby="about-h">
+  <div>
+    <h2 id="about-h">About these translations</h2>
+    <p>The Chinese, Russian and Spanish editions of this toolkit were produced with <strong>Claude Opus 5.5</strong>, an AI model made by Anthropic, so that more residents can read the guides in their own language.</p>
+    <ol class="steps">
+      <li><strong>Started from the original HUD guides</strong><span>We used the nine English guides published on <a href="https://www.hudexchange.info/programs/public-housing/resident-toolkit/">HUD Exchange</a>.</span></li>
+      <li><strong>Translated into each language</strong><span>Claude Opus 5.5 translated every guide into Simplified Chinese, Russian and Spanish, using one shared glossary so key terms read the same way in all nine guides.</span></li>
+      <li><strong>Rebuilt, staying true to the original design</strong><span>Each guide keeps the original photos, colors, icons, diagrams and tables; only the text was replaced. Page counts can differ because translated text runs longer or shorter. Web addresses, legal citations and acronyms such as HUD and PHA stay in English.</span></li>
+      <li><strong>Double-checked by people</strong><span>The translated guides were reviewed by people before being posted here.</span></li>
+    </ol>
+  </div>
+  <div class="contact">
+    <h3>Questions or corrections</h3>
+    <p class="who">Sister Stephanie Hughes</p>
+    <p>President, CCSD</p>
+    <p><a href="mailto:rosaparksta@gmail.com">rosaparksta@gmail.com</a></p>
+  </div>
+</section>
+</div></main>
 <footer><div class="wrap">Original English guides: U.S. Department of Housing and Urban Development (HUD). Chinese, Russian and Spanish editions are translations of the original guides.</div></footer>
 </body>
 </html>
