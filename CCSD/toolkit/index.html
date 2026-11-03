@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resident Toolkit Downloads</title>
+<meta name="description" content="HUD Public Housing Resident Organizing and Participation Toolkit, Guides 1–9, in Chinese, English, Russian and Spanish (PDF).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #4f8a2e; --on-bg: #f2f6e8; --card: #fbf7ee; --ink: #33281c; --muted: #6e604d; --line: #e6dcc8;
+  --accent: #7a4a22; --accent-soft: #f1e6d0; --orange: #b4532a; --clay: #b86a3a; --stitch: #c8322f; --chalk: #fdfcf7;
+  --note-bg: #f3e7cc; --note-line: #e0cfa8;
+  --sky: #a9d8f2; --sky-ink: #1f2f3a; --sky-muted: #2e4b5e; --sky-kicker: #8a3d1c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #22381a; --on-bg: #d9e6c9; --card: #2b251d; --ink: #f1e8d6; --muted: #b9ab92; --line: #3f3628;
+    --accent: #d9a56a; --accent-soft: #3a3024; --orange: #e08a5e; --clay: #9a5a33; --stitch: #e0605a; --chalk: #e9e4d6;
+    --note-bg: #322a1f; --note-line: #4a3d2b;
+    --sky: #1e3d55; --sky-ink: #eef6fc; --sky-muted: #b9d3e6; --sky-kicker: #f0a77f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #22381a; --on-bg: #d9e6c9; --card: #2b251d; --ink: #f1e8d6; --muted: #b9ab92; --line: #3f3628;
+  --accent: #d9a56a; --accent-soft: #3a3024; --orange: #e08a5e; --clay: #9a5a33; --stitch: #e0605a; --chalk: #e9e4d6;
+  --note-bg: #322a1f; --note-line: #4a3d2b;
+  --sky: #1e3d55; --sky-ink: #eef6fc; --sky-muted: #b9d3e6; --sky-kicker: #f0a77f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Montserrat", "Noto Sans SC", system-ui, sans-serif; line-height: 1.4; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+.topbar { background: var(--sky); border-bottom: 1px solid rgba(0,0,0,.08); }
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding-top: 10px; padding-bottom: 10px; font-size: 14px; }
+.topbar a { color: var(--sky-ink); text-decoration: none; font-weight: 600; }
+.topbar a:hover { text-decoration: underline; }
+.topbar .home { display: flex; align-items: center; gap: 8px; margin-right: auto; font-weight: 700; letter-spacing: .04em; }
+.topbar a[aria-current] { text-decoration: underline; text-decoration-color: var(--stitch); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ball { width: 22px; height: 22px; flex: none; }
+header { background: var(--sky); color: var(--sky-ink); position: relative; }
+header::after { content: ""; display: block; height: 14px; background-color: var(--chalk);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='14'%3E%3Cpath d='M5 3.5 10 7 5 10.5' fill='none' stroke='%23c8322f' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x; border-top: 3px solid var(--clay); }
+header .wrap { padding-top: 22px; padding-bottom: 24px; }
+.crumbs { margin: 0 0 10px; font-size: 13px; color: var(--sky-muted); }
+.crumbs a { color: var(--sky-ink); }
+.kicker { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sky-kicker); }
+h1 { margin: 0; font-size: clamp(22px, 3vw, 32px); line-height: 1.2; }
+.intro { margin: 10px 0 0; color: var(--sky-muted); max-width: 72ch; }
+main .wrap { padding-top: 24px; padding-bottom: 40px; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1080px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+.card, .lang, .about, .videos { background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.lang { padding: 18px 16px 10px; }
+.lang h2 { margin: 0; font-size: 22px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.lang h2 .en { font-size: 13px; font-weight: 600; color: var(--muted); }
+.lang h3 { margin: 8px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  font-size: 14px; font-weight: 600; color: var(--accent); }
+ol { list-style: none; margin: 0; padding: 0; }
+.lang li + li { border-top: 1px solid var(--line); }
+.lang li a { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 6px;
+  color: inherit; text-decoration: none; border-radius: 6px; }
+.lang li a:hover, .lang li a:focus-visible { background: var(--accent-soft); outline: none; }
+.num { font-size: 11px; font-weight: 700; color: var(--card); background: var(--accent); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
+.name { font-weight: 600; font-size: 15px; }
+.meta { font-size: 12px; color: var(--muted); }
+.lang li a:hover .name { color: var(--accent); text-decoration: underline; }
+.notice { background: var(--note-bg); border-bottom: 1px solid var(--note-line); }
+.notice .wrap { padding-top: 16px; padding-bottom: 16px; }
+.notice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1080px) { .notice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .notice-grid { grid-template-columns: 1fr; } }
+.notice p { margin: 0; font-size: 13px; line-height: 1.5; }
+.notice b { display: block; margin-bottom: 2px; color: var(--orange); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.about { margin-top: 24px; padding: 22px 20px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 20px; } }
+.about h2, .videos h2 { margin: 0 0 8px; font-size: 22px; }
+.about p { margin: 0 0 12px; max-width: 75ch; }
+.steps { list-style: none; counter-reset: s; margin: 16px 0 0; padding: 0; display: grid; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; column-gap: 12px; }
+.steps li::before { content: counter(s); grid-row: span 2; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: var(--card); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.steps strong { display: block; font-size: 15px; }
+.steps span { color: var(--muted); font-size: 14px; }
+.contacts { display: grid; gap: 12px; align-self: start; }
+.contact { background: var(--accent-soft); border-radius: 8px; padding: 18px; }
+.contact h3 { margin: 0 0 10px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.contact p { margin: 0 0 4px; }
+.contact .who { font-weight: 700; font-size: 17px; }
+.contact a { color: var(--accent); font-weight: 600; word-break: break-all; }
+.about a, .videos a, .card a { color: var(--accent); }
+.videos { margin-top: 24px; padding: 22px 20px; }
+.videos > p { margin: 0 0 16px; color: var(--muted); max-width: 75ch; }
+.vmain { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .vmain { grid-template-columns: 1fr; } }
+.player { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #000; }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vinfo h3 { margin: 0 0 6px; font-size: 18px; }
+.vinfo p { margin: 0 0 10px; font-size: 14px; }
+.vinfo .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  background: var(--accent); color: var(--card); border-radius: 4px; padding: 2px 7px; margin-bottom: 8px; }
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+.vtabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.vtabs button { font: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; gap: 1px;
+  padding: 8px 14px; border-radius: 8px; border: 2px solid var(--line); background: var(--accent-soft); color: var(--ink); }
+.vtabs button b { font-size: 15px; }
+.vtabs button span { font-size: 11px; color: var(--muted); }
+.vtabs button:hover { border-color: var(--clay); }
+.vtabs button:focus-visible { outline: 3px solid var(--stitch); outline-offset: 2px; }
+.vtabs button[aria-selected="true"] { background: var(--clay); border-color: var(--clay); color: #fff; }
+.vtabs button[aria-selected="true"] span { color: #fff; opacity: .9; }
+.player iframe[hidden], .vsoon[hidden] { display: none; }
+.vsoon { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; text-align: center;
+  padding: 16px; background: var(--accent-soft); color: var(--ink); border: 2px dashed var(--line); border-radius: 8px; }
+.vsoon p { margin: 0; font-size: 18px; font-weight: 600; }
+.vsoon button { font: inherit; font-weight: 600; cursor: pointer; padding: 8px 16px; border-radius: 6px; border: 0;
+  background: var(--accent); color: var(--card); }
+.ballbig .ball { width: 44px; height: 44px; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 760px) { .tiles { grid-template-columns: 1fr; } }
+.card.tile { display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: inherit; transition: transform .15s; }
+.card.tile:hover, .card.tile:focus-visible { transform: translateY(-2px); outline: 3px solid var(--chalk); outline-offset: 2px; }
+.tile .band { background: var(--clay); color: #fff; padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.base { width: 14px; height: 14px; background: #fff; transform: rotate(45deg); flex: none; border-radius: 2px; }
+.tile .body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.tile h2 { margin: 0; font-size: 21px; line-height: 1.25; }
+.tile p { margin: 0; color: var(--muted); font-size: 15px; }
+.tile .langs { margin-top: auto; padding-top: 10px; font-size: 13px; font-weight: 600; color: var(--accent); }
+.tile .go { font-weight: 700; color: var(--accent); }
+.section-h { color: var(--on-bg); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+.section-h + * { margin-bottom: 28px; }
+.info { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 20px; }
+@media (max-width: 860px) { .info { grid-template-columns: 1fr; } }
+.card.pad { padding: 22px 20px; }
+.card.pad h2 { margin: 0 0 10px; font-size: 22px; }
+.card.pad p { margin: 0 0 12px; max-width: 70ch; }
+.card.pad p:last-child { margin-bottom: 0; }
+footer { color: var(--on-bg); font-size: 13px; }
+footer .wrap { padding-bottom: 32px; }
+footer a { color: var(--on-bg); }
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Site"><div class="wrap">
+  <a class="home" href="../"><svg class="ball" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#fdfcf7" stroke="#c8322f" stroke-width="1"/><path d="M6 3.5c2.4 2.3 2.4 14.7 0 17M18 3.5c-2.4 2.3-2.4 14.7 0 17" fill="none" stroke="#c8322f" stroke-width="1.4" stroke-dasharray="1.6 1.4"/></svg>CCSD</a>
+  <a href="../toolkit/" aria-current="page">Resident Toolkit</a><a href="../sample-documents/">Sample Council Documents</a>
+</div></nav>
+<header><div class="wrap">
+  <p class="crumbs"><a href="../">CCSD</a> › Resident Toolkit</p>
+  <p class="kicker">HUD · Public Housing</p>
+  <h1>Public Housing Resident Organizing and Participation Toolkit</h1>
+  <p class="intro">Guides 1–9 in Chinese, English, Russian and Spanish. Click a title to open the PDF in a new tab, where you can read it online or download it.</p>
+</div></header><aside class="notice" aria-label="Disclaimer"><div class="wrap"><div class="notice-grid">
+  <p lang="zh-Hans"><b>免责声明</b>中文、俄文和西班牙文版本借助人工智能翻译，并非美国住房和城市发展部（HUD）的官方出版物，HUD 未参与制作、审核或认可。译文如与英文原版有出入，以英文原版为准。本工具包仅供一般参考，不构成法律意见。</p>
+  <p lang="en"><b>Disclaimer</b>The Chinese, Russian and Spanish editions were translated with the help of AI and are not official HUD publications. HUD did not produce, review or endorse them. If a translation differs from the English original, the English original governs. This toolkit is general information, not legal advice.</p>
+  <p lang="ru"><b>Отказ от ответственности</b>Версии на китайском, русском и испанском языках переведены с помощью искусственного интеллекта и не являются официальными публикациями HUD. HUD их не готовило, не проверяло и не одобряло. При расхождениях действует английский оригинал. Пособие носит информационный характер и не является юридической консультацией.</p>
+  <p lang="es"><b>Aviso</b>Las versiones en chino, ruso y español se tradujeron con ayuda de inteligencia artificial y no son publicaciones oficiales del HUD. El HUD no las elaboró, revisó ni aprobó. Si una traducción difiere del original en inglés, prevalece el original en inglés. Este kit es información general, no asesoría legal.</p>
+</div></div></aside>
+<main><div class="wrap">
+<div class="grid"><section class="lang" lang="zh-Hans"><h2>中文（简体）<span class="en">Chinese</span></h2><h3>公共住房住户组织与参与工具包</h3><ol><li><a href="../output/zh/zh-Guide-1.pdf" target="_blank" rel="noopener"><span class="num">指南 1</span><span class="name">住户委员会的组建与运作</span><span class="meta">PDF · 10 页 · 4.3 MB</span></a></li><li><a href="../output/zh/zh-Guide-2.pdf" target="_blank" rel="noopener"><span class="num">指南 2</span><span class="name">动员住户并代表住户利益</span><span class="meta">PDF · 10 页 · 4.3 MB</span></a></li><li><a href="../output/zh/zh-Guide-3.pdf" target="_blank" rel="noopener"><span class="num">指南 3</span><span class="name">召开高效的住户委员会会议</span><span class="meta">PDF · 9 页 · 3.8 MB</span></a></li><li><a href="../output/zh/zh-Guide-4.pdf" target="_blank" rel="noopener"><span class="num">指南 4</span><span class="name">与住房管理局合作并开展倡导</span><span class="meta">PDF · 8 页 · 3.5 MB</span></a></li><li><a href="../output/zh/zh-Guide-5.pdf" target="_blank" rel="noopener"><span class="num">指南 5</span><span class="name">住户咨询委员会与住房管理局计划制定流程</span><span class="meta">PDF · 7 页 · 3.2 MB</span></a></li><li><a href="../output/zh/zh-Guide-6.pdf" target="_blank" rel="noopener"><span class="num">指南 6</span><span class="name">与当地组织和社区组织合作</span><span class="meta">PDF · 46 页 · 6.6 MB</span></a></li><li><a href="../output/zh/zh-Guide-7.pdf" target="_blank" rel="noopener"><span class="num">指南 7</span><span class="name">住户培训与自给自足项目</span><span class="meta">PDF · 7 页 · 2.6 MB</span></a></li><li><a href="../output/zh/zh-Guide-8.pdf" target="_blank" rel="noopener"><span class="num">指南 8</span><span class="name">住户管理公司</span><span class="meta">PDF · 7 页 · 2.4 MB</span></a></li><li><a href="../output/zh/zh-Guide-9.pdf" target="_blank" rel="noopener"><span class="num">指南 9</span><span class="name">租户参与资金</span><span class="meta">PDF · 13 页 · 4.5 MB</span></a></li></ol></section><section class="lang" lang="en"><h2>English</h2><h3>Public Housing Resident Organizing and Participation Toolkit</h3><ol><li><a href="../output/en/en-Guide-1.pdf" target="_blank" rel="noopener"><span class="num">Guide 1</span><span class="name">Organizing and Running Resident Councils</span><span class="meta">PDF · 11 pages · 2.5 MB</span></a></li><li><a href="../output/en/en-Guide-2.pdf" target="_blank" rel="noopener"><span class="num">Guide 2</span><span class="name">Engaging Residents and Representing Resident Interests</span><span class="meta">PDF · 13 pages · 1.8 MB</span></a></li><li><a href="../output/en/en-Guide-3.pdf" target="_blank" rel="noopener"><span class="num">Guide 3</span><span class="name">Holding Effective Resident Council Meetings</span><span class="meta">PDF · 11 pages · 1.8 MB</span></a></li><li><a href="../output/en/en-Guide-4.pdf" target="_blank" rel="noopener"><span class="num">Guide 4</span><span class="name">Partnering and Advocacy with the Housing Authority</span><span class="meta">PDF · 9 pages · 1.9 MB</span></a></li><li><a href="../output/en/en-Guide-5.pdf" target="_blank" rel="noopener"><span class="num">Guide 5</span><span class="name">Resident Advisory Boards and the Housing Authority Plan Process</span><span class="meta">PDF · 8 pages · 1.1 MB</span></a></li><li><a href="../output/en/en-Guide-6.pdf" target="_blank" rel="noopener"><span class="num">Guide 6</span><span class="name">Partnering with Local and Community Organizations</span><span class="meta">PDF · 46 pages · 0.9 MB</span></a></li><li><a href="../output/en/en-Guide-7.pdf" target="_blank" rel="noopener"><span class="num">Guide 7</span><span class="name">Resident Training and Self-Sufficiency Programs</span><span class="meta">PDF · 8 pages · 1.2 MB</span></a></li><li><a href="../output/en/en-Guide-8.pdf" target="_blank" rel="noopener"><span class="num">Guide 8</span><span class="name">Resident Management Corporations</span><span class="meta">PDF · 7 pages · 0.7 MB</span></a></li><li><a href="../output/en/en-Guide-9.pdf" target="_blank" rel="noopener"><span class="num">Guide 9</span><span class="name">Tenant Participation Funds</span><span class="meta">PDF · 15 pages · 1.9 MB</span></a></li></ol></section><section class="lang" lang="ru"><h2>Русский<span class="en">Russian</span></h2><h3>Пособие по самоорганизации и участию жильцов государственного жилья</h3><ol><li><a href="../output/ru/ru-Guide-1.pdf" target="_blank" rel="noopener"><span class="num">Руководство 1</span><span class="name">Создание советов жильцов и руководство ими</span><span class="meta">PDF · 12 стр. · 2.7 MB</span></a></li><li><a href="../output/ru/ru-Guide-2.pdf" target="_blank" rel="noopener"><span class="num">Руководство 2</span><span class="name">Вовлечение жильцов и представление их интересов</span><span class="meta">PDF · 11 стр. · 2.4 MB</span></a></li><li><a href="../output/ru/ru-Guide-3.pdf" target="_blank" rel="noopener"><span class="num">Руководство 3</span><span class="name">Проведение эффективных собраний совета жильцов</span><span class="meta">PDF · 11 стр. · 2.1 MB</span></a></li><li><a href="../output/ru/ru-Guide-4.pdf" target="_blank" rel="noopener"><span class="num">Руководство 4</span><span class="name">Партнёрство с жилищным управлением и защита интересов</span><span class="meta">PDF · 10 стр. · 2.0 MB</span></a></li><li><a href="../output/ru/ru-Guide-5.pdf" target="_blank" rel="noopener"><span class="num">Руководство 5</span><span class="name">Консультативные советы жильцов и подготовка Плана жилищного управления</span><span class="meta">PDF · 8 стр. · 1.9 MB</span></a></li><li><a href="../output/ru/ru-Guide-6.pdf" target="_blank" rel="noopener"><span class="num">Руководство 6</span><span class="name">Партнёрство с местными и общественными организациями</span><span class="meta">PDF · 46 стр. · 5.7 MB</span></a></li><li><a href="../output/ru/ru-Guide-7.pdf" target="_blank" rel="noopener"><span class="num">Руководство 7</span><span class="name">Обучение жильцов и программы самообеспечения</span><span class="meta">PDF · 9 стр. · 1.3 MB</span></a></li><li><a href="../output/ru/ru-Guide-8.pdf" target="_blank" rel="noopener"><span class="num">Руководство 8</span><span class="name">Корпорации управления жильцов</span><span class="meta">PDF · 8 стр. · 1.3 MB</span></a></li><li><a href="../output/ru/ru-Guide-9.pdf" target="_blank" rel="noopener"><span class="num">Руководство 9</span><span class="name">Средства на участие жильцов</span><span class="meta">PDF · 16 стр. · 2.5 MB</span></a></li></ol></section><section class="lang" lang="es"><h2>Español<span class="en">Spanish</span></h2><h3>Kit de herramientas para la organización y participación de residentes de vivienda pública</h3><ol><li><a href="../output/es/es-Guide-1.pdf" target="_blank" rel="noopener"><span class="num">Guía 1</span><span class="name">Cómo organizar y dirigir consejos de residentes</span><span class="meta">PDF · 12 págs. · 2.6 MB</span></a></li><li><a href="../output/es/es-Guide-2.pdf" target="_blank" rel="noopener"><span class="num">Guía 2</span><span class="name">Cómo involucrar a los residentes y representar sus intereses</span><span class="meta">PDF · 11 págs. · 2.3 MB</span></a></li><li><a href="../output/es/es-Guide-3.pdf" target="_blank" rel="noopener"><span class="num">Guía 3</span><span class="name">Cómo realizar reuniones eficaces del consejo de residentes</span><span class="meta">PDF · 11 págs. · 2.0 MB</span></a></li><li><a href="../output/es/es-Guide-4.pdf" target="_blank" rel="noopener"><span class="num">Guía 4</span><span class="name">Colaboración y defensa de intereses ante la autoridad de vivienda</span><span class="meta">PDF · 10 págs. · 1.9 MB</span></a></li><li><a href="../output/es/es-Guide-5.pdf" target="_blank" rel="noopener"><span class="num">Guía 5</span><span class="name">Juntas Asesoras de Residentes y el proceso del Plan de la autoridad de vivienda</span><span class="meta">PDF · 8 págs. · 1.8 MB</span></a></li><li><a href="../output/es/es-Guide-6.pdf" target="_blank" rel="noopener"><span class="num">Guía 6</span><span class="name">Colaboración con organizaciones locales y comunitarias</span><span class="meta">PDF · 46 págs. · 5.5 MB</span></a></li><li><a href="../output/es/es-Guide-7.pdf" target="_blank" rel="noopener"><span class="num">Guía 7</span><span class="name">Capacitación de residentes y programas de autosuficiencia</span><span class="meta">PDF · 9 págs. · 1.2 MB</span></a></li><li><a href="../output/es/es-Guide-8.pdf" target="_blank" rel="noopener"><span class="num">Guía 8</span><span class="name">Corporaciones de Gestión de Residentes</span><span class="meta">PDF · 8 págs. · 1.2 MB</span></a></li><li><a href="../output/es/es-Guide-9.pdf" target="_blank" rel="noopener"><span class="num">Guía 9</span><span class="name">Fondos de participación de inquilinos</span><span class="meta">PDF · 15 págs. · 2.4 MB</span></a></li></ol></section></div>
+<section class="about" aria-labelledby="about-h">
+  <div>
+    <h2 id="about-h">About these translations</h2>
+    <p>The Chinese, Russian and Spanish editions of this toolkit were produced with <strong>Claude Opus 5.5</strong>, an AI model made by Anthropic, so that more residents can read the guides in their own language.</p>
+    <ol class="steps">
+      <li><strong>Started from the original HUD documents</strong><span>We used the English originals published on <a href="https://www.hudexchange.info/programs/public-housing/resident-toolkit/" target="_blank" rel="noopener">HUD Exchange</a>.</span></li>
+      <li><strong>Translated into each language</strong><span>Claude Opus 5.5 translated each document into Simplified Chinese, Russian and Spanish, using one shared glossary so key terms read the same way across the whole collection.</span></li>
+      <li><strong>Rebuilt, staying true to the original design</strong><span>Each document keeps the original photos, colors, icons and layout; only the text was replaced. Page counts can differ because translated text runs longer or shorter. Web addresses, legal citations and acronyms such as HUD and PHA stay in English.</span></li>
+      <li><strong>Now being checked by native speakers</strong><span>Native speakers of Chinese, Russian and Spanish are reviewing each translation. If you spot a mistake or something that reads awkwardly, please email the Corrections contact on this page.</span></li>
+    </ol>
+  </div>
+  <div class="contacts">
+    <div class="contact">
+      <h3>Questions &amp; Trainings</h3>
+      <p class="who">Sister Stephanie Hughes</p>
+      <p>President, Citywide Council for Seniors/Disabled (CCSD)</p>
+      <p><a href="mailto:rosaparksta@gmail.com">rosaparksta@gmail.com</a></p>
+    </div>
+    <div class="contact">
+      <h3>Corrections</h3>
+      <p class="who">Angel Rittenburg</p>
+      <p>Community Activist</p>
+      <p><a href="mailto:wethepeopleof1760@gmail.com">wethepeopleof1760@gmail.com</a></p>
+    </div>
+  </div>
+</section>
+</div></main>
+<footer><div class="wrap">Original English documents: U.S. Department of Housing and Urban Development (HUD). Chinese, Russian and Spanish editions are translations of the originals. <a href="../">CCSD home</a></div></footer>
+</body>
+</html>
