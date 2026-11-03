@@ -9,21 +9,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f4f6f8; --card: #ffffff; --ink: #1d2733; --muted: #5d6b78; --line: #dde3e9;
-  --blue: #2f6f9f; --blue-soft: #e8f1f8; --orange: #c2553c;
-  --note-bg: #fdf4ef; --note-line: #f1d9cd;
+  --bg: #4f8a2e; --on-bg: #f2f6e8; --card: #fbf7ee; --ink: #33281c; --muted: #6e604d; --line: #e6dcc8;
+  --accent: #7a4a22; --accent-soft: #f1e6d0; --orange: #b4532a;
+  --note-bg: #f3e7cc; --note-line: #e0cfa8;
+  --sky: #a9d8f2; --sky-ink: #1f2f3a; --sky-muted: #2e4b5e; --sky-kicker: #8a3d1c;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #12171c; --card: #1b232b; --ink: #e8edf2; --muted: #9aa8b5; --line: #2c3742;
-    --blue: #7db4dd; --blue-soft: #22303c; --orange: #e98a72;
-    --note-bg: #2a201c; --note-line: #43312a;
+    --bg: #22381a; --on-bg: #d9e6c9; --card: #2b251d; --ink: #f1e8d6; --muted: #b9ab92; --line: #3f3628;
+    --accent: #d9a56a; --accent-soft: #3a3024; --orange: #e08a5e;
+    --note-bg: #322a1f; --note-line: #4a3d2b;
+    --sky: #1e3d55; --sky-ink: #eef6fc; --sky-muted: #b9d3e6; --sky-kicker: #f0a77f;
   }
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink);
   font-family: "Montserrat", "Noto Sans SC", system-ui, sans-serif; line-height: 1.4; }
-header { background: var(--card); border-bottom: 4px solid var(--orange); }
+header { background: var(--sky); color: var(--sky-ink); border-bottom: 4px solid var(--orange); }
+header .kicker { color: var(--sky-kicker); }
+header .intro { color: var(--sky-muted); }
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
 header .wrap { padding-top: 28px; padding-bottom: 24px; }
 .kicker { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--orange); }
@@ -33,21 +37,21 @@ main .wrap { padding-top: 24px; padding-bottom: 40px; }
 .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 1080px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
-.lang { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 16px 10px; }
+.lang { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 16px 10px; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
 .lang h2 { margin: 0; font-size: 22px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .lang h2 .en { font-size: 13px; font-weight: 600; color: var(--muted); }
 .lang h3 { margin: 8px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
-  font-size: 14px; font-weight: 600; color: var(--blue); }
+  font-size: 14px; font-weight: 600; color: var(--accent); }
 ol { list-style: none; margin: 0; padding: 0; }
 .lang li + li { border-top: 1px solid var(--line); }
 .lang li a { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px 6px;
   color: inherit; text-decoration: none; border-radius: 6px; }
-.lang li a:hover, .lang li a:focus-visible { background: var(--blue-soft); outline: none; }
+.lang li a:hover, .lang li a:focus-visible { background: var(--accent-soft); outline: none; }
 .num { font-size: 11px; font-weight: 700; color: var(--card);
-  background: var(--blue); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
+  background: var(--accent); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
 .name { font-weight: 600; font-size: 15px; }
 .meta { font-size: 12px; color: var(--muted); }
-.lang li a:hover .name { color: var(--blue); text-decoration: underline; }
+.lang li a:hover .name { color: var(--accent); text-decoration: underline; }
 .notice { background: var(--note-bg); border-bottom: 1px solid var(--note-line); }
 .notice .wrap { padding-top: 16px; padding-bottom: 16px; }
 .notice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
@@ -55,7 +59,7 @@ ol { list-style: none; margin: 0; padding: 0; }
 @media (max-width: 620px) { .notice-grid { grid-template-columns: 1fr; } }
 .notice p { margin: 0; font-size: 13px; line-height: 1.5; }
 .notice b { display: block; margin-bottom: 2px; color: var(--orange); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
-.about { margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+.about { margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.18);
   padding: 22px 20px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; }
 @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 20px; } }
 .about h2 { margin: 0 0 8px; font-size: 22px; }
@@ -63,17 +67,17 @@ ol { list-style: none; margin: 0; padding: 0; }
 .steps { list-style: none; counter-reset: s; margin: 16px 0 0; padding: 0; display: grid; gap: 14px; }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; column-gap: 12px; border: 0; }
 .steps li::before { content: counter(s); grid-row: span 2; width: 30px; height: 30px; border-radius: 50%;
-  background: var(--blue); color: var(--card); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+  background: var(--accent); color: var(--card); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
 .steps strong { display: block; font-size: 15px; }
 .steps span { color: var(--muted); font-size: 14px; }
 .contacts { display: grid; gap: 12px; align-self: start; }
-.contact { background: var(--blue-soft); border-radius: 8px; padding: 18px; }
-.contact h3 { margin: 0 0 10px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+.contact { background: var(--accent-soft); border-radius: 8px; padding: 18px; }
+.contact h3 { margin: 0 0 10px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
 .contact p { margin: 0 0 4px; }
 .contact .who { font-weight: 700; font-size: 17px; }
-.contact a { color: var(--blue); font-weight: 600; word-break: break-all; }
-.about a { color: var(--blue); }
-footer { color: var(--muted); font-size: 13px; }
+.contact a { color: var(--accent); font-weight: 600; word-break: break-all; }
+.about a { color: var(--accent); }
+footer { color: var(--on-bg); font-size: 13px; }
 footer .wrap { padding-bottom: 32px; }
 </style>
 </head>
